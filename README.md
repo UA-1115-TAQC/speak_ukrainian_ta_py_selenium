@@ -2,11 +2,11 @@ Py
 
 
 # create env
-```bash
+```console
 virtualenv env
 ```
 
 install libs
-```bash
+```console
 pip install -r requirements.txt
 ```

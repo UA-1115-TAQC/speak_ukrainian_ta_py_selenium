@@ -3,7 +3,7 @@ from src.ui.elements.base_element import BaseElement
 from selenium.webdriver.common.by import By
 from selenium.webdriver import Keys
 
-LOCATOR_INPUT = (By.Xpath, ".//input")
+LOCATOR_INPUT = (By.XPATH, ".//input")
 
 
 class Input(BaseElement):
@@ -17,7 +17,7 @@ class Input(BaseElement):
         if not self._input:
             self._input = self.node.find_element(*LOCATOR_INPUT)
         return self._input
-    
+
     def clear(self):
         input = self.get_input()
         input.send_keys(Keys.CONTROL + "a")

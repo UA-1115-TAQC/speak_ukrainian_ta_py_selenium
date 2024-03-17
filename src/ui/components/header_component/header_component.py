@@ -3,6 +3,7 @@ from selenium.webdriver.remote.webelement import WebElement
 
 from src.ui.components.add_club_popup.add_clup_popup_component import AddClubPopUpComponent
 from src.ui.components.base_component import BaseComponent
+from src.ui.components.header_component.menu.guest_menu import GuestMenu
 
 ADD_CLUB_BUTTON = (By.XPATH, ".//button[contains(@class,'add-club-button')]")
 ADD_CLUB_POPUP = (By.XPATH, "//div[contains(@class,'modal-add-club')]")
@@ -17,5 +18,10 @@ class HeaderComponent(BaseComponent):
         self.node.find_element(*ADD_CLUB_BUTTON).click()
         return AddClubPopUpComponent(self.node.find_element(*ADD_CLUB_POPUP))
 
+    def click_profile_button(self) -> GuestMenu:
+        self.node.find_element(*PROFILE_MENU_BUTTON).click()
+        return GuestMenu(self.node.find_element(*PROFILE_MENU_NODE))
+
     def openGuestMenu(self):
         self.node.find_element(*PROFILE_MENU_BUTTON).click()
+

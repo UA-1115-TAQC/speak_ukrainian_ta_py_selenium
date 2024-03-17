@@ -20,5 +20,5 @@ class HeaderComponent(BaseComponent):
         return AddClubPopUpComponent(self.node.find_element(*ADD_CLUB_POPUP))
 
     def click_profile_button(self) -> GuestMenu:
-        self.node.find_element(PROFILE_MENU_BUTTON).click()
+        self.node.find_element(*PROFILE_MENU_BUTTON).click()
         return GuestMenu(self.node.find_element(*PROFILE_MENU_NODE))

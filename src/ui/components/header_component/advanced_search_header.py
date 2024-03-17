@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from src.ui.components.header_component.advanced_search_tooltip import AdvancedSearchToolTip
-
+from src.ui.pages.clubs_page import ClubsPage
 from src.ui.components.base_component import BaseComponent
 
 ADVANCED_SEARCH_TEXT_HEADING = (By.XPATH, '//h2[@class=\'city-name\']')
@@ -90,10 +90,9 @@ class AdvancedSearchHeaderComponent(BaseComponent):
         self.search_icon.click()
         return self
 
-    def click_advanced_search_icon(self):
+    def click_advanced_search_icon(self) -> ClubsPage:
         self.advanced_search_icon.click()
-
-    # return ClubsPage(self.driver).wait_until_clubs_page_is_loaded(30)
+        return ClubsPage(self._driver).wait_until_clubs_page_is_loaded()
 
     def click_selection_search_close_button(self):
         if self.get_text_selection_search_input_field() is not None:

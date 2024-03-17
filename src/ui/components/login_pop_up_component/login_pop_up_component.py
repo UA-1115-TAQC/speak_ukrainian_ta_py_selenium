@@ -1,6 +1,7 @@
 from selenium.webdriver.remote.webelement import WebElement
 
 from src.ui.components.base_pop_up import BasePopUp
+from src.ui.elements.input import Input
 from src.ui.elements.input_with_icon_element import InputWithIconElement
 
 LOGIN_POPUP_TITLE = "./descendant::div[@class='login-header']"
@@ -31,54 +32,56 @@ class LoginPopUpComponent(BasePopUp):
         self._restore_password_button = None
         self._restore_password_popup = None
 
-    def password_input_element(self) -> InputWithIconElement:  # TODO
+    def password_input_element(self) -> InputWithIconElement:
+        if not self._password_input_element:
+            self._password_input_element = self.node.find_element(PASSWORD_INPUT)
         return self._password_input_element
 
-    def email_input_element(self) -> InputWithIconElement:  # TODO
+    def email_input_element(self) -> InputWithIconElement:
+        if not self._email_input_element:
+            self._email_input_element = self.node.find_element(EMAIL_INPUT)
         return self._email_input_element
 
-    def enter_email(self, email):  # TODO
-        self._email_input_element.send_keys(email)
-        return self
+    def enter_email(self, email) -> Input:
+        return self._email_input_element.send_keys(email)
 
-    def enter_password(self, password):  # TODO
-        self._password_input_element.send_keys(password)
-        return self
+    def enter_password(self, password) -> Input:
+        return self._password_input_element.send_keys(password)
 
     @property
     def login_pop_up_tittle(self) -> WebElement:
         if not self._login_popup_title:
-            self._login_popup_title = self.node.find_element(LOGIN_POPUP_TITLE)
+            self._login_popup_title = self.node.find_element(*LOGIN_POPUP_TITLE)
         return self._login_popup_title
 
     @property
     def google_icon(self) -> WebElement:
         if not self._google_icon:
-            self._google_icon = self.node.find_element(GOOGLE_ICON)
+            self._google_icon = self.node.find_element(*GOOGLE_ICON)
         return self._google_icon
 
     @property
     def facebook_icon(self) -> WebElement:
         if not self._facebook_icon:
-            self._facebook_icon = self.node.find_element(FACEBOOK_ICON)
+            self._facebook_icon = self.node.find_element(*FACEBOOK_ICON)
         return self._facebook_icon
 
     @property
     def authorization_by_google(self) -> WebElement:
         if not self._authorization_by_google:
-            self._authorization_by_google = self.node.find_element(AUTHORIZATION_BY_GOOGLE)
+            self._authorization_by_google = self.node.find_element(*AUTHORIZATION_BY_GOOGLE)
         return self._authorization_by_google
 
     @property
     def authorization_by_facebook(self) -> WebElement:
         if not self._authorization_by_facebook:
-            self._authorization_by_facebook = self.node.find_element(AUTHORIZATION_BY_FACEBOOK)
+            self._authorization_by_facebook = self.node.find_element(*AUTHORIZATION_BY_FACEBOOK)
         return self._authorization_by_facebook
 
     @property
     def label_or_title(self) -> WebElement:
         if not self._label_or:
-            self._label_or = self.node.find_element(LABEL_OR)
+            self._label_or = self.node.find_element(*LABEL_OR)
         return self._label_or
 
     def click_submit_button(self) -> None:

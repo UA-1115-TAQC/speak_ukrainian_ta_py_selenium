@@ -18,8 +18,8 @@ class GuestMenu(BaseComponent):
         super().__init__(node)
 
     def open_login_form(self) -> LoginPopUpComponent:
-        WebDriverWait(self.node, 10).until(EC.element_to_be_clickable(LOGIN)).click()
+        WebDriverWait(self.node, 10).until(EC.element_to_be_clickable(*LOGIN)).click()
         return LoginPopUpComponent(self.node.find_element(*LOGIN_FORM))
 
     def open_registration_form(self) -> None:  # TODO
-        WebDriverWait(self.node, 10).until(EC.element_to_be_clickable(REGISTRATION)).click()
+        WebDriverWait(self.node, 10).until(EC.element_to_be_clickable(*REGISTRATION)).click()

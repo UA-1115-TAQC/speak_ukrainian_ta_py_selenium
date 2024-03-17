@@ -1,6 +1,7 @@
 from selenium.webdriver.remote.webelement import WebElement
 
 from src.ui.components.base_pop_up import BasePopUp
+from src.ui.components.login_pop_up_component.restoration_password_component import RestorationPasswordComponent
 from src.ui.elements.input import Input
 from src.ui.elements.input_with_icon_element import InputWithIconElement
 
@@ -87,8 +88,11 @@ class LoginPopUpComponent(BasePopUp):
     def click_submit_button(self) -> None:
         self._submit_button.click()
 
-    def click_restore_password_button(self) -> None:
-        self._restore_password_button.click()
-
-    def get_restore_password_popup(self):  # TODO
+    def restore_password_component(self) -> RestorationPasswordComponent:
+        if not self._restore_password_popup:
+            self._restore_password_popup = self.node.find_element(*RESTORE_PASSWORD_POPUP)
         return self._restore_password_popup
+
+    def click_restore_password_button(self) -> RestorationPasswordComponent:
+        self._restore_password_button.click()
+        return self.restore_password_component()

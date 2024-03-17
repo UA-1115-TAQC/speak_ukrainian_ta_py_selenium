@@ -1,3 +1,4 @@
+from selenium.webdriver.chrome import webdriver
 from selenium.webdriver.remote.webelement import WebElement
 
 from src.ui.components.base_pop_up import BasePopUp
@@ -30,66 +31,55 @@ class LoginPopUpComponent(BasePopUp):
         self._submit_button = None
         self._restore_password_button = None
         self._restore_password_popup = None
-        self.initialize_web_elements()
 
-    def initialize_web_elements(self):
-        self._password_input_element = self.node.find_element(PASSWORD_INPUT)
-        self._email_input_element = self.node.find_element(EMAIL_INPUT)
-        self._login_popup_title = self.node.find_element(LOGIN_POPUP_TITLE)
-        self._google_icon = self.node.find_element(GOOGLE_ICON)
-        self._facebook_icon = self.node.find_element(FACEBOOK_ICON)
-        self._authorization_by_google = self.node.find_element(AUTHORIZATION_BY_GOOGLE)
-        self._authorization_by_facebook = self.node.find_element(AUTHORIZATION_BY_FACEBOOK)
-        self._label_or = self.node.find_element(LABEL_OR)
-        self._submit_button = self.node.find_element(SUBMIT_BUTTON)
-        self._restore_password_button = self.node.find_element(RESTORE_PASSWORD_BUTTON)
-        self._restore_password_popup = self.node.find_element(RESTORE_PASSWORD_POPUP)
-
-    def login_pop_up_tittle(self) -> WebElement:
-        return self._login_popup_title
-
-    def get_menu_header_text(self) -> str:
-        return self.login_popup_title.get_attribute("textContent")
-
-    def get_authorization_label_text_or(self) -> str:
-        return self._label_or.get_attribute("textContent")
-
-    def password_input_element(self) -> InputWithIconElement:
+    def password_input_element(self) -> InputWithIconElement:  # TODO
         return self._password_input_element
 
-    def email_input_element(self) -> InputWithIconElement:
+    def email_input_element(self) -> InputWithIconElement:  # TODO
         return self._email_input_element
 
-    def enter_email(self, email):
+    def enter_email(self, email):  # TODO
         self._email_input_element.send_keys(email)
         return self
 
-    def enter_password(self, password):
+    def enter_password(self, password):  # TODO
         self._password_input_element.send_keys(password)
         return self
 
     @property
-    def login_popup_title(self) -> WebElement:
+    def login_pop_up_tittle(self) -> WebElement:
+        if not self._login_popup_title:
+            self._login_popup_title = self.node.find_element(LOGIN_POPUP_TITLE)
         return self._login_popup_title
 
     @property
     def google_icon(self) -> WebElement:
+        if not self._google_icon:
+            self._google_icon = self.node.find_element(GOOGLE_ICON)
         return self._google_icon
 
     @property
     def facebook_icon(self) -> WebElement:
+        if not self._facebook_icon:
+            self._facebook_icon = self.node.find_element(FACEBOOK_ICON)
         return self._facebook_icon
 
     @property
     def authorization_by_google(self) -> WebElement:
+        if not self._authorization_by_google:
+            self._authorization_by_google = self.node.find_element(AUTHORIZATION_BY_GOOGLE)
         return self._authorization_by_google
 
     @property
     def authorization_by_facebook(self) -> WebElement:
+        if not self._authorization_by_facebook:
+            self._authorization_by_facebook = self.node.find_element(AUTHORIZATION_BY_FACEBOOK)
         return self._authorization_by_facebook
 
     @property
-    def label_or_text(self) -> WebElement:
+    def label_or_title(self) -> WebElement:
+        if not self._label_or:
+            self._label_or = self.node.find_element(LABEL_OR)
         return self._label_or
 
     def click_submit_button(self) -> None:

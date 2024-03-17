@@ -29,7 +29,8 @@ class AdvancedSearchToolTip(BaseComponent):
             self._category_name_clubs = self.node.find_element(*CATEGORY_NAME_CLUBS)
         return self._category_name_clubs
 
-    def get_categories(self) -> dict[str, WebElement]:
+    @property
+    def categories(self) -> dict[str, WebElement]:
         if not self._categories:
             self._categories = {}
             category_elements = self.node.find_elements(By.XPATH, "//div[@type='category']")
@@ -38,7 +39,8 @@ class AdvancedSearchToolTip(BaseComponent):
                 self._categories[title] = category_element
         return self._categories
 
-    def get_clubs(self) -> dict[str, WebElement]:
+    @property
+    def clubs(self) -> dict[str, WebElement]:
         if not self._clubs:
             self._clubs = {}
             club_elements = self.node.find_elements(By.XPATH, "//div[@type='club']")

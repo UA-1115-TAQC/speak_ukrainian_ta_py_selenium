@@ -4,6 +4,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from src.ui.pages.base_pages.base_page_with_advanced_search import BasePageWithAdvancedSearch
+from src.ui.pages.challenge_pages.base_challenge_page import BaseChallengePage
+from src.ui.pages.challenge_pages.challenge_ukrainian_club_speak_page import ChallengeUkrainianClubSpeakPage
+from src.ui.pages.facebook_pages.language_sphere_facebook_page import LanguageSphereFacebookPage
 
 CAROUSEL_IMG_COMPONENT_ELEMENT = (By.XPATH, '//div[contains(@class,"about-carousel-block")]')
 CAROUSEL_CARD_COMPONENT_ELEMENT = (By.XPATH, '//div[contains(@class,"categories-carousel-block")]')
@@ -33,13 +36,13 @@ class HomePage(BasePageWithAdvancedSearch):
     @property
     def carousel_img_component(self):
         if not self._carousel_img_component:
-            #todo  self._carousel_img_component = CarouselImgComponent(self.driver, self.carouselImgComponentWebElement)
+        #todo  self._carousel_img_component = CarouselImgComponent(self.driver, self.carouselImgComponentWebElement)
         return self._carousel_img_component
 
     @property
     def carousel_card_component(self):
         if not self._carousel_card_component:
-            #todo   self._carousel_card_component= CarouselCardComponent(self.driver, self.carouselCardComponentWebElement)
+        #todo   self._carousel_card_component= CarouselCardComponent(self.driver, self.carouselCardComponentWebElement)
         return self._carousel_card_component
 
     @property
@@ -80,26 +83,26 @@ class HomePage(BasePageWithAdvancedSearch):
             self._speaking_club_image = self._driver.find_element(*SPEAKING_CLUB_IMAGE)
         return self._speaking_club_image
 
-    def click_challenge_find_out_more_button(self):
+    def click_challenge_find_out_more_button(self) -> BaseChallengePage:
         self.challenge_find_out_more_button.click()
-        #base_challenge_page = BaseChallengePage(self.driver) #todo
-        #self._wait.until(EC.visibility_of(baseChallengePage.challengeImageText)) #todo
-        #return base_challenge_page
+        base_challenge_page = BaseChallengePage(self.driver)
+        self._wait.until(EC.visibility_of(base_challenge_page.challenge_image_text))
+        return base_challenge_page
 
-    def clickSpeakingClubHeading(self):
+    def click_speaking_club_heading(self) -> ChallengeUkrainianClubSpeakPage:
         self.speaking_club_heading.click()
-        # challenge_ukrainian_club_speak_page = ChallengeUkrainianClubSpeakPage(self.driver) #todo
-        #self._wait.until(EC.visibility_of(challengeUkrainianClubSpeakPage.challengeImageText)) #todo
-        #return challenge_ukrainian_club_speak_page
+        challenge_ukrainian_club_speak_page = ChallengeUkrainianClubSpeakPage(self.driver)
+        self._wait.until(EC.visibility_of(challenge_ukrainian_club_speak_page.challenge_image_text))
+        return challenge_ukrainian_club_speak_page
 
-    def click_speaking_club_image(self):
+    def click_speaking_club_image(self) -> LanguageSphereFacebookPage:
         previous_tab_amount = len(self.driver.window_handles)
         self.speaking_club_image.click()
         self._wait.until(EC.number_of_windows_to_be(previous_tab_amount + 1))
-        #self.switchToANewTabByItsIndex(previous_tab_amount) #todo
-       # language_sphere_facebook_page = LanguageSphereFacebookPage(self.driver) #todo
-        #self._wait.until(EC.visibility_of(language_sphere_facebook_page.facebookLogo)) #todo
-        #return language_sphere_facebook_page
+        self.switch_to_a_new_tab_by_its_index(previous_tab_amount)
+        language_sphere_facebook_page = LanguageSphereFacebookPage(self.driver)
+        self._wait.until(EC.visibility_of(language_sphere_facebook_page.facebook_logo))
+        return language_sphere_facebook_page
 
     def scroll_to_all_clubs_button(self):
         self._jsExecutor = self.driver.execute_script

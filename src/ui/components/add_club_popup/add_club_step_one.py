@@ -3,6 +3,7 @@ from typing import Self
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
+from src.ui.components.add_club_popup.add_club_step_two import AddClubStepTwo
 from src.ui.components.base_component import BaseComponent
 from src.ui.elements.dropdown import Dropdown
 from src.ui.elements.input_with_label_icons_errors import InputWithLabelIconsErrors
@@ -118,6 +119,10 @@ class AddClubStepOne(BaseComponent):
             self._next_button = self.node.find_element(*NEXT_STEP_BUTTON)
         return self._next_button
 
-    def click_next_step_button(self) -> 'AddClubStepTwo':
+    @property
+    def popup(self) -> 'AddClubPopUp':
+        return self._popup
+
+    def click_next_step_button(self) -> AddClubStepTwo:
         self.next_button.click()
-        return self._popup.step_container
+        return self.popup.step_two_container

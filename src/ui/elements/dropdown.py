@@ -1,5 +1,6 @@
 import time
 from telnetlib import EC
+from typing import Self
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
@@ -34,7 +35,7 @@ class Dropdown(BaseElement):
             self._dropdown = self.node.find_element(*DROPDOWN)
         return self._dropdown
 
-    def click_dropdown(self):
+    def click_dropdown(self) -> Self:
         self.dropdown.click()
         return self
 

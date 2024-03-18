@@ -1,6 +1,4 @@
-from selenium.webdriver.support.wait import WebDriverWait
-
-from src.ui.pages.base_page import BasePage
+from src.ui.pages.base_pages.base_page import BasePage
 
 
 class ClubsPage(BasePage):

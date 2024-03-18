@@ -3,6 +3,9 @@ from selenium.webdriver import Keys, ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+from src.ui.components.carousel.carousel_card_component import CarouselCardComponent
+from src.ui.components.carousel.carousel_img_component import CarouselImgComponent
 from src.ui.pages.base_pages.base_page_with_advanced_search import BasePageWithAdvancedSearch
 from src.ui.pages.challenge_pages.base_challenge_page import BaseChallengePage
 from src.ui.pages.challenge_pages.challenge_ukrainian_club_speak_page import ChallengeUkrainianClubSpeakPage
@@ -22,27 +25,28 @@ CHALLENGE_FIND_OUT_MORE_BUTTON = (By.XPATH, CHALLENGE_DESCRIPTION_PATH + "//butt
 class HomePage(BasePageWithAdvancedSearch):
     def __init__(self, driver: webdriver) -> None:
         super().__init__(driver)
-        self._carousel_img_component = None # todo
-        self._carousel_card_component = None # todo
+        self._driver = driver
+        self._carousel_img_component = None
+        self._carousel_card_component = None
         self._challenge_image = None
         self._speaking_club_heading = None
         self._speaking_club_image = None
         self._challenge_find_out_more_button = None
         self._challenge_description_heading = None
         self._challenge_description_text = None
-        self._wait = WebDriverWait(self.driver, 30)
+        self._wait = WebDriverWait(self._driver, 30)
         self._jsExecutor = None
 
     @property
     def carousel_img_component(self):
         if not self._carousel_img_component:
-        #todo  self._carousel_img_component = CarouselImgComponent(self.driver, self.carouselImgComponentWebElement)
+            self._carousel_img_component = CarouselImgComponent(self.driver, self._carousel_img_component)
         return self._carousel_img_component
 
     @property
     def carousel_card_component(self):
         if not self._carousel_card_component:
-        #todo   self._carousel_card_component= CarouselCardComponent(self.driver, self.carouselCardComponentWebElement)
+          self._carousel_card_component= CarouselCardComponent(self.driver, self._carousel_card_component)
         return self._carousel_card_component
 
     @property
@@ -106,7 +110,7 @@ class HomePage(BasePageWithAdvancedSearch):
 
     def scroll_to_all_clubs_button(self):
         self._jsExecutor = self.driver.execute_script
-        #self._jsExecutor("arguments[0].scrollIntoView();", self.carousel_card_component.carouselCardAllClubsButton) #todo
+        self._jsExecutor("arguments[0].scrollIntoView();", self.carousel_card_component.carousel_card_all_clubs_button)
         return self
 
     def scroll_to_footer(self):

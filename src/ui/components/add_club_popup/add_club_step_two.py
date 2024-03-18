@@ -3,6 +3,7 @@ from typing import Self
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
+from src.ui.components.add_location_popup.add_location_popup_component import AddLocationPopUp
 from src.ui.components.base_component import BaseComponent
 from src.ui.elements.day_time_checkbox_element import DayTimeCheckboxElement
 from src.ui.elements.input_with_label_icons_errors import InputWithLabelIconsErrors
@@ -38,7 +39,8 @@ SKYPE_INPUT = (By.XPATH, ".//div[contains(@class,'add-club-contacts')]"
 SITE_INPUT = (By.XPATH, ".//div[contains(@class,'add-club-contacts')]"
                         "/descendant::div[contains(@class,'add-club-contact')][6]")
 LOCATIONS_LIST = (By.XPATH, ".//ul[@class='ant-list-items']/li[@class='ant-list-item']")
-LOCATIONS_POPUP = (By.XPATH, "//descendant::div[contains(@class,'modal-add-club')][2]")
+LOCATION_POPUP = (By.XPATH, "//descendant::div[contains(@class,'modal-add-club')][2]")
+STEP_CONTAINER = (By.XPATH, ".//main[contains(@class,'add-club-container')]")
 
 
 class AddClubStepTwo(BaseComponent):
@@ -88,8 +90,9 @@ class AddClubStepTwo(BaseComponent):
             self._add_location_button = self.node.find_element(*ADD_LOCATION_BUTTON)
         return self._add_location_button
 
-    def click_add_location_button(self) -> None:
+    def click_add_location_button(self) -> AddLocationPopUp:
         self.add_location_button.click()
+        return AddLocationPopUp(self.node.find_element(*LOCATION_POPUP))
 
     @property
     def location_list(self) -> list[WebElement]:
@@ -227,6 +230,10 @@ class AddClubStepTwo(BaseComponent):
             self._previous_button = self.node.find_element(*PREVIOUS_STEP_BUTTON)
         return self._previous_button
 
+    @property
+    def popup(self) -> 'AddClubPopUp':
+        return self._popup
+
     def click_previous_step_button(self) -> 'AddClubStepOne':
         self.previous_button.click()
-        return self._popup.step_container
+        return self.popup.step_one_container

@@ -23,17 +23,16 @@ class AddClubPopUp(BasePopUp):
         self.sider = AddClubSider(node.find_element(*SIDER_ELEMENT))
 
     @property
-    def step_container(self):
-        active_step = self.node.find_element(*ACTIVE_STEP).get_attribute("innerText")
-        step_container = self.node.find_element(*STEP_CONTAINER)
-        match active_step:
-            case "1":
-                return AddClubStepOne(self, step_container)
-            case "2":
-                return AddClubStepTwo(self, step_container)
-            case _:
-                return None
+    def step_one_container(self) -> AddClubStepOne:
+        if self.node.find_element(*ACTIVE_STEP).get_attribute("innerText") == "1":
+            return AddClubStepOne(self, self.node.find_element(*STEP_CONTAINER))
+        return None
 
+    @property
+    def step_two_container(self) -> AddClubStepTwo:
+        if self.node.find_element(*ACTIVE_STEP).get_attribute("innerText") == "2":
+            return AddClubStepTwo(self, self.node.find_element(*STEP_CONTAINER))
+        return None
 
 class AddClubSider(BaseComponent):
     def __init__(self, node: WebElement) -> None:

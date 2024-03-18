@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
 from src.ui.components.add_club_popup.add_club_step_one import AddClubStepOne
+from src.ui.components.add_club_popup.add_club_step_two import AddClubStepTwo
 from src.ui.components.base_pop_up import BasePopUp
 from src.ui.components.base_component import BaseComponent
 from src.ui.elements.popup_step_element import PopUpStep
@@ -16,7 +17,7 @@ SIDER_STEPS_LIST = (By.XPATH, ".//div[contains(@class,'ant-steps-item-wait') "
                               "or contains(@class,'ant-steps-item-process')]")
 
 
-class AddClubPopUpComponent(BasePopUp):
+class AddClubPopUp(BasePopUp):
     def __init__(self, node: WebElement) -> None:
         super().__init__(node)
         self.sider = AddClubSider(node.find_element(*SIDER_ELEMENT))
@@ -24,9 +25,12 @@ class AddClubPopUpComponent(BasePopUp):
     @property
     def step_container(self):
         active_step = self.node.find_element(*ACTIVE_STEP).get_attribute("innerText")
+        step_container = self.node.find_element(*STEP_CONTAINER)
         match active_step:
             case "1":
-                return AddClubStepOne(self.node.find_element(*STEP_CONTAINER))
+                return AddClubStepOne(self, step_container)
+            case "2":
+                return AddClubStepTwo(self, step_container)
             case _:
                 return None
 
@@ -42,7 +46,7 @@ class AddClubSider(BaseComponent):
     @property
     def steps_node_list(self) -> list[WebElement]:
         if not self._steps_node_list:
-            self._steps_node_list = PopUpStep(self.node.find_elements(*SIDER_STEPS_LIST))
+            self._steps_node_list = self.node.find_elements(*SIDER_STEPS_LIST)
         return self._steps_node_list
 
     @property

@@ -1,3 +1,5 @@
+from typing import Self
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -17,17 +19,19 @@ CHECKED_CATEGORIES_LIST = (By.XPATH, ".//span[contains(@class,'ant-checkbox-chec
 CATEGORIES_ERROR = (By.XPATH, ".//div[contains(@id,'ategories_help')]/div")
 AGE_TITLE = (By.XPATH, "./descendant::span[contains(@class,'ant-typography')][3]")
 MIN_AGE_INPUT_NODE = (By.XPATH, ".//span[contains(@class,'add-club-age')]"
-                                "/descendant::div[contains(@class,'ant-form-item')][1]")
+                                "/descendant::div[contains(@class,'ant-form-item ')][1]")
 MAX_AGE_INPUT_NODE = (By.XPATH, ".//span[contains(@class,'add-club-age')]"
-                                "/descendant::div[contains(@class,'ant-form-item')][2]")
+                                "/descendant::div[contains(@class,'ant-form-item ')][2]")
 CENTER_DROPDOWN = (By.XPATH, ".//div[contains(@class, 'add-club-select')]")
 
 
 class AddClubStepOne(BaseComponent):
-    def __init__(self, node: WebElement) -> None:
+    def __init__(self, popup: 'AddClubPopUp', node: WebElement) -> None:
         super().__init__(node)
+        self._popup = popup
         self._name_input_element = None
         self._popup_title = None
+        self._next_button = None
         self._categories_title = None
         self._age_title = None
         self._min_age_input = None
@@ -40,9 +44,6 @@ class AddClubStepOne(BaseComponent):
         if not self._popup_title:
             self._popup_title = self.node.find_element(*CLUB_POPUP_TITLE)
         return self._popup_title
-
-    def click_next_step_button(self) -> None:
-        self.node.find_element(*NEXT_STEP_BUTTON).click()
 
     @property
     def name_input_element(self) -> InputWithLabelIconsErrors:
@@ -63,6 +64,12 @@ class AddClubStepOne(BaseComponent):
     @property
     def categories_input_list(self) -> list[WebElement]:
         return self.node.find_elements(*CATEGORIES_INPUT_LIST)
+
+    def click_on_category_by_name(self, value: str) -> Self:
+        for category in self.categories_input_list:
+            if category.get_attribute("value") == value:
+                category.click()
+        return self
 
     def get_category_texts_list(self) -> list[str]:
         return [category.get_attribute("value") for category in self.categories_input_list]
@@ -88,19 +95,29 @@ class AddClubStepOne(BaseComponent):
         return self._age_title
 
     @property
-    def min_age_input(self) -> WebElement:
+    def min_age_input(self) -> NumberInput:
         if not self._min_age_input:
             self._min_age_input = NumberInput(self.node.find_element(*MIN_AGE_INPUT_NODE))
         return self._min_age_input
 
     @property
-    def max_age_input(self) -> WebElement:
+    def max_age_input(self) -> NumberInput:
         if not self._max_age_input:
             self._max_age_input = NumberInput(self.node.find_element(*MAX_AGE_INPUT_NODE))
         return self._max_age_input
 
     @property
-    def center_dropdown_element(self):
+    def center_dropdown_element(self) -> Dropdown:
         if not self._center_dropdown_element:
             self._center_dropdown_element = Dropdown(self.node.find_element(*CENTER_DROPDOWN))
         return self._center_dropdown_element
+
+    @property
+    def next_button(self) -> WebElement:
+        if not self._next_button:
+            self._next_button = self.node.find_element(*NEXT_STEP_BUTTON)
+        return self._next_button
+
+    def click_next_step_button(self) -> 'AddClubStepTwo':
+        self.next_button.click()
+        return self._popup.step_container

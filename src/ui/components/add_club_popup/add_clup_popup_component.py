@@ -1,7 +1,10 @@
+from typing import Optional, Union
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
 from src.ui.components.add_club_popup.add_club_step_one import AddClubStepOne
+from src.ui.components.add_club_popup.add_club_step_three import AddClubStepThree
 from src.ui.components.add_club_popup.add_club_step_two import AddClubStepTwo
 from src.ui.components.base_pop_up import BasePopUp
 from src.ui.components.base_component import BaseComponent
@@ -23,16 +26,18 @@ class AddClubPopUp(BasePopUp):
         self.sider = AddClubSider(node.find_element(*SIDER_ELEMENT))
 
     @property
-    def step_one_container(self) -> AddClubStepOne:
-        if self.node.find_element(*ACTIVE_STEP).get_attribute("innerText") == "1":
-            return AddClubStepOne(self, self.node.find_element(*STEP_CONTAINER))
-        return None
+    def step_container(self) -> AddClubStepOne | AddClubStepTwo | AddClubStepThree | None:
+        active_step_text = self.node.find_element(*ACTIVE_STEP).get_attribute("innerText")
+        match active_step_text:
+            case "1":
+                return AddClubStepOne(self, self.node.find_element(*STEP_CONTAINER))
+            case "2":
+                return AddClubStepTwo(self, self.node.find_element(*STEP_CONTAINER))
+            case "3":
+                return AddClubStepThree(self, self.node.find_element(*STEP_CONTAINER))
+            case _:
+                return None
 
-    @property
-    def step_two_container(self) -> AddClubStepTwo:
-        if self.node.find_element(*ACTIVE_STEP).get_attribute("innerText") == "2":
-            return AddClubStepTwo(self, self.node.find_element(*STEP_CONTAINER))
-        return None
 
 class AddClubSider(BaseComponent):
     def __init__(self, node: WebElement) -> None:

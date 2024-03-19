@@ -125,4 +125,4 @@ class AddClubStepOne(BaseComponent):
 
     def click_next_step_button(self) -> AddClubStepTwo:
         self.next_button.click()
-        return self.popup.step_two_container
+        return self.popup.step_container

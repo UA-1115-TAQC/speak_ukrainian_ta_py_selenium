@@ -3,6 +3,7 @@ from typing import Self
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
+from src.ui.components.add_club_popup.add_club_step_three import AddClubStepThree
 from src.ui.components.add_location_popup.add_location_popup_component import AddLocationPopUp
 from src.ui.components.base_component import BaseComponent
 from src.ui.elements.day_time_checkbox_element import DayTimeCheckboxElement
@@ -10,8 +11,8 @@ from src.ui.elements.input_with_label_icons_errors import InputWithLabelIconsErr
 from src.ui.elements.location_list_element import LocationListElement
 
 CLUB_POPUP_TITLE = (By.XPATH, ".//div[contains(@class,'add-club-header')]")
-NEXT_STEP_BUTTON = (By.XPATH, "//button[contains(@class,'add-club-content-next')]")
-PREVIOUS_STEP_BUTTON = (By.XPATH, "//button[contains(@class,'add-club-content-prev')]")
+NEXT_STEP_BUTTON = (By.XPATH, ".//button[contains(@class,'add-club-content-next')]")
+PREVIOUS_STEP_BUTTON = (By.XPATH, ".//button[contains(@class,'add-club-content-prev')]")
 STEP_CONTAINER = (By.XPATH, ".//main[contains(@class,'add-club-container')]")
 LOCATIONS_TITLE = (By.XPATH, "./descendant::span[contains(@class,'ant-typography')][1]")
 AVAILABLE_ONLINE_TITLE = (By.XPATH, "./descendant::span[contains(@class,'ant-typography')][2]")
@@ -216,13 +217,18 @@ class AddClubStepTwo(BaseComponent):
         return self._site_input_element
 
     @property
+    def popup(self) -> 'AddClubPopUp':
+        return self._popup
+
+    @property
     def next_button(self) -> WebElement:
         if not self._next_button:
             self._next_button = self.node.find_element(*NEXT_STEP_BUTTON)
         return self._next_button
 
-    def click_next_step_button(self) -> None:
+    def click_next_step_button(self) -> AddClubStepThree:
         self.next_button.click()
+        return self.popup.step_container
 
     @property
     def previous_button(self) -> WebElement:
@@ -230,10 +236,6 @@ class AddClubStepTwo(BaseComponent):
             self._previous_button = self.node.find_element(*PREVIOUS_STEP_BUTTON)
         return self._previous_button
 
-    @property
-    def popup(self) -> 'AddClubPopUp':
-        return self._popup
-
     def click_previous_step_button(self) -> 'AddClubStepOne':
         self.previous_button.click()
-        return self.popup.step_one_container
+        return self.popup.step_container

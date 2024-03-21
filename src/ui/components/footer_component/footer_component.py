@@ -1,56 +1,91 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from src.ui.components.base_component import BaseComponent
+from typing import Self
 
-LOGO = (By.XPATH, "./descendant::div[contains(@class,'footer-logo')]")
-MOTTO_UNDER_lOGO = (By.XPATH, "./descendant::div[contains(@class,'text')]")
-SOCIAL_LINKS = (By.XPATH, "./descendant::div[contains(@class,'links')]")
-COPYRIGHT_TEXT = (By.XPATH, "./descendant::div[contains(@class,'qubstudio')]")
-SPONSORS_TITLE = (By.XPATH, "./descendant::div[@class='footer-partners']/div[@class='article']")
-SPONSORS_LINKS = (By.XPATH, "./descendant::div[contains(@class,'sponsors')]")
-DONATE_TITLE = (By.XPATH, "./descendant::div[@class='footer-donate']/div[@class='article']")
-EXPLANATION = (By.XPATH, "./descendant::div[@class='desc']")
-DONATE_BUTTON = (By.XPATH, "./descendant::button[contains(@class,'donate-button')]")
-
+LOGO = (By.XPATH, "//div[contains(@class,'footer-logo')]")
+MOTTO_UNDER_lOGO = (By.XPATH, "//div[contains(@class,'text')]")
+SOCIAL_LINKS = (By.XPATH, "//div[contains(@class,'links')]/a[contains(@href, 'https')]")
+COPYRIGHT_TEXT = (By.XPATH, "//div[contains(@class,'qubstudio')]")
+SPONSORS_TITLE = (By.XPATH, "//div[@class='footer-partners']/div[@class='article']")
+SPONSORS_LINKS = (By.XPATH, "//div[contains(@class,'sponsors')]/a[contains(@href, 'https')]")
+DONATE_TITLE = (By.XPATH, "//div[@class='footer-donate']/div[@class='article']")
+EXPLANATION = (By.XPATH, "//div[@class='desc']")
+DONATE_BUTTON = (By.XPATH, "//button[contains(@class,'donate-button')]")
 
 class FooterComponent(BaseComponent):
     def __init__(self, node: WebElement) -> None:
         super().__init__(node)
-        self.logo = node.find_element(*LOGO)
-        self.motto_under_logo = node.find_element(*MOTTO_UNDER_lOGO)
-        self.social_links = node.find_elements(*SOCIAL_LINKS)
-        self.copyright_text = node.find_element(*COPYRIGHT_TEXT)
-        self.sponsors_title = node.find_element(*SPONSORS_TITLE)
-        self.sponsors_links = node.find_elements(*SPONSORS_LINKS)
-        self.donate_title = node.find_element(*DONATE_TITLE)
-        self.explanation = node.find_element(*EXPLANATION)
-        self.donate_button = node.find_element(*DONATE_BUTTON)
+        self._logo = None
+        self._motto_under_logo = None
+        self._social_links = None
+        self._copyright_text = None
+        self._sponsors_title = None
+        self.sponsors_links = None
+        self._donate_title = None
+        self._explanation = None
+        self._donate_button = None
 
+    @property
+    def logo_img(self) -> WebElement:
+        if not self._logo:
+            self._logo = self.node.find_element(*LOGO)
+        return self._logo
 
-    def click_on_logo(self):
-        self.logo.click()
+    def click_on_logo(self) -> Self:
+        self.logo_img.click()
+        return self
 
-    def get_motto_text(self):
-        return self.motto_under_logo.text
+    @property
+    def motto_text(self) -> WebElement:
+        if not self._motto_under_logo:
+            self._motto_under_logo = self.node.find_element(*MOTTO_UNDER_lOGO)
+        return self._motto_under_logo
 
-    def get_social_links(self):
-        return [link.get_attribute("href") for link in self.social_links]
+    @property
+    def list_of_social_links(self) -> list[WebElement]:
+        return self.node.find_elements(*SOCIAL_LINKS)
 
-    def get_copyright_text(self):
-        return self.copyright_text.text
+    def social_links(self) -> list[str]:
+        return [link.get_attribute("href") for link in self.list_of_social_links] if self.list_of_social_links else []
 
-    def get_sponsors_title(self):
-        return self.sponsors_title.text
+    @property
+    def copyright_text(self) -> WebElement:
+        if not self._copyright_text:
+            self._copyright_text = self.node.find_element(*COPYRIGHT_TEXT)
+        return self._copyright_text
 
-    def get_sponsors_links(self):
-        return [link.get_attribute("href") for link in self.sponsors_links]
+    @property
+    def sponsors_title(self) -> WebElement:
+        if not self._sponsors_title:
+            self._sponsors_title = self.node.find_element(*SPONSORS_TITLE)
+        return self._sponsors_title
 
-    def get_donate_title(self):
-        return self.donate_title.text
+    @property
+    def list_of_sponsors_links(self) -> list[WebElement]:
+        return self.node.find_elements(*SPONSORS_LINKS)
 
-    def donate_explanation_text(self):
-        return self.explanation.text
+    def sponsors_links(self) -> list[str]:
+        return [link.get_attribute("href") for link in self.list_of_sponsors_links] if self.list_of_sponsors_links else []
 
-    def click_on_donate_button(self):
+    @property
+    def donate_title(self) -> WebElement:
+        if not self._donate_title:
+            self._donate_title = self.node.find_element(*DONATE_TITLE)
+        return self._donate_title
+
+    @property
+    def explanation(self) -> WebElement:
+        if not self._explanation:
+            self._explanation = self.node.find_element(*EXPLANATION)
+        return self._explanation
+
+    @property
+    def donate_button(self) -> WebElement:
+        if not self._donate_button:
+            self._donate_button = self.node.find_element(*DONATE_BUTTON)
+        return self._donate_button
+
+    def click_on_donate_button(self) -> Self:
         self.donate_button.click()
-
+        return self

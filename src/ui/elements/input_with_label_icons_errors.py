@@ -3,7 +3,8 @@ from selenium.webdriver.remote.webelement import WebElement
 
 from src.ui.elements.input import Input
 
-INPUT_LABEL = (By.XPATH, "./preceding-sibling::span[contains(@class,'ant-typography')][1]")
+INPUT_LABEL = (By.XPATH, ".//preceding-sibling::span[contains(@class,'ant-typography')][1] | "
+                         ".//div[contains(@class, 'user-edit-input')]//label")
 VALIDATION_CIRCLE_ICON = (By.XPATH, ".//div[@class='ant-form-item-control-input']"
                                     "//span[contains(@class,'anticon-close-circle') "
                                     "or contains(@class,'anticon-check-circle')]")

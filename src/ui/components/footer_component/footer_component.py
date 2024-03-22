@@ -16,28 +16,21 @@ DONATE_BUTTON = (By.XPATH, "//button[contains(@class,'donate-button')]")
 class FooterComponent(BaseComponent):
     def __init__(self, node: WebElement) -> None:
         super().__init__(node)
-        self._logo = None
         self._motto_under_logo = None
-        self._social_links = None
         self._copyright_text = None
         self._sponsors_title = None
-        self.sponsors_links = None
         self._donate_title = None
         self._explanation = None
-        self._donate_button = None
 
     @property
     def logo_img(self) -> WebElement:
-        if not self._logo:
-            self._logo = self.node.find_element(*LOGO)
-        return self._logo
+        return self.node.find_element(*LOGO)
 
     def click_on_logo(self) -> Self:
-        self.logo_img.click()
-        return self
+        return self.logo_img.click()
 
     @property
-    def motto_text(self) -> WebElement:
+    def motto_under_logo(self) -> WebElement:
         if not self._motto_under_logo:
             self._motto_under_logo = self.node.find_element(*MOTTO_UNDER_lOGO)
         return self._motto_under_logo
@@ -46,8 +39,8 @@ class FooterComponent(BaseComponent):
     def list_of_social_links(self) -> list[WebElement]:
         return self.node.find_elements(*SOCIAL_LINKS)
 
-    def social_links(self) -> list[str]:
-        return [link.get_attribute("href") for link in self.list_of_social_links] if self.list_of_social_links else []
+    def get_social_links(self) -> list[str]:
+        return [link.get_attribute("href") for link in self.list_of_social_links]
 
     @property
     def copyright_text(self) -> WebElement:
@@ -65,8 +58,8 @@ class FooterComponent(BaseComponent):
     def list_of_sponsors_links(self) -> list[WebElement]:
         return self.node.find_elements(*SPONSORS_LINKS)
 
-    def sponsors_links(self) -> list[str]:
-        return [link.get_attribute("href") for link in self.list_of_sponsors_links] if self.list_of_sponsors_links else []
+    def get_sponsors_links(self) -> list[str]:
+        return [link.get_attribute("href") for link in self.list_of_sponsors_links]
 
     @property
     def donate_title(self) -> WebElement:
@@ -82,10 +75,7 @@ class FooterComponent(BaseComponent):
 
     @property
     def donate_button(self) -> WebElement:
-        if not self._donate_button:
-            self._donate_button = self.node.find_element(*DONATE_BUTTON)
-        return self._donate_button
+        return self.node.find_element(*DONATE_BUTTON)
 
-    def click_on_donate_button(self) -> Self:
-        self.donate_button.click()
-        return self
+    def click_on_donate_button(self):
+        return self.donate_button.click()

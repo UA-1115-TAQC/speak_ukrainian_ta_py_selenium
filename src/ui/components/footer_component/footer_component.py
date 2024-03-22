@@ -21,7 +21,7 @@ class FooterComponent(BaseComponent):
         self._social_links = None
         self._copyright_text = None
         self._sponsors_title = None
-        self.sponsors_links = None
+        self._sponsors_links = None
         self._donate_title = None
         self._explanation = None
         self._donate_button = None

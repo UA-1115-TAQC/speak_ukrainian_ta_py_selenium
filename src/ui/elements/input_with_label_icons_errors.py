@@ -7,8 +7,8 @@ class InputWithLabelIconsErrors(Input):
         super().__init__(node)
         self.locators = {
             **self.locators,
-            "input_label": ("xpath", "./preceding-sibling::div[contains(@class,'ant-form-item-label')][1]|"
-                                     "./preceding-sibling::span[contains(@class,'ant-typography')][1]"),
+            "input_label": ("xpath", "./preceding-sibling::span[contains(@class,'ant-typography')][1] | "
+                                     ".//div[contains(@class, 'user-edit-input')]//label"),
             "validation_circle_icon": ("xpath", ".//div[@class='ant-form-item-control-input']"
                                                 "//span[contains(@class,'anticon-close-circle') "
                                                 "or contains(@class,'anticon-check-circle')]"),

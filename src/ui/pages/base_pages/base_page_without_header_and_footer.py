@@ -1,10 +1,14 @@
 from selenium import webdriver
 from selenium.webdriver.remote.webelement import WebElement
+from seleniumpagefactory import PageFactory
+
+from src.ui.page_factory.custom_page_factory import CustomPageFactory
 
 
-class BasePageWithoutHeaderAndFooter:
+class BasePageWithoutHeaderAndFooter(CustomPageFactory):
     def __init__(self, driver: webdriver) -> None:
-        self._driver = driver
+        super().__init__()
+        self.driver = driver
         self._current_tab_handle = None
         self._tab_handles = None
 

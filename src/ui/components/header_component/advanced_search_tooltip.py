@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from src.ui.components.base_component import BaseComponent
 from selenium.webdriver.remote.webelement import WebElement
 from selenium import webdriver
-from src.ui.pages.clubs_page import ClubsPage
+
 CATEGORY_NAME_CATEGORIES = (By.XPATH, "//div[contains(@title,\"Категорії\")]")
 CATEGORY_NAME_CLUBS = (By.XPATH, "//div[contains(@title,\"Гуртки\")]")
 
@@ -55,10 +55,8 @@ class AdvancedSearchToolTip(BaseComponent):
     def get_category_by_title(self, title: str) -> WebElement:
         return self.get_categories().get(title)
 
-    def click_category_by_title(self, title: str) -> ClubsPage:
+    def click_category_by_title(self, title: str):
         self.get_category_by_title(title).click()
-        return ClubsPage(self._driver).wait_until_clubs_page_is_loaded()
 
-    def click_club_by_title(self, title: str) -> ClubsPage:
+    def click_club_by_title(self, title: str):
         self.get_club_by_title(title).click()
-        return ClubsPage(self._driver).wait_until_clubs_page_is_loaded()

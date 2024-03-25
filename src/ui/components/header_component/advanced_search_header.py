@@ -4,7 +4,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from src.ui.components.header_component.advanced_search_tooltip import AdvancedSearchToolTip
-from src.ui.pages.clubs_page import ClubsPage
 from src.ui.components.base_component import BaseComponent
 
 ADVANCED_SEARCH_TEXT_HEADING = (By.XPATH, '//h2[@class=\'city-name\']')
@@ -90,9 +89,8 @@ class AdvancedSearchHeaderComponent(BaseComponent):
         self.search_icon.click()
         return self
 
-    def click_advanced_search_icon(self) -> ClubsPage:
+    def click_advanced_search_icon(self):
         self.advanced_search_icon.click()
-        return ClubsPage(self._driver).wait_until_clubs_page_is_loaded()
 
     def click_selection_search_close_button(self):
         if self.get_text_selection_search_input_field() is not None:
@@ -100,3 +98,21 @@ class AdvancedSearchHeaderComponent(BaseComponent):
             return self
         else:
             raise ValueError("You haven't entered any text")
+
+
+
+SHOW_ON_MAP_BUTTON = (By.XPATH, ".//button[contains(@class,'show-map-button')]")
+class advanced_search_clubs_header_component(AdvancedSearchHeaderComponent):
+
+    def __init__(self, driver, node):
+        super().__init__(driver, node)
+        self._show_on_map_button = None
+
+    @property
+    def show_on_map_button(self):
+        if not self._show_on_map_button:
+            self._show_on_map_button = self.node.find_element(*SHOW_ON_MAP_BUTTON)
+        return self._show_on_map_button
+
+    def click_show_on_map_button(self):
+        self.show_on_map_button.click()

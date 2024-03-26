@@ -1,38 +1,30 @@
 from selenium.webdriver.remote.webelement import WebElement
-
 from src.ui.elements.base_element import BaseElement
-from selenium.webdriver.common.by import By
-from selenium.webdriver import Keys
-
-LOCATOR_INPUT = (By.XPATH, ".//input")
+from selenium.webdriver import Keys, ActionChains
 
 
 class Input(BaseElement):
     def __init__(self, node: WebElement):
         super().__init__(node)
-        self._input = None
-        self._input_value = None
+        self.locators = {
+            "input": ("xpath", ".//input")
+        }
 
-    @property
-    def input(self) -> WebElement:
-        if not self._input:
-            self._input = self.node.find_element(*LOCATOR_INPUT)
-        return self._input
+    def get_input_value(self) -> str:
+        return self.input.visibility_of_element_located().get_attribute("value")
 
-    @property
-    def input_value(self) -> str:
-        return self.input.get_attribute("value")
-
-    @input_value.setter
-    def input_value(self, value: str) -> None:
-        self.input.send_keys(value)
+    def set_input_value(self, value: str) -> None:
+        self.input.visibility_of_element_located().send_keys(value)
 
     def clear_input(self) -> None:
-        input = self.input
-        current_platform = self.node.parent.capabilities['platformName']
-        if current_platform.lower() == 'mac':
-            input.send_keys(Keys.COMMAND + 'a')
-            input.send_keys(Keys.DELETE)
-        else:
-            input.send_keys(Keys.CONTROL + 'a')
-            input.send_keys(Keys.BACK_SPACE)
+        self.input.visibility_of_element_located().click()
+        ActionChains(self.node.parent).key_down(Keys.CONTROL) \
+            .send_keys('a') \
+            .key_up(Keys.CONTROL) \
+            .send_keys(Keys.BACKSPACE) \
+            .perform()
+        ActionChains(self.node.parent).key_down(Keys.COMMAND) \
+            .send_keys('a') \
+            .key_up(Keys.COMMAND) \
+            .send_keys(Keys.BACKSPACE) \
+            .perform()

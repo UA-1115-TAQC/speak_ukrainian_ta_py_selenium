@@ -1,90 +1,53 @@
-from typing import Any
-
-from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-
 from src.ui.components.base_pop_up import BasePopUp
 from src.ui.elements.dropdown_with_icon_errors import DropdownWithIconErrors
 from src.ui.elements.input_with_info_tooltip import InputWithInfoTooltip
 from src.ui.elements.input_with_label_icons_errors import InputWithLabelIconsErrors
 
-LOCATION_TITLE = (By.XPATH, "./descendant::span[contains(@class,'ant-typography')][1]")
-LOCATION_NAME_INPUT = (By.XPATH, "./descendant::div[contains(@class,'ant-form-item add-club-row')][1]")
-LOCATION_CITY = (By.XPATH, "./descendant::div[contains(@class,'ant-form-item add-club-row')][2]")
-LOCATION_DISTRICT = (By.XPATH, "./descendant::div[contains(@class,'ant-form-item add-club-row')][3]")
-LOCATION_METRO = (By.XPATH, "./descendant::div[contains(@class,'ant-form-item add-club-row')][4]")
-LOCATION_ADDRESS = (By.XPATH, "./descendant::div[contains(@class,'ant-form-item add-club-row')][5]")
-LOCATION_COORDINATES = (By.XPATH, "./descendant::div[contains(@class,'ant-form-item add-club-row')][6]")
-LOCATION_TELEPHONE = (By.XPATH, "./descendant::div[contains(@class,'ant-form-item add-club-row')][7]")
-SUBMIT_BUTTON = (By.XPATH, ".//button[@type='submit']")
-
 
 class AddLocationPopUp(BasePopUp):
     def __init__(self, node: WebElement) -> None:
         super().__init__(node)
-        self._location_popup_title = None
-        self._name_input = None
-        self._city_dropdown = None
-        self._district_dropdown = None
-        self._metro_dropdown = None
-        self._address_input = None
-        self._coordinates_input = None
-        self._telephone_input = None
-        self._submit_button = None
+        self.locators = {
+            **self.locators,
+            "location_title": ("xpath", "./descendant::span[contains(@class,'ant-typography')][1]"),
+            "location_name_input": ("xpath", "./descendant::div[contains(@class,'ant-form-item add-club-row')][1]"),
+            "location_city": ("xpath", "./descendant::div[contains(@class,'ant-form-item add-club-row')][2]"),
+            "location_district": ("xpath", "./descendant::div[contains(@class,'ant-form-item add-club-row')][3]"),
+            "location_metro": ("xpath", "./descendant::div[contains(@class,'ant-form-item add-club-row')][4]"),
+            "location_address": ("xpath", "./descendant::div[contains(@class,'ant-form-item add-club-row')][5]"),
+            "location_coordinates": ("xpath", "./descendant::div[contains(@class,'ant-form-item add-club-row')][6]"),
+            "location_telephone": ("xpath", "./descendant::div[contains(@class,'ant-form-item add-club-row')][7]"),
+            "submit_button": ("xpath", ".//button[contains(@class,'add-club-content-next')]")
+        }
 
     @property
-    def location_popup_title(self) -> WebElement:
-        if not self._location_popup_title:
-            self._location_popup_title = self.node.find_element(*LOCATION_TITLE)
-        return self._location_popup_title
+    def name_input_element(self) -> InputWithInfoTooltip:
+        return InputWithInfoTooltip(self.location_name_input)
 
     @property
-    def name_input(self) -> InputWithInfoTooltip:
-        if not self._name_input:
-            self._name_input = InputWithInfoTooltip(self.node.find_element(*LOCATION_NAME_INPUT))
-        return self._name_input
+    def city_dropdown_element(self) -> DropdownWithIconErrors:
+        return DropdownWithIconErrors(self.location_city)
 
     @property
-    def city_dropdown(self) -> DropdownWithIconErrors:
-        if not self._city_dropdown:
-            self._city_dropdown = DropdownWithIconErrors(self.node.find_element(*LOCATION_CITY))
-        return self._city_dropdown
+    def district_dropdown_element(self) -> DropdownWithIconErrors:
+        return DropdownWithIconErrors(self.location_district)
 
     @property
-    def district_dropdown(self) -> DropdownWithIconErrors:
-        if not self._district_dropdown:
-            self._district_dropdown = DropdownWithIconErrors(self.node.find_element(*LOCATION_DISTRICT))
-        return self._district_dropdown
+    def metro_dropdown_element(self) -> DropdownWithIconErrors:
+        return DropdownWithIconErrors(self.location_metro)
 
     @property
-    def metro_dropdown(self) -> DropdownWithIconErrors:
-        if not self._metro_dropdown:
-            self._metro_dropdown = DropdownWithIconErrors(self.node.find_element(*LOCATION_METRO))
-        return self._metro_dropdown
+    def address_input_element(self) -> InputWithLabelIconsErrors:
+        return InputWithLabelIconsErrors(self.location_address)
 
     @property
-    def address_input(self) -> InputWithLabelIconsErrors:
-        if not self._address_input:
-            self._address_input = InputWithLabelIconsErrors(self.node.find_element(*LOCATION_ADDRESS))
-        return self._address_input
+    def coordinates_input_element(self) -> InputWithLabelIconsErrors:
+        return InputWithLabelIconsErrors(self.location_coordinates)
 
     @property
-    def coordinates_input(self) -> InputWithLabelIconsErrors:
-        if not self._coordinates_input:
-            self._coordinates_input = InputWithLabelIconsErrors(self.node.find_element(*LOCATION_COORDINATES))
-        return self._coordinates_input
-
-    @property
-    def telephone_input(self) -> InputWithLabelIconsErrors:
-        if not self._telephone_input:
-            self._telephone_input = InputWithLabelIconsErrors(self.node.find_element(*LOCATION_TELEPHONE))
-        return self._telephone_input
-
-    @property
-    def submit_button(self) -> WebElement:
-        if not self._submit_button:
-            self._submit_button = self.node.find_element(*SUBMIT_BUTTON)
-        return self._submit_button
+    def telephone_input_element(self) -> InputWithInfoTooltip:
+        return InputWithInfoTooltip(self.location_telephone)
 
     def click_submit_button(self) -> None:
-        self.submit_button.click()
+        self.submit_button.click_button()

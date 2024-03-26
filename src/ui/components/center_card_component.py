@@ -2,12 +2,14 @@ from src.ui.components.base_component import BaseComponent
 from selenium.webdriver.common.by import By
 
 TITLE = (By.XPATH, ".//div[contains(@class,'center-title')]")
-DESCRIPTION = (By.XPATH,".//p[contains(@class,'center-description-in-block')]")
+DESCRIPTION = (By.XPATH, ".//p[contains(@class,'center-description-in-block')]")
 RATING = (By.XPATH, ".//ul[contains(@class,'center-rating')]")
 ADDRESS = (By.XPATH, ".//div[contains(@class,'address')]")
 DETAILS_BUTTON = (By.XPATH, ".//a[contains(@class,'details-button')]")
 
-class center_card_component(BaseComponent):
+
+class CenterCardComponent(BaseComponent):
+
     def __init__(self, node):
         super().__init__(node)
         self._title = None
@@ -46,12 +48,14 @@ class center_card_component(BaseComponent):
             self._details_button = self.node.find_element(*DETAILS_BUTTON)
         return self._details_button
 
+    def get_name_text(self):
+        return self.title.text
+
     def click_title(self):
-        self.name.click()
+        self.title.click()
 
     def click_address(self):
         self.address.click()
 
     def click_details_button(self):
         self.details_button.click()
-

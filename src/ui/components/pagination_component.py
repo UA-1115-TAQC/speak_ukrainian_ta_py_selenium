@@ -7,7 +7,8 @@ PREVIOUS = (By.XPATH, ".//li[contains(@class,'ant-pagination-prev')]")
 NEXT = (By.XPATH, ".//li[contains(@class,'ant-pagination-next')]")
 PAGINTION_ITEMS = (By.XPATH, ".//li[contains(@class, 'ant-pagination-item') or contains(@class, 'ant-pagination-jump-')]")
 
-class pagination_component(BaseComponent):
+
+class PaginationComponent(BaseComponent):
 
     def __init__(self, driver, node):
         super().__init__(node)
@@ -52,7 +53,6 @@ class pagination_component(BaseComponent):
 
     def click_page_by_title(self, num):
         self.get_item_by_title(num).click()
-
 
     def get_last_page(self):
         while not self.is_next_disabled():

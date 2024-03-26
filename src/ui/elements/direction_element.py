@@ -1,10 +1,11 @@
-from src.ui.components.base_component import BaseComponent
 from selenium.webdriver.common.by import By
+from src.ui.elements.base_element import BaseElement
 
 LOGO = (By.XPATH, ".//div[contains(@class,'icon')]")
 NAME = (By.XPATH, ".//span[contains(@class,'name')]")
 
-class direction_component(BaseComponent):
+
+class DirectionElement(BaseElement):
     def __init__(self, node):
         super().__init__(node)
         self._logo = None
@@ -22,5 +23,5 @@ class direction_component(BaseComponent):
             self._name = self.node.find_element(*NAME)
         return self._name
 
-    def get_name_text(self, text):
-        self.name.text
+    def get_name_text(self):
+        return self.name.text

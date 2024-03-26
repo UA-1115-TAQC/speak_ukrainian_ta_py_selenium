@@ -8,7 +8,8 @@ ARROW_DOWN = (By.XPATH, ".//span[contains(@aria-label, 'arrow-down')]")
 WRAPPER_LIST = (By.XPATH, ".//label[contains(@class, 'ant-radio-button-wrapper')][1]")
 WRAPPER_BLOCK = (By.XPATH, ".//label[contains(@class, 'ant-radio-button-wrapper')][2]")
 
-class list_control_component(BaseComponent):
+
+class ListControlComponent(BaseComponent):
 
     def __init__(self, node):
         super().__init__(node)

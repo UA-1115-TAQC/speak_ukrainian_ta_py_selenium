@@ -1,4 +1,3 @@
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -13,6 +12,7 @@ SEARCH_ICON = (By.XPATH, '//div[contains(@class, "search-icon-group")]/span[@ari
 ADVANCED_SEARCH_ICON = (By.XPATH, '//div[contains(@class, "search-icon-group")]/span[@aria-label="control"]')
 ADVANCED_SEARCH_TOOLTIP_NODE = (By.XPATH, '//div[contains(@class, "rc-virtual-list-holder-inner")]')
 SELECTION_SEARCH_CLOSE_BUTTON = (By.XPATH, '//span[@aria-label="close-circle"]')
+SHOW_ON_MAP_BUTTON = (By.XPATH, ".//button[contains(@class,'show-map-button')]")
 
 
 class AdvancedSearchHeaderComponent(BaseComponent):
@@ -100,9 +100,7 @@ class AdvancedSearchHeaderComponent(BaseComponent):
             raise ValueError("You haven't entered any text")
 
 
-
-SHOW_ON_MAP_BUTTON = (By.XPATH, ".//button[contains(@class,'show-map-button')]")
-class advanced_search_clubs_header_component(AdvancedSearchHeaderComponent):
+class AdvancedSearchClubsHeaderComponent(AdvancedSearchHeaderComponent):
 
     def __init__(self, driver, node):
         super().__init__(driver, node)

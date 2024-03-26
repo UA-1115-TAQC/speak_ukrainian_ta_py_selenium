@@ -1,21 +1,29 @@
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 from src.ui.components.base_component import BaseComponent
 from selenium.webdriver.common.by import By
 
-from src.ui.components.direction_component import direction_component
+from src.ui.components.club_info_popup import ClubInfoPopup
+from src.ui.elements.direction_element import DirectionElement
 
 LOGO = (By.XPATH, ".//div[@class='title']//img")
 NAME = (By.XPATH, ".//div[contains(@class,'name')]")
 DIRECTIONS_WEB_ELEMENT = (By.XPATH, ".//span[contains(@class,'ant-tag')]")
-DESCRIPTION = (By.XPATH,".//p[contains(@class,'description')]")
+DESCRIPTION = (By.XPATH, ".//p[contains(@class,'description')]")
 RATING = (By.XPATH, ".//ul[contains(@class,'rating')]")
 ADDRESS = (By.XPATH, ".//div[contains(@class,'address')]")
 ADDRESS_LOCATION_NAME = (By.XPATH, "//div[contains(@class,'address')]/span[contains(@class,'text')]")
 ONLINE = (By.XPATH, "./descendant::div[@class='club-online']")
 DETAILS_BUTTON = (By.XPATH, ".//*[contains(@class,'details-button')]")
+POPUP_WEB_ELEMENT = (By.XPATH, "//div[@class='ant-modal-root css-1kvr9ql']")
 
-class club_card_component(BaseComponent):
-    def __init__(self, node):
+
+class ClubCardComponent(BaseComponent):
+
+    def __init__(self, driver, node):
         super().__init__(node)
+        self._driver = driver
+        self._wait = WebDriverWait(self._driver, 10)
         self._logo = None
         self._name = None
         self._direction_list = None
@@ -44,7 +52,7 @@ class club_card_component(BaseComponent):
             self._direction_list = []
             directions = self.node.find_elements(*DIRECTIONS_WEB_ELEMENT)
             for direction in directions:
-                self._direction_list.append(direction_component(direction))
+                self._direction_list.append(DirectionElement(direction))
         return self._direction_list
 
     @property
@@ -84,10 +92,10 @@ class club_card_component(BaseComponent):
         return self._details_button
 
     def get_logo_src(self):
-        self.logo.get_attribute("src");
+        self.logo.get_attribute("src")
 
     def get_name_text(self):
-        self.name.text;
+        return self.name.text
 
     def name_contains(self, text):
         return text.lower() in self.get_name_text().lower()
@@ -98,15 +106,16 @@ class club_card_component(BaseComponent):
                 return True
         return False
 
-    def direction_contains(self, text):
+    def description_contains(self, text):
         return text.lower() in self.description.text.lower()
 
     def click_title(self):
         self.name.click()
+        self._wait.until(ec.presence_of_element_located(POPUP_WEB_ELEMENT))
+        return ClubInfoPopup(self._driver)
 
     def click_address(self):
         self.address.click()
 
     def click_details_button(self):
         self.details_button.click()
-

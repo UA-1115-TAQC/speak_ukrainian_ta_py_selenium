@@ -40,12 +40,12 @@ class LoginPopUpComponent(BasePopUp):
 
     def password_input_element(self) -> InputWithIconElement:
         if not self._password_input_element:
-            self._password_input_element = InputWithIconElement(self.node.find_element(PASSWORD_INPUT))
+            self._password_input_element = InputWithIconElement(self.node.find_element(*PASSWORD_INPUT))
         return self._password_input_element
 
     def email_input_element(self) -> InputWithIconElement:
         if not self._email_input_element:
-            self._email_input_element = InputWithIconElement(self.node.find_element(EMAIL_INPUT))
+            self._email_input_element = InputWithIconElement(self.node.find_element(*EMAIL_INPUT))
         return self._email_input_element
 
     def enter_email(self, email) -> Input:
@@ -109,7 +109,7 @@ class LoginPopUpComponent(BasePopUp):
         return self.password_title.text
 
     def click_submit_button(self) -> None:
-        self._submit_button.click()
+        self.node.find_element(*SUBMIT_BUTTON).click()
 
     def restore_password_component(self) -> RestorationPasswordComponent:
         if not self._restore_password_popup:

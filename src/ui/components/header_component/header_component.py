@@ -20,8 +20,6 @@ class HeaderComponent(BaseComponent):
         return AddClubPopUp(self.add_club_popup)
 
     def click_profile_button(self) -> GuestMenu:
-        self.profile_menu_button.click_button()
+        self.profile_menu_button.click()
         return GuestMenu(self.profile_menu_node)
 
-    def openGuestMenu(self):
-        self.profile_menu_button.click_button()

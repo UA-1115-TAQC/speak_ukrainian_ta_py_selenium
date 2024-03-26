@@ -10,7 +10,7 @@ class BasePage(BasePageWithoutHeaderAndFooter):
         super().__init__(driver)
         self.locators = {
             "header_locator": ("xpath", "//header"),
-            "footer": ("xpath", "//footer")
+            "footer_locator": ("xpath", "//footer")
         }
 
     @property

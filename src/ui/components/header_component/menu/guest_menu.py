@@ -1,5 +1,4 @@
-from telnetlib import EC
-
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
@@ -18,7 +17,7 @@ class GuestMenu(BaseComponent):
         super().__init__(node)
 
     def open_login_form(self) -> LoginPopUpComponent:
-        WebDriverWait(self.node, 10).until(EC.element_to_be_clickable(*LOGIN)).click()
+        self.get_wait(10).until(EC.element_to_be_clickable(LOGIN)).click()
         return LoginPopUpComponent(self.node.find_element(*LOGIN_FORM))
 
     def open_registration_form(self) -> None:  # TODO

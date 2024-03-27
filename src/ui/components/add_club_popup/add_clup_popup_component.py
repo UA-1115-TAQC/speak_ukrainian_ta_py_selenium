@@ -59,3 +59,9 @@ class AddClubPopUp(BasePopUp):
     @property
     def step_three_container(self) -> AddClubStepThree:
         return AddClubStepThree(self.step_container)
+
+    @property
+    def get_active_step(self) -> WebElement:
+        return self.node.find_element(*self.locators["active_step"])
+
+

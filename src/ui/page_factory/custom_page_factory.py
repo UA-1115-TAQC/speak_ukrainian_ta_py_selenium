@@ -6,6 +6,7 @@ from seleniumpagefactory import PageFactory
 class CustomPageFactory(PageFactory):
 
     def __init__(self):
+        super().__init__()
         self.node = None
 
     def get_web_element(self, *loc):

@@ -45,6 +45,6 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
         self.assertEqual(step_three.get_error_messages_text_list()[0], self.ERROR_MESSAGE,
                          f"[STEP_THREE] Shown error message : {self.ERROR_MESSAGE}. "
                          f"Message under description textarea")
-        self.assertTrue(self.VALID_CIRCLE_ICON in
+        self.assertTrue(self.INVALID_CIRCLE_ICON in
                         step_three.textarea_validation_icon.getAttribute("class"),
                         "[STEP_THREE] Red circle appeared in right side on the description textarea")

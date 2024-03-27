@@ -7,7 +7,6 @@ from src.ui.components.header_component.menu.guest_menu import GuestMenu
 class HeaderComponent(BaseComponent):
     def __init__(self, node: WebElement) -> None:
         super().__init__(node)
-        self.driver = node.parent
         self.locators = {
             "add_club_button": ("xpath", ".//button[contains(@class,'add-club-button')]"),
             "add_club_popup": ("xpath", "//div[contains(@class,'modal-add-club')]"),

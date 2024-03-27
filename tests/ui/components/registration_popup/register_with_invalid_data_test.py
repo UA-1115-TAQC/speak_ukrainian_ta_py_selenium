@@ -14,11 +14,11 @@ class RegisterWithInvalidDataTest(BaseTestRunner):
 
     def test_registering_with_invalid_email(self):
         for INVALID_EMAIL_VALUE in self.INVALID_EMAIl_VALUES:
-            self.register_popup.email_input.set_input_value(INVALID_EMAIL_VALUE)
+            self.register_popup.email_input_element.set_input_value(INVALID_EMAIL_VALUE)
             self.assertIn(self.ERROR_MESSAGE_EMAIl_FORMAT,
-                          self.register_popup.email_input.get_error_messages_text_list(),
+                          self.register_popup.email_input_element.get_error_messages_text_list(),
                           "Email error list should contain: " + self.ERROR_MESSAGE_EMAIl_FORMAT)
-            self.register_popup.email_input.clear_input()
+            self.register_popup.email_input_element.clear_input()
             self.assertIn(self.ERROR_MESSAGE_EMAIl_EMPTY,
-                          self.register_popup.email_input.get_error_messages_text_list(),
+                          self.register_popup.email_input_element.get_error_messages_text_list(),
                           "Email error list should contain: " + self.ERROR_MESSAGE_EMAIl_EMPTY)

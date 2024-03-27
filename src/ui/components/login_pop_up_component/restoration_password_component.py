@@ -1,48 +1,28 @@
-from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
 from src.ui.components.base_pop_up import BasePopUp
 from src.ui.elements.input_with_icon_element import InputWithIconElement
 
-RESTORATION_TITLE = (By.XPATH, "./descendant::div[contains(@class, 'login-header')]")
-SUBMIT_BUTTON = (By.XPATH, "./descendant::button[@type='submit']")
-CLOSE_BUTTON = (By.XPATH, "./descendant::button[@type='button']")
-EMAIL_INPUT = (By.XPATH, "./descendant::div[contains(@class, 'ant-form-item login-input css-13m256z')][1]")
-
 
 class RestorationPasswordComponent(BasePopUp):
     def __init__(self, node: WebElement) -> None:
         super().__init__(node)
-        self._email_input_element = None
-        self._restoration_title = None
-        self._submit_button = None
-        self._close_button = None
+        self.locators = {
+            **self.locators,
+            "restoration_title": ("xpath", "./descendant::div[contains(@class, 'login-header')]"),
+            "submit_button": ("xpath", "./descendant::button[@type='submit']"),
+            "close_button": ("xpath", "./descendant::button[@type='button']"),
+            "email_input": ("xpath", "./descendant::div[contains(@class, 'ant-form-item login-input css-13m256z')][1]")
+        }
 
     @property
-    def email_input(self) -> InputWithIconElement:
-        if not self._email_input_element:
-            self._email_input_element = InputWithIconElement(self.node.find_element(*EMAIL_INPUT))
-        return self._email_input_element
+    def email_input_element(self) -> InputWithIconElement:
+        return InputWithIconElement(self.email_input)
 
-    @property
-    def restoration_title(self) -> WebElement:
-        if not self._restoration_title:
-            self._restoration_title = self.node.find_element(*RESTORATION_TITLE)
-        return self._restoration_title
+    def enter_email(self, email: str) -> None:
+        self.email_input_element.set_input_value(email)
 
-    @property
-    def submit_button(self) -> WebElement:
-        if not self._submit_button:
-            self._submit_button = self.node.find_element(*SUBMIT_BUTTON)
-        return self._submit_button
-
-    @property
-    def close_button(self) -> WebElement:
-        if not self._close_button:
-            self._close_button = self.node.find_element(*CLOSE_BUTTON)
-        return self.close_button
-
-    def get_menu_header_text(self) -> str:
+    def restoration_pop_up_title(self) -> str:
         return self.restoration_title.text
 
     def click_submit_button(self) -> None:

@@ -20,6 +20,3 @@ class BasePage(BasePageWithoutHeaderAndFooter):
     @property
     def footer(self) -> FooterComponent:
         return FooterComponent(self.footer_locator)
-
-    def scroll_to_footer(self) -> None:
-        self.driver.execute_script("window.scrollBy(0,document.body.scrollHeight)")

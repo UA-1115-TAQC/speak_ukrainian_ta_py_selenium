@@ -2,11 +2,11 @@ from selenium.webdriver.remote.webelement import WebElement
 from src.ui.components.base_component import BaseComponent
 from typing import Self
 
+
 class FooterComponent(BaseComponent):
     def __init__(self, node: WebElement) -> None:
         super().__init__(node)
         self.locators = {
-            **self.locators,
             "logo": ("xpath", "//div[contains(@class,'footer-logo')]"),
             "motto_under_logo": ("xpath", "//div[contains(@class,'text')]"),
             "social_links": ("xpath", "//div[contains(@class,'links')]/a[contains(@href, 'https')]"),
@@ -33,10 +33,13 @@ class FooterComponent(BaseComponent):
         return [link.get_attribute("href") for link in self.list_of_social_links]
 
     def get_copyright_text(self) -> str:
-        return self.copyright_text.text()
+        return self.copyright_text.text
 
     def get_sponsors_title_text(self) -> str:
-        return self.sponsors_title.text()
+        return self.sponsors_title.text
+
+    def get_sponsors_title_attribute(self, name: str) -> str:
+        return self.sponsors_title.get_attribute(name)
 
     @property
     def list_of_sponsors_links(self) -> list[WebElement]:

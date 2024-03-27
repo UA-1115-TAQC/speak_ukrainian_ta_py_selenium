@@ -1,10 +1,8 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
-from src.ui.components.base_component import BaseComponent
-from src.ui.elements.dropdown import Dropdown
+from src.ui.components.base_pop_up import BasePopUp
 from src.ui.elements.input_with_label_icons_errors import InputWithLabelIconsErrors
-from src.ui.elements.number_input import NumberInput
 
 USER_TYPE_BUTTON = (By.XPATH, "//input[@value='ROLE_USER']/../..")
 MANAGER_TYPE_BUTTON = (By.XPATH, "//input[@value='ROLE_MANAGER']/../..")
@@ -18,9 +16,15 @@ PASSWORD_INPUT = (By.XPATH, ".//div[contains(@class, 'ant-form-item registration
 PASSWORD_CONFIRMATION_INPUT = (By.XPATH, ".//div[contains(@class, 'ant-form-item registration-input')][6]")
 REGISTRATION_BUTTON = (By.XPATH, ".//button[contains(@class, 'registration-button')]")
 
-class RegisterPopupComponent(BaseComponent):
+
+class RegisterPopupComponent(BasePopUp):
     def __init__(self, node: WebElement) -> None:
         super().__init__(node)
+        self.locators = {
+            **self.locators,
+            "email_input": ("xpath", ".//div[contains(@class, 'ant-form-item registration-input')][4]")
+        }
+
         self._user_type_button = None
         self._manager_type_button = None
         self._google_button = None
@@ -74,9 +78,9 @@ class RegisterPopupComponent(BaseComponent):
 
     @property
     def email_input(self) -> InputWithLabelIconsErrors:
-        if not self._email_input:
-            self._email_input = InputWithLabelIconsErrors(self.node.find_element(*EMAIL_INPUT))
-        return self._email_input
+        # if not self._email_input:
+        #     self._email_input = InputWithLabelIconsErrors(self.node.find_element(*EMAIL_INPUT))
+        return InputWithLabelIconsErrors(self.node.find_element(*self.locators["email_input"]))
 
     @property
     def password_input(self) -> InputWithLabelIconsErrors:

@@ -1,3 +1,8 @@
+import importlib
+import inspect
+from functools import wraps
+from typing import Type, Callable, Any
+
 from selenium.webdriver.remote.webelement import WebElement
 
 from src.ui.components.base_pop_up import BasePopUp
@@ -41,16 +46,13 @@ class LoginPopUpComponent(BasePopUp):
     def enter_password(self, password) -> None:
         self.password_input_element.set_input_value(password)
 
-    def get_email_text(self) -> str:
+    def get_email_title(self) -> str:
         return self.email_title.text
 
-    def get_password_text(self) -> str:
+    def get_password_title(self) -> str:
         return self.password_title.text
 
-    def click_submit_button(self) -> None:
-        self.submit_button.click()
-
-    def click_restore_password_button(self) -> RestorationPasswordComponent:
-        self._restore_password_button.click()
+    def open_restoration_password_pop_up(self) -> 'RestorationPasswordComponent':
+        self.restore_password_button.click()
         from src.ui.components.login_pop_up_component.restoration_password_component import RestorationPasswordComponent
         return RestorationPasswordComponent(self.restore_password_popup)

@@ -22,24 +22,8 @@ class BasicCarouselComponent(BaseComponent):
         self._wait = WebDriverWait(self._driver, 30)
 
     @property
-    def left_arrow_button(self) -> WebElement:
-        return self._node.find_element(*self.locators["left_arrow_button"])
-
-    @property
-    def right_arrow_button(self) -> WebElement:
-        return self._node.find_element(*self.locators["right_arrow_button"])
-
-    @property
     def slick_dots(self) -> list[WebElement]:
         return self._node.find_elements(*self.locators["slick_dots"])
-
-    @property
-    def slick_dots_container(self) -> WebElement:
-        return self._node.find_element(*self.locators["slick_dots_container"])
-
-    @property
-    def slider_container(self) -> WebElement:
-        return self._node.find_element(*self.locators["slider_container"])
 
     def click_right_arrow_button(self):
         self.right_arrow_button.click()
@@ -78,4 +62,3 @@ class BasicCarouselComponent(BaseComponent):
 
     def get_slick_dot_color(self, slick_dot: WebElement) -> str:
         return Color.from_string(slick_dot.value_of_css_property("background-color")).hex
-

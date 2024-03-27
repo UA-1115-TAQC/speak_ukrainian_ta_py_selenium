@@ -55,25 +55,6 @@ class HomePage(BasePageWithAdvancedSearch):
         self._wait.until(EC.element_to_be_clickable(find_out_more_button))
         return find_out_more_button
 
-    @property
-    def challenge_description_heading(self):
-        return self._driver.find_element(self.locators["challenge_description_heading"])
-
-    @property
-    def challenge_description_text(self):
-        return self._driver.find_element(self.locators["challenge_description_text"])
-
-    @property
-    def challenge_image(self):
-        return self._driver.find_element(self.locators["challenge_image"])
-
-    @property
-    def speaking_club_heading(self):
-        return self._driver.find_element(self.locators["speaking_club_heading"])
-
-    @property
-    def speaking_club_image(self):
-        return self._driver.find_element(self.locators["speaking_club_image"])
 
     def click_challenge_find_out_more_button(self) -> BaseChallengePage:
         self.challenge_find_out_more_button.click()

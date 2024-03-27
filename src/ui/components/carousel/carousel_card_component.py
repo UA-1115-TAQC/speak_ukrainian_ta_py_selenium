@@ -25,14 +25,6 @@ class CarouselCardComponent(BasicCarouselComponent):
         self._active_carousel_cards = None
 
     @property
-    def carousel_card_heading(self) -> WebElement:
-        return self._node.find_element(*self.locators["carousel_card_heading"])
-
-    @property
-    def carousel_card_all_clubs_button(self) -> WebElement:
-        return self._node.find_element(*self.locators["carousel_card_all_clubs_button"])
-
-    @property
     def carousel_cards(self) -> list[ClubDirectionCard]:
         if not self._carousel_cards:
             cards = self.slider_container.find_elements(By.XPATH, ".//div[contains(@class,\"slick-slide\")]")

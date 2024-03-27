@@ -13,11 +13,3 @@ class LanguageSphereFacebookPage(BasePageWithoutHeaderAndFooter):
             "facebook_logo": ("xpath", "//body//a[@aria-label=\"Facebook\"]"),
             "initiative_heading": ("xpath", "//body//span[contains(text(),'Сімейний фестиваль \"Мовосфера\"')]"),
         }
-
-    @property
-    def facebook_logo(self) -> WebElement:
-        return self._driver.find_element(*self.locators["facebook_logo"])
-
-    @property
-    def initiative_heading(self) -> WebElement:
-        return self._driver.find_element(*self.locators["initiative_heading"])

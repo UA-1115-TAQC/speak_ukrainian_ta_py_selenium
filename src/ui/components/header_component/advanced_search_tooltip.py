@@ -17,14 +17,6 @@ class AdvancedSearchToolTip(BaseComponent):
         self._clubs = None
 
     @property
-    def category_name_categories(self) -> WebElement:
-        return self._node.find_element(*self.locators["category_name_categories"])
-
-    @property
-    def category_name_clubs(self) -> WebElement:
-        return self._node.find_element(*self.locators["category_name_clubs"])
-
-    @property
     def categories(self) -> dict[str, WebElement]:
         if not self._categories:
             self._categories = {}

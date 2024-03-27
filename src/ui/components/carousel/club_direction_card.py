@@ -20,25 +20,6 @@ class ClubDirectionCard(BaseComponent):
             "club_card_button_pointer": ("xpath", ".//span[@aria-label=\"arrow-right\"]"),
         }
 
-    @property
-    def club_card_image(self) -> WebElement:
-        return self._node.find_element(*self.locators["club_card_image"])
-
-    @property
-    def club_card_heading(self) -> WebElement:
-        return self._node.find_element(*self.locators["club_card_heading"])
-
-    @property
-    def club_card_text(self) -> WebElement:
-        return self._node.find_element(*self.locators["club_card_text"])
-
-    @property
-    def club_card_button(self) -> WebElement:
-        return self._node.find_element(*self.locators["club_card_button"])
-
-    @property
-    def club_card_button_pointer(self) -> WebElement:
-        return self._node.find_element(*self.locators["club_card_button_pointer"])
 
     def click_club_card_button(self) -> ClubsPage:
         self.club_card_button.click()

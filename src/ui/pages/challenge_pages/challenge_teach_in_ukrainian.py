@@ -17,10 +17,3 @@ class ChallengeTeachInUkrainian(BaseChallengePage):
             "challenge_image_text_content": ("xpath", CHALLENGE_IMAGE_PATH + "/span[contains(@class,\"content\")]"),
         }
 
-    @property
-    def challenge_img_text(self) -> WebElement:
-        return self._driver.find_element(*self.locators["challenge_img_text"])
-
-    @property
-    def challenge_img_text_content(self) -> WebElement:
-        return self._driver.find_element(*self.locators["challenge_img_text_content"])

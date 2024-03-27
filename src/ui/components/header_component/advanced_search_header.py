@@ -22,34 +22,6 @@ class AdvancedSearchHeaderComponent(BaseComponent):
             "show_on_map_button": ("xpath", ".//button[contains(@class,'show-map-button')]"),
         }
 
-    @property
-    def advanced_search_text_heading(self) -> WebElement:
-        return self._node.find_element(*self.locators["advanced_search_text_heading"])
-
-    @property
-    def selection_search_input_field(self) -> WebElement:
-        return self._node.find_element(*self.locators["selection_search_input_field"])
-
-    @property
-    def selection_search_input_field_placeholder(self) -> WebElement:
-        return self._node.find_element(*self.locators["selection_search_input_field_placeholder"])
-
-    @property
-    def search_icon(self) -> WebElement:
-        return self._node.find_element(*self.locators["search_icon"])
-
-    @property
-    def advanced_search_icon(self) -> WebElement:
-        return self._node.find_element(*self.locators["advanced_search_icon"])
-
-    @property
-    def selection_search_close_button(self) -> WebElement:
-        return self._node.find_element(*self.locators["selection_search_close_button"])
-
-    @property
-    def advanced_search_tooltip_node(self) -> WebElement:
-        return self._node.find_element(*self.locators["advanced_search_tooltip_node"])
-
     def get_text_selection_search_input_field(self) -> str:
         return self.selection_search_input_field.get_attribute("value")
 
@@ -85,10 +57,6 @@ class AdvancedSearchClubsHeaderComponent(AdvancedSearchHeaderComponent):
     def __init__(self, driver, node):
         super().__init__(driver, node)
         self._show_on_map_button = None
-
-    @property
-    def show_on_map_button(self):
-        return self._node.find_element(*self.locators["show_on_map_button"])
 
     def click_show_on_map_button(self):
         self.show_on_map_button.click()

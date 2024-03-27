@@ -20,30 +20,6 @@ class CarouselImgCard(BaseComponent):
             "card_link": ("xpath", ".//a"),
         }
 
-    @property
-    def background_image(self) -> WebElement:
-        return self._node.find_element(*self.locators["background_image"])
-
-    @property
-    def card_heading(self) -> WebElement:
-        return self._node.find_element(*self.locators["card_heading"])
-
-    @property
-    def card_text(self) -> WebElement:
-        return self._node.find_element(*self.locators["card_text"])
-
-    @property
-    def card_button(self) -> WebElement:
-        return self._node.find_element(*self.locators["card_button"])
-
-    @property
-    def card_button_text(self) -> WebElement:
-        return self._node.find_element(*self.locators["card_button_text"])
-
-    @property
-    def card_link(self) -> WebElement:
-        return self._node.find_element(*self.locators[".//a"])
-
     def get_card_link_text(self) -> str:
         return self.card_link.get_attribute("href")
 

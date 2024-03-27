@@ -26,42 +26,6 @@ class BaseChallengePage(BasePageWithAdvancedSearch):
         }
         self._wait = WebDriverWait(self.driver, 30)
 
-    @property
-    def challenge_image(self) -> WebElement:
-        return self._driver.find_element(*self.locators["challenge_image"])
-
-    @property
-    def challenge_image_text(self) -> WebElement:
-        return self._driver.find_element(*self.locators["challenge_image_text"])
-
-    @property
-    def challenge_description_container(self) -> WebElement:
-        return self._driver.find_element(*self.locators["challenge_description_container"])
-
-    @property
-    def help_project_button(self) -> WebElement:
-        return self._driver.find_element(*self.locators["help_project_button"])
-
-    @property
-    def help_project_link(self) -> WebElement:
-        return self._driver.find_element(*self.locators["help_project_link"])
-
-    @property
-    def contacts_text(self) -> WebElement:
-        return self._driver.find_element(*self.locators["contacts_text"])
-
-    @property
-    def contacts_social_media_icons(self) -> list[WebElement]:
-        return self._driver.find_element(*self.locators["contacts_social_media_icons"])
-
-    @property
-    def signup_for_a_challenge_button(self) -> WebElement:
-        return self._driver.find_element(*self.locators["signup_for_a_challenge_button"])
-
-    @property
-    def signup_for_a_challenge_button_tooltip(self) -> WebElement:
-        return self._driver.find_element(*self.locators["signup_for_a_challenge_button_tooltip"])
-
     def get_social_media_icon_by_index(self, index) -> WebElement:
         if 0 <= index < len(self.contacts_social_media_icons):
             return self.contacts_social_media_icons[index]

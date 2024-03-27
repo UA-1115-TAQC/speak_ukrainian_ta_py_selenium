@@ -81,12 +81,10 @@ class AddClubStepThree(BaseComponent):
         self.get_wait(5).until(lambda d: img_count < len(self.gallery_img_list))
         return self
 
-    @property
-    def textarea_value(self) -> str:
+    def get_description_textarea_value(self) -> str:
         return self.description_textarea.get_attribute("value")
 
-    @textarea_value.setter
-    def textarea_value(self, value: str):
+    def set_description_textarea_value(self, value: str):
         self.description_textarea.send_keys(value)
 
     @property
@@ -96,18 +94,19 @@ class AddClubStepThree(BaseComponent):
     def get_error_messages_text_list(self) -> list[str]:
         return [error.get_attribute("innerText") for error in self.error_messages_list]
 
-    def clear_textarea(self) -> None:
+    def clear_textarea(self) -> Self:
         self.description_textarea.visibility_of_element_located().click()
-        ActionChains(self.node.parent).key_down(Keys.CONTROL) \
+        self.get_actions().key_down(Keys.CONTROL) \
             .send_keys('a') \
             .key_up(Keys.CONTROL) \
             .send_keys(Keys.BACKSPACE) \
             .perform()
-        ActionChains(self.node.parent).key_down(Keys.COMMAND) \
+        self.get_actions().key_down(Keys.COMMAND) \
             .send_keys('a') \
             .key_up(Keys.COMMAND) \
             .send_keys(Keys.BACKSPACE) \
             .perform()
+        return self
 
     def click_previous_step_button(self) -> 'AddClubStepTwo':
         self.previous_button.click_button()

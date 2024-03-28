@@ -11,11 +11,9 @@ from src.ui.pages.clubs_page import ClubsPage
 
 
 class CarouselCardComponent(BasicCarouselComponent):
-    def __init__(self, driver: webdriver, node: WebElement) -> None:
-        super().__init__(driver, node)
-        self._driver = driver
-        self._wait = WebDriverWait(self._driver, 30)
-        self._node = node
+    def __init__(self, node: WebElement) -> None:
+        super().__init__(node)
+        self._wait = WebDriverWait(self.driver, 30)
         self.locators = {
             "carousel_card_heading": ("xpath", "//div[contains(@class,\"categories-header\")]/h2"),
             "carousel_card_all_clubs_button": ("xpath", "//div[contains(@class,\"categories-header\")]/a/button"),
@@ -29,12 +27,12 @@ class CarouselCardComponent(BasicCarouselComponent):
         if not self._carousel_cards:
             cards = self.slider_container.find_elements(By.XPATH, ".//div[contains(@class,\"slick-slide\")]")
             for card in cards:
-                self._carousel_cards.append(ClubDirectionCard(self._driver, card))
+                self._carousel_cards.append(ClubDirectionCard(self.driver, card))
         return self._carousel_cards
 
     def click_carousel_card_all_clubs_button(self) -> ClubsPage:
         self.carousel_card_all_clubs_button.click()
-        return ClubsPage(self._driver).wait_until_clubs_page_is_loaded()
+        return ClubsPage(self.driver).wait_until_clubs_page_is_loaded()
 
     def get_club_direction_card_by_index(self, index) -> ClubDirectionCard:
         if 0 <= index <= (len(self.carousel_cards) - 1):

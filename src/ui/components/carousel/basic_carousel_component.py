@@ -8,10 +8,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from src.ui.components.base_component import BaseComponent
 
 class BasicCarouselComponent(BaseComponent):
-    def __init__(self, driver: webdriver, node: WebElement) -> None:
-        super().__init__(driver)
-        self._driver = driver
-        self._node = node
+    def __init__(self, node: WebElement) -> None:
+        super().__init__(node)
         self.locators = {
             "left_arrow_button": ("xpath",".//span[contains(@aria-label, 'arrow-left')]"),
             "right_arrow_button": ("xpath", ".//span[contains(@aria-label, 'arrow-right')]"),
@@ -19,11 +17,11 @@ class BasicCarouselComponent(BaseComponent):
             "slick_dots_container": ("xpath", ".//ul[contains(@class,\"slick-dots\")]"),
             "slider_container": ("xpath", ".//div[contains(@class,\"slick-slider\")]"),
         }
-        self._wait = WebDriverWait(self._driver, 30)
+        self._wait = WebDriverWait(self.driver, 30)
 
     @property
     def slick_dots(self) -> list[WebElement]:
-        return self._node.find_elements(*self.locators["slick_dots"])
+        return self.node.find_elements(*self.locators["slick_dots"])
 
     def click_right_arrow_button(self):
         self.right_arrow_button.click()

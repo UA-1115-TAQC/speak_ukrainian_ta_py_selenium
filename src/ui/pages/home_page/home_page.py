@@ -11,81 +11,50 @@ from src.ui.pages.challenge_pages.base_challenge_page import BaseChallengePage
 from src.ui.pages.challenge_pages.challenge_ukrainian_club_speak_page import ChallengeUkrainianClubSpeakPage
 from src.ui.pages.facebook_pages.language_sphere_facebook_page import LanguageSphereFacebookPage
 
-CAROUSEL_IMG_COMPONENT_ELEMENT = (By.XPATH, '//div[contains(@class,"about-carousel-block")]')
-CAROUSEL_CARD_COMPONENT_ELEMENT = (By.XPATH, '//div[contains(@class,"categories-carousel-block")]')
-CHALLENGE_IMAGE = (By.XPATH, '//div[contains(@class,"about-challenge")]//img')
-SPEAKING_CLUB_HEADING = (By.XPATH, '//div[contains(@class,"speakingclub-description")]//h2')
-SPEAKING_CLUB_IMAGE = (By.XPATH, '//img[contains(@class,"banner-image")]')
 CHALLENGE_DESCRIPTION_PATH = "//div[contains(@class,\"challenge-description\")]"
-CHALLENGE_DESCRIPTION_HEADING = (By.XPATH, CHALLENGE_DESCRIPTION_PATH + "/h2")
-CHALLENGE_DESCRIPTION_TEXT = (By.XPATH, CHALLENGE_DESCRIPTION_PATH + "/span")
-CHALLENGE_FIND_OUT_MORE_BUTTON = (By.XPATH, CHALLENGE_DESCRIPTION_PATH + "//button")
 
 
 class HomePage(BasePageWithAdvancedSearch):
     def __init__(self, driver: webdriver) -> None:
         super().__init__(driver)
         self._driver = driver
+        self.locators = {
+            "carousel_img_component_element": ("xpath", '//div[contains(@class,"about-carousel-block")]'),
+            "carousel_card_component_element": ("xpath", '//div[contains(@class,"categories-carousel-block")]'),
+            "challenge_find_out_more_button": ("xpath", CHALLENGE_DESCRIPTION_PATH + "//button"),
+            "challenge_description_heading": ("xpath", CHALLENGE_DESCRIPTION_PATH + "/h2"),
+            "challenge_description_text": ("xpath", CHALLENGE_DESCRIPTION_PATH + "/span"),
+            "challenge_image": ("xpath", '//div[contains(@class,"about-challenge")]//img'),
+            "speaking_club_heading": ("xpath", '//div[contains(@class,"speakingclub-description")]//h2'),
+            "speaking_club_image": ("xpath", '//img[contains(@class,"banner-image")]'),
+        }
         self._carousel_img_component = None
         self._carousel_card_component = None
-        self._challenge_image = None
-        self._speaking_club_heading = None
-        self._speaking_club_image = None
-        self._challenge_find_out_more_button = None
-        self._challenge_description_heading = None
-        self._challenge_description_text = None
         self._wait = WebDriverWait(self._driver, 30)
         self._jsExecutor = None
 
     @property
     def carousel_img_component(self):
         if not self._carousel_img_component:
-            self._carousel_img_component = CarouselImgComponent(self.driver, self._carousel_img_component)
+            self._carousel_img_component = CarouselImgComponent(self.driver,
+                                                                self._driver.find_element(self.locators["carousel_img_component_element"]))
         return self._carousel_img_component
 
     @property
     def carousel_card_component(self):
         if not self._carousel_card_component:
-          self._carousel_card_component= CarouselCardComponent(self.driver, self._carousel_card_component)
+            self._carousel_card_component = CarouselCardComponent(self.driver,
+                                                                  self._driver.find_element(self.locators["carousel_card_component_element"]))
         return self._carousel_card_component
 
     @property
     def challenge_find_out_more_button(self):
-        if not self._challenge_find_out_more_button:
-            self._challenge_find_out_more_button = self._driver.find_element(*CHALLENGE_FIND_OUT_MORE_BUTTON)
+        find_out_more_button = self._driver.find_element(self.locators["challenge_find_out_more_button"])
         self._jsExecutor = self.driver.execute_script
-        self._jsExecutor("arguments[0].scrollIntoView(true);", self._challenge_find_out_more_button)
-        self._wait.until(EC.element_to_be_clickable(self._challenge_find_out_more_button))
-        return self._challenge_find_out_more_button
+        self._jsExecutor("arguments[0].scrollIntoView(true);", find_out_more_button)
+        self._wait.until(EC.element_to_be_clickable(find_out_more_button))
+        return find_out_more_button
 
-    @property
-    def challenge_description_heading(self):
-        if not self._challenge_description_heading:
-            self._challenge_description_heading = self._driver.find_element(*CHALLENGE_DESCRIPTION_HEADING)
-        return self._challenge_description_heading
-
-    @property
-    def challenge_description_text(self):
-        if not self._challenge_description_text:
-            self._challenge_description_text = self._driver.find_element(*CHALLENGE_DESCRIPTION_TEXT)
-        return self._challenge_description_text
-
-    @property
-    def challenge_image(self):
-        if not self._challenge_image:
-            self._challenge_image = self._driver.find_element(*CHALLENGE_IMAGE)
-        return self._challenge_image
-    @property
-    def speaking_club_heading(self):
-        if not self._speaking_club_heading:
-            self._speaking_club_heading = self._driver.find_element(*SPEAKING_CLUB_HEADING)
-        return self._speaking_club_heading
-
-    @property
-    def speaking_club_image(self):
-        if not self._speaking_club_image:
-            self._speaking_club_image = self._driver.find_element(*SPEAKING_CLUB_IMAGE)
-        return self._speaking_club_image
 
     def click_challenge_find_out_more_button(self) -> BaseChallengePage:
         self.challenge_find_out_more_button.click()
@@ -126,7 +95,7 @@ class HomePage(BasePageWithAdvancedSearch):
 
     def wait_until_home_page_is_loaded(self):
         # todo change with config home url
-        initial_url = "http://speak-ukrainian.eastus2.cloudapp.azure.com/dev/" #todo change with config home url
+        initial_url = "http://speak-ukrainian.eastus2.cloudapp.azure.com/dev/"  # todo change with config home url
         self._wait.until(lambda driver: initial_url == driver.current_url)
 
     def wait_until_home_page_is_visible(self):

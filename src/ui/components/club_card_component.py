@@ -1,4 +1,3 @@
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from src.ui.components.base_component import BaseComponent
 from src.ui.components.club_info_popup import ClubInfoPopup
@@ -7,7 +6,7 @@ from src.ui.elements.direction_element import DirectionElement
 
 class ClubCardComponent(BaseComponent):
 
-    def __init__(self, driver, node):
+    def __init__(self, node):
         super().__init__(node)
         self.locators = {
             "logo": ("xpath", ".//div[@class='title']//img"),
@@ -22,16 +21,11 @@ class ClubCardComponent(BaseComponent):
             "popup": ("xpath", "//div[@class='ant-modal-root css-1kvr9ql']"),
             "club_info_popup_root": ("xpath", "//div[contains(@class,'clubInfo')]"),
         }
-        self._driver = driver
-        self._wait = WebDriverWait(self._driver, 10)
 
     @property
     def direction_list(self):
-        direction_list = []
         directions = self.node.find_elements(*self.locators["directions"])
-        for direction in directions:
-            direction_list.append(DirectionElement(direction))
-        return direction_list
+        return [DirectionElement(direction) for direction in directions]
 
     def get_logo_src(self):
         self.logo.get_attribute("src")
@@ -53,8 +47,9 @@ class ClubCardComponent(BaseComponent):
 
     def click_title(self):
         self.name.click()
-        self._wait.until(ec.presence_of_element_located(self.locators["popup"]))
-        return ClubInfoPopup(self._driver.find_element(*self.locators["club_info_popup_root"]))
+        self.get_wait(30).until(ec.presence_of_element_located(self.locators["popup"]))
+        # TODO
+        return ClubInfoPopup(self.driver.find_element(*self.locators["club_info_popup_root"]))
 
     def click_address(self):
         self.address.click()

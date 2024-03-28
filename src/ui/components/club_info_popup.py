@@ -25,19 +25,13 @@ class ClubInfoPopup(BasePopUp):
 
     @property
     def direction_list(self):
-        direction_list = []
         directions = self.node.find_elements(*self.locators["directions"])
-        for direction in directions:
-            direction_list.append(DirectionElement(direction))
-        return direction_list
+        return [DirectionElement(direction) for direction in directions]
 
     @property
     def contact_list(self):
-        contact_list = []
         contacts = self.node.find_elements(*self.locators["contacts"])
-        for contact in contacts:
-            contact_list.append(ContactElement(contact))
-        return contact_list
+        return [ContactElement(contact) for contact in contacts]
 
     def directions_contains(self, text):
         for d in self.direction_list:

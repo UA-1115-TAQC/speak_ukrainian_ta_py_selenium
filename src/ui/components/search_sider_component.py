@@ -5,7 +5,7 @@ from src.ui.elements.location_search_sider_element import LocationSearchSiderEle
 
 class SearchSiderComponent(BaseComponent):
 
-    def __init__(self, driver, node):
+    def __init__(self, node):
         super().__init__(node)
         self.locators = {
             "center_or_club_radio_button": ("xpath", ".//label[contains(@class,'ant-radio-wrapper')]"),
@@ -13,14 +13,12 @@ class SearchSiderComponent(BaseComponent):
             "search_city_box": ("xpath", "./descendant::div[contains(@class,'ant-select-in-form-item')][1]"),
             "search_district_box": ("xpath", "./descendant::div[contains(@class,'ant-select-in-form-item')][2]"),
             "search_metro_box": ("xpath", "./descendant::div[contains(@class,'ant-select-in-form-item')][3]"),
-
             "online_checkbox_field": ("xpath", ".//div[@id='basic_isOnline']"),
             "online_checkbox_input": ("xpath", ".//div[@id='basic_isOnline']//span[contains(@class, 'ant-wave-target')]"),
             "direction_checkbox_field_list": ("xpath", ".//div[@id='basic_categoriesName']//label[contains(@class,'ant-checkbox-wrapper')]"),
             "direction_checkbox_input_list": ("xpath", ".//div[@id='basic_categoriesName']//input"),
             "age_input": ("xpath", ".//span[@id='basic_age']//input[contains(@class,'ant-input-number-input')]"),
         }
-        self._driver = driver
 
     @property
     def center_or_club_radio_button(self):
@@ -28,15 +26,20 @@ class SearchSiderComponent(BaseComponent):
 
     @property
     def search_city_box(self):
-        return LocationSearchSiderElement(self._driver, self.node.find_element(*self.locators["search_city_box"]))
+        # TODO
+        el = self.search_city_box
+        return LocationSearchSiderElement(el)
+        # return LocationSearchSiderElement(self.node.find_element(*self.locators["search_city_box"]))
 
     @property
     def search_district_box(self):
-        return LocationSearchSiderElement(self._driver, self.node.find_element(*self.locators["search_district_box"]))
+        # TODO
+        return LocationSearchSiderElement(self.node.find_element(*self.locators["search_district_box"]))
 
     @property
     def search_metro_box(self):
-        return LocationSearchSiderElement(self._driver, self.node.find_element(*self.locators["search_metro_box"]))
+        # TODO
+        return LocationSearchSiderElement(self.node.find_element(*self.locators["search_metro_box"]))
 
     @property
     def direction_checkbox_field_list(self):

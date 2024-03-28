@@ -1,12 +1,10 @@
 from selenium.webdriver import ActionChains
-from selenium.webdriver.support.wait import WebDriverWait
-
 from src.ui.components.base_component import BaseComponent
 
 
 class PaginationComponent(BaseComponent):
 
-    def __init__(self,node):
+    def __init__(self, node):
         super().__init__(node)
         self.locators = {
             "previous": ("xpath", ".//li[contains(@class,'ant-pagination-prev')]"),
@@ -28,7 +26,7 @@ class PaginationComponent(BaseComponent):
     def click_next(self):
         active_item = self.get_active_item()
         self.next.click()
-        self._wait.until(lambda wd: not ("-active" in active_item.get_attribute("class")))
+        self.get_wait(30).until(lambda wd: not ("-active" in active_item.get_attribute("class")))
         return self
 
     def get_item_by_title(self, num):
@@ -59,18 +57,15 @@ class PaginationComponent(BaseComponent):
 
 class ClubsPaginationComponent(PaginationComponent):
 
-    def __init__(self, driver, node):
-        super().__init__(driver, node)
+    def __init__(self, node):
+        super().__init__(node)
         self.locators = {
             **self.locators,
             "first_club": ("xpath", "//div[contains(@class,'content-clubs-list')]//div[contains(@class, 'ant-card-body')]//div[@class='title']//div[@class='name']"),
         }
-        self._driver = driver
-        self._node = node
-        self._wait = WebDriverWait(self._driver, 40)
 
     def click_next(self):
         first_club_text = self.first_club.text
         self.next.click()
-        self._wait.until(lambda wd: self._node.find_element(*self.locators["first_club"]).text != first_club_text)
+        self.get_wait(30).until(lambda wd: self._node.find_element(*self.locators["first_club"]).text != first_club_text)
         return self

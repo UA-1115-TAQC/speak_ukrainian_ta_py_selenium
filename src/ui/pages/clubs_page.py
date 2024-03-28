@@ -32,40 +32,48 @@ class ClubsPage(BasePage):
 
     @property
     def pagination(self):
-        return PaginationComponent(self._driver, self._driver.find_element(*self.locators["pagination"]))
+        if self.is_element_present("pagination"):
+            return PaginationComponent(self._driver, self._driver.find_element(*self.locators["pagination"]))
+        return None
 
     @property
     def search_sider(self):
-        return SearchSiderComponent(self.driver, self._driver.find_element(*self.locators["search_sider"]))
+        if self.is_element_present("search_sider"):
+            return SearchSiderComponent(self.driver, self._driver.find_element(*self.locators["search_sider"]))
+        return None
 
     @property
     def list_control(self):
-        return ListControlComponent(self._driver.find_element(*self.locators["list_control"]))
+        if self.is_element_present("list_control"):
+            return ListControlComponent(self._driver.find_element(*self.locators["list_control"]))
+        return None
 
     @property
     def card_list(self):
-        if self.search_sider_is_opened() and self.search_sider.checked_radio_button.get_attribute("innerText") == "Центр":
+        if self.is_element_present("search_sider") and self.search_sider.checked_radio_button.get_attribute("innerText") == "Центр":
             return self.get_center_card_list()
         else:
             return self.get_club_card_list()
 
     def get_club_card_list(self):
         club_card_list = []
-        club_elements_list = self._driver.find_elements(*self.locators["club_cards"])
-        for club in club_elements_list:
-            club_card_list.append(ClubCardComponent(self._driver, club))
+        if self.is_element_present("club_cards"):
+            club_elements_list = self._driver.find_elements(*self.locators["club_cards"])
+            for club in club_elements_list:
+                club_card_list.append(ClubCardComponent(self._driver, club))
         return club_card_list
 
     def get_center_card_list(self):
         center_card_list = []
-        center_elements_list = self._driver.find_elements(*self.locators["center_cards"])
-        for center in center_elements_list:
-            center_card_list.append(CenterCardComponent(center))
+        if self.is_element_present("center_cards"):
+            center_elements_list = self._driver.find_elements(*self.locators["center_cards"])
+            for center in center_elements_list:
+                center_card_list.append(CenterCardComponent(center))
         return center_card_list
 
-    def search_sider_is_opened(self):
+    def is_element_present(self, element_name):
         try:
-            self._driver.find_element(*self.locators["search_sider"])
+            self._driver.find_element(*self.locators[element_name])
         except NoSuchElementException:
             return False
         return True

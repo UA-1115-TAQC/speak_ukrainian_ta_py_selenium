@@ -23,29 +23,31 @@ class ClubsPage(BasePage):
             "center_cards": ("xpath", "//div[contains(@class,'content-center-list')]/child::div"),
         }
 
+    # TODO
     @property
     def search_clubs_header(self):
-        # TODO
+        # return AdvancedSearchClubsHeaderComponent(self.driver, self.search_clubs_header)
         return AdvancedSearchClubsHeaderComponent(self.driver, self.driver.find_element(*self.locators["search_clubs_header"]))
 
+    # TODO
     @property
     def pagination(self):
         if self.is_element_present("pagination"):
-            # TODO
+            # return PaginationComponent(self.pagination)
             return PaginationComponent(self.driver.find_element(*self.locators["pagination"]))
         return None
 
+    # TODO
     @property
     def search_sider(self):
         if self.is_element_present("search_sider"):
-            # TODO
             return SearchSiderComponent(self.driver.find_element(*self.locators["search_sider"]))
         return None
 
+    # TODO
     @property
     def list_control(self):
         if self.is_element_present("list_control"):
-            # TODO
             return ListControlComponent(self.driver.find_element(*self.locators["list_control"]))
         return None
 
@@ -84,4 +86,3 @@ class ClubsPage(BasePage):
 
     def wait_until_sidebar_is_loaded(self):
         self.get_wait(30).until(lambda wd: self.is_element_present("search_sider"))
-

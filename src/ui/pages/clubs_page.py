@@ -3,7 +3,7 @@ from src.ui.components.center_card_component import CenterCardComponent
 from src.ui.components.club_card_component import ClubCardComponent
 from src.ui.components.header_component.advanced_search_header import AdvancedSearchClubsHeaderComponent
 from src.ui.components.list_control_component import ListControlComponent
-from src.ui.components.pagination_component import PaginationComponent
+from src.ui.components.pagination_component import ClubsPaginationComponent
 from src.ui.components.search_sider_component import SearchSiderComponent
 from src.ui.pages.base_pages.base_page import BasePage
 from selenium.webdriver.support.wait import WebDriverWait
@@ -33,7 +33,7 @@ class ClubsPage(BasePage):
     @property
     def pagination(self):
         if self.is_element_present("pagination"):
-            return PaginationComponent(self._driver, self._driver.find_element(*self.locators["pagination"]))
+            return ClubsPaginationComponent(self._driver, self._driver.find_element(*self.locators["pagination"]))
         return None
 
     @property
@@ -86,4 +86,4 @@ class ClubsPage(BasePage):
         self._wait.until(ec.visibility_of(self.search_clubs_header.show_on_map_button))
 
     def wait_until_sidebar_is_loaded(self, timeout=30):
-        self._wait.until(lambda wd: self.search_sider_is_opened())
+        self._wait.until(lambda wd: self.is_element_present("search_sider"))

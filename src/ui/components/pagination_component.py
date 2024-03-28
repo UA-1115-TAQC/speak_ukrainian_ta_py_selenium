@@ -1,4 +1,6 @@
 from selenium.webdriver import ActionChains
+from selenium.webdriver.support.wait import WebDriverWait
+
 from src.ui.components.base_component import BaseComponent
 
 
@@ -46,3 +48,24 @@ class PaginationComponent(BaseComponent):
     def scroll_into_view(self):
         ActionChains(self._driver).move_to_element(self.next).perform()
         return self
+
+
+class ClubsPaginationComponent(PaginationComponent):
+
+    def __init__(self, driver, node):
+        super().__init__(driver, node)
+        self.locators = {
+            **self.locators,
+            "first_club": ("xpath", "//div[contains(@class,'content-clubs-list')]//div[contains(@class, 'ant-card-body')]//div[@class='title']//div[@class='name']"),
+        }
+        self._driver = driver
+        self._wait = WebDriverWait(self._driver, 30)
+
+    def click_next(self):
+        first_club_text = self.first_club.text
+        self.next.click()
+        self._wait.until(lambda wd: self.first_club.text != first_club_text)
+        return self
+
+
+

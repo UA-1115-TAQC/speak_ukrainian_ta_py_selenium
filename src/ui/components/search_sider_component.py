@@ -24,21 +24,19 @@ class SearchSiderComponent(BaseComponent):
     def center_or_club_radio_button(self):
         return self.node.find_elements(*self.locators["center_or_club_radio_button"])
 
+    # TODO
     @property
     def search_city_box(self):
-        # TODO
-        el = self.search_city_box
-        return LocationSearchSiderElement(el)
-        # return LocationSearchSiderElement(self.node.find_element(*self.locators["search_city_box"]))
+        return LocationSearchSiderElement(self.node.find_element(*self.locators["search_city_box"]))
 
+    # TODO
     @property
     def search_district_box(self):
-        # TODO
         return LocationSearchSiderElement(self.node.find_element(*self.locators["search_district_box"]))
 
+    # TODO
     @property
     def search_metro_box(self):
-        # TODO
         return LocationSearchSiderElement(self.node.find_element(*self.locators["search_metro_box"]))
 
     @property

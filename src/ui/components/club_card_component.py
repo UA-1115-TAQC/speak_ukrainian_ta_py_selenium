@@ -48,8 +48,7 @@ class ClubCardComponent(BaseComponent):
     def click_title(self):
         self.name.click()
         self.get_wait(30).until(ec.presence_of_element_located(self.locators["popup"]))
-        # TODO
-        return ClubInfoPopup(self.driver.find_element(*self.locators["club_info_popup_root"]))
+        return ClubInfoPopup(self.club_info_popup_root)
 
     def click_address(self):
         self.address.click()

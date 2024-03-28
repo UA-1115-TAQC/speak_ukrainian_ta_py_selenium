@@ -26,14 +26,14 @@ class ClubsPage(BasePage):
     # TODO
     @property
     def search_clubs_header(self):
-        # return AdvancedSearchClubsHeaderComponent(self.driver, self.search_clubs_header)
-        return AdvancedSearchClubsHeaderComponent(self.driver, self.driver.find_element(*self.locators["search_clubs_header"]))
+        return AdvancedSearchClubsHeaderComponent(self.driver, self.search_clubs_header)
+        # return AdvancedSearchClubsHeaderComponent(self.driver, self.driver.find_element(*self.locators["search_clubs_header"]))
 
     # TODO
     @property
     def pagination(self):
         if self.is_element_present("pagination"):
-            # return PaginationComponent(self.pagination)
+            # return ClubsPaginationComponent(self.pagination)
             return ClubsPaginationComponent(self.driver.find_element(*self.locators["pagination"]))
         return None
 

@@ -67,5 +67,5 @@ class ClubsPaginationComponent(PaginationComponent):
     def click_next(self):
         first_club_text = self.first_club.text
         self.next.click()
-        self.get_wait(30).until(lambda wd: self._node.find_element(*self.locators["first_club"]).text != first_club_text)
+        self.get_wait(30).until(lambda wd: self.node.find_element(*self.locators["first_club"]).text != first_club_text)
         return self

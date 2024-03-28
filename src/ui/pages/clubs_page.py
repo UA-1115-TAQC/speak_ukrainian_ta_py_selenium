@@ -15,45 +15,39 @@ class ClubsPage(BasePage):
         super().__init__(driver)
         self.locators = {
             **self.locators,
-            "search_clubs_header": ("xpath", "//div[contains(@class, 'lower-header-box')]"),
-            "pagination": ("xpath", "//ul[contains(@class,'ant-pagination') and contains(@class,'pagination')]"),
-            "search_sider": ("xpath", "//div[contains(@class, 'sider')]"),
-            "list_control": ("xpath", "//div[contains(@class, 'club-list-control')]"),
+            "search_clubs_header_element": ("xpath", "//div[contains(@class, 'lower-header-box')]"),
+            "pagination_element": ("xpath", "//ul[contains(@class,'ant-pagination') and contains(@class,'pagination')]"),
+            "search_sider_element": ("xpath", "//div[contains(@class, 'sider')]"),
+            "list_control_element": ("xpath", "//div[contains(@class, 'club-list-control')]"),
             "club_cards": ("xpath", "//div[contains(@class,'content-clubs-list')]/child::div"),
             "center_cards": ("xpath", "//div[contains(@class,'content-center-list')]/child::div"),
         }
 
-    # TODO
     @property
     def search_clubs_header(self):
-        return AdvancedSearchClubsHeaderComponent(self.driver, self.search_clubs_header)
-        # return AdvancedSearchClubsHeaderComponent(self.driver, self.driver.find_element(*self.locators["search_clubs_header"]))
+        return AdvancedSearchClubsHeaderComponent(self.driver, self.search_clubs_header_element)
 
-    # TODO
     @property
     def pagination(self):
-        if self.is_element_present("pagination"):
-            # return ClubsPaginationComponent(self.pagination)
-            return ClubsPaginationComponent(self.driver.find_element(*self.locators["pagination"]))
+        if self.is_element_present("pagination_element"):
+            return ClubsPaginationComponent(self.pagination_element)
         return None
 
-    # TODO
     @property
     def search_sider(self):
-        if self.is_element_present("search_sider"):
-            return SearchSiderComponent(self.driver.find_element(*self.locators["search_sider"]))
+        if self.is_element_present("search_sider_element"):
+            return SearchSiderComponent(self.search_sider_element)
         return None
 
-    # TODO
     @property
     def list_control(self):
-        if self.is_element_present("list_control"):
-            return ListControlComponent(self.driver.find_element(*self.locators["list_control"]))
+        if self.is_element_present("list_control_element"):
+            return ListControlComponent(self.list_control_element)
         return None
 
     @property
     def card_list(self):
-        if self.is_element_present("search_sider") and self.search_sider.checked_radio_button.get_attribute("innerText") == "Центр":
+        if self.is_element_present("search_sider_element") and self.search_sider.checked_radio_button.get_attribute("innerText") == "Центр":
             return self.get_center_card_list()
         else:
             return self.get_club_card_list()
@@ -85,4 +79,4 @@ class ClubsPage(BasePage):
         self.get_wait(30).until(ec.visibility_of(self.search_clubs_header.show_on_map_button))
 
     def wait_until_sidebar_is_loaded(self):
-        self.get_wait(30).until(lambda wd: self.is_element_present("search_sider"))
+        self.get_wait(30).until(lambda wd: self.is_element_present("search_clubs_header_element"))

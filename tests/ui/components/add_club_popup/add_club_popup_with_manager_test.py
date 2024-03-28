@@ -1,8 +1,6 @@
 from selenium.webdriver import Keys
 
-from src.ui.components.add_club_popup.add_club_step_one import AddClubStepOne
 from src.ui.components.add_club_popup.add_club_step_three import AddClubStepThree
-from src.ui.components.add_club_popup.add_club_step_two import AddClubStepTwo
 from src.ui.components.add_club_popup.add_clup_popup_component import AddClubSider
 from tests.base_test_runner import LogInWithManagerTestRunner
 
@@ -24,16 +22,20 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
         self.add_club_popup = self.homepage.header.add_club_click()
         self.add_club_popup.wait_popup_open(5)
 
-    def fill_step_one_mandatory_fields_with_valid_data(self, step_one: AddClubStepOne):
+    def fill_step_one_mandatory_fields_with_valid_data(self):
+        step_one = self.add_club_popup.step_one_container
         step_one.name_input_element.set_input_value(self.VALID_CLUB_NAME)
         step_one.click_on_category_by_name(self.VALID_CATEGORY)
         step_one.min_age_input_element.set_input_value(self.VALID_MIN_AGE)
         step_one.get_actions().send_keys(Keys.TAB).perform()
         step_one.max_age_input_element.set_input_value(self.VALID_MAX_AGE)
         step_one.get_actions().send_keys(Keys.TAB).perform()
+        step_one.click_next_step_button()
 
-    def fill_step_two_mandatory_fields_with_valid_data(self, step_two: AddClubStepTwo):
+    def fill_step_two_mandatory_fields_with_valid_data(self):
+        step_two = self.add_club_popup.step_two_container
         step_two.telephone_input_element.set_input_value(self.VALID_TELEPHONE_NUMBER)
+        step_two.click_next_step_button()
 
     def check_step_three_description_elements_present(self, sider: AddClubSider, step_three: AddClubStepThree):
         self.assertTrue(sider.step_one.step_icon.is_displayed(), "Step One icon should be displayed")
@@ -71,13 +73,10 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
         WINDOW_WIDTH = 400
         WINDOW_HEIGHT = 600
 
-        step_one = self.add_club_popup.step_one_container
-        self.fill_step_one_mandatory_fields_with_valid_data(step_one)
+        self.fill_step_one_mandatory_fields_with_valid_data()
+        self.fill_step_two_mandatory_fields_with_valid_data()
 
-        step_two = step_one.click_next_step_button()
-        self.fill_step_two_mandatory_fields_with_valid_data(step_two)
-
-        step_three = step_two.click_next_step_button()
+        step_three = self.add_club_popup.step_three_container
         sider = self.add_club_popup.sider_element
 
         self.check_step_three_description_elements_present(sider, step_three)

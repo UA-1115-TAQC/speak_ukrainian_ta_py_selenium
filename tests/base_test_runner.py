@@ -15,8 +15,8 @@ class BaseTestRunner(unittest.TestCase):
 
     def login(self, email: str, password: str):
         login = self.homepage.header.click_profile_button().open_login_form()
-        login.email_input_element.set_input_value(email)
-        login.password_input_element.set_input_value(password)
+        login.enter_email(email)
+        login.enter_password(password)
         login.click_submit_button()
 
     def tearDown(self) -> None:

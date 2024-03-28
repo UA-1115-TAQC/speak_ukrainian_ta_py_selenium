@@ -22,7 +22,7 @@ class ClubsPage(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
-        self._wait = WebDriverWait(self._driver, 10)
+        self._wait = WebDriverWait(self.driver, 10)
         self._search_clubs_header = None
         self._pagination = None
         self._search_sider = None
@@ -34,41 +34,41 @@ class ClubsPage(BasePage):
     @property
     def search_clubs_header(self):
         if not self._search_clubs_header:
-            self._search_clubs_header = AdvancedSearchClubsHeaderComponent(self.driver, self._driver.find_element(*SEARCH_CLUBS_HEADER_WEB_ELEMENT))
+            self._search_clubs_header = AdvancedSearchClubsHeaderComponent(self.driver, self.driver.find_element(*SEARCH_CLUBS_HEADER_WEB_ELEMENT))
         return self._search_clubs_header
 
     @property
     def pagination(self):
         if not self._pagination:
-            self._pagination = PaginationComponent(self._driver, self._driver.find_element(*PAGINATION_WEB_ELEMENT))
+            self._pagination = PaginationComponent(self.driver, self.driver.find_element(*PAGINATION_WEB_ELEMENT))
         return self._pagination
 
     @property
     def search_sider(self):
         if not self._search_sider:
-            self._search_sider = SearchSiderComponent(self.driver, self._driver.find_element(*SEARCH_SIDER_WEB_ELEMENT))
+            self._search_sider = SearchSiderComponent(self.driver, self.driver.find_element(*SEARCH_SIDER_WEB_ELEMENT))
         return self._search_sider
 
     @property
     def list_control(self):
         if not self._list_control:
-            self._list_control = ListControlComponent(self._driver.find_element(*LIST_CONTROL_WEB_ELEMENT))
+            self._list_control = ListControlComponent(self.driver.find_element(*LIST_CONTROL_WEB_ELEMENT))
         return self._list_control
 
     @property
     def club_card_list(self):
         if not self._club_card_list:
             self._club_card_list = []
-            club_elements_list = self._driver.find_elements(*CLUBS_CARD_WEB_ELEMENT)
+            club_elements_list = self.driver.find_elements(*CLUBS_CARD_WEB_ELEMENT)
             for club in club_elements_list:
-                self._club_card_list.append(ClubCardComponent(self._driver, club))
+                self._club_card_list.append(ClubCardComponent(self.driver, club))
         return self._club_card_list
 
     @property
     def center_card_list(self):
         if not self._center_card_list:
             self._center_card_list = []
-            center_elements_list = self._driver.find_elements(*CENTER_CARD_WEB_ELEMENT)
+            center_elements_list = self.driver.find_elements(*CENTER_CARD_WEB_ELEMENT)
             for center in center_elements_list:
                 self._center_card_list.append(CenterCardComponent(center))
         return self._center_card_list
@@ -81,7 +81,7 @@ class ClubsPage(BasePage):
 
     def search_sider_is_opened(self):
         try:
-            self._driver.find_element(*SEARCH_SIDER_WEB_ELEMENT)
+            self.driver.find_element(*SEARCH_SIDER_WEB_ELEMENT)
         except NoSuchElementException:
             return False
         return True

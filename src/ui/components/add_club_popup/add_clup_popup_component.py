@@ -11,7 +11,7 @@ class AddClubSider(BaseComponent):
     def __init__(self, node: WebElement) -> None:
         super().__init__(node)
         self.locators = {
-            "sider_steps_list": ("XPATH", ".//div[contains(@class,'ant-steps-item-wait') "
+            "sider_steps_list": ("xpath", ".//div[contains(@class,'ant-steps-item-finish') "
                                           "or contains(@class,'ant-steps-item-process')]")
         }
 
@@ -21,15 +21,15 @@ class AddClubSider(BaseComponent):
 
     @property
     def step_one(self) -> PopUpStep:
-        return PopUpStep(self.sider_steps_list[0])
+        return PopUpStep(self.sider_steps[0])
 
     @property
     def step_two(self) -> PopUpStep:
-        return PopUpStep(self.sider_steps_list[1])
+        return PopUpStep(self.sider_steps[1])
 
     @property
     def step_three(self) -> PopUpStep:
-        return PopUpStep(self.sider_steps_list[2])
+        return PopUpStep(self.sider_steps[2])
 
 
 class AddClubPopUp(BasePopUp):

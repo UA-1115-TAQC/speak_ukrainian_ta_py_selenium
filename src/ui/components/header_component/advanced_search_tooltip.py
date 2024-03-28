@@ -4,30 +4,17 @@ from src.ui.components.base_component import BaseComponent
 from selenium.webdriver.remote.webelement import WebElement
 from selenium import webdriver
 
-CATEGORY_NAME_CATEGORIES = (By.XPATH, "//div[contains(@title,\"Категорії\")]")
-CATEGORY_NAME_CLUBS = (By.XPATH, "//div[contains(@title,\"Гуртки\")]")
-
 
 class AdvancedSearchToolTip(BaseComponent):
     def __init__(self, driver: webdriver, node: WebElement) -> None:
         super().__init__(node)
         self._driver = driver
-        self._category_name_categories = None
-        self._category_name_clubs = None
+        self.locators = {
+            "category_name_categories": ("xpath", "//div[contains(@title,\"Категорії\")]"),
+            "category_name_clubs": ("xpath", "//div[contains(@title,\"Гуртки\")]"),
+        }
         self._categories = None
         self._clubs = None
-
-    @property
-    def category_name_categories(self) -> WebElement:
-        if not self._category_name_categories:
-            self._category_name_categories = self.node.find_element(*CATEGORY_NAME_CATEGORIES)
-        return self._category_name_categories
-
-    @property
-    def category_name_clubs(self) -> WebElement:
-        if not self._category_name_clubs:
-            self._category_name_clubs = self.node.find_element(*CATEGORY_NAME_CLUBS)
-        return self._category_name_clubs
 
     @property
     def categories(self) -> dict[str, WebElement]:

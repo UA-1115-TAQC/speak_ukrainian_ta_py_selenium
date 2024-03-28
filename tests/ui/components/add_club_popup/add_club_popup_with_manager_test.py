@@ -25,7 +25,6 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
         self.add_club_popup = self.homepage.header.add_club_click()
         self.add_club_popup.wait_popup_open(5)
 
-
     def fill_step_one_mandatory_fields_with_valid_data(self):
         step_one = self.add_club_popup.step_one_container
         step_one.name_input_element.set_input_value(self.VALID_CLUB_NAME)
@@ -40,7 +39,6 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
         step_two = self.add_club_popup.step_two_container
         step_two.telephone_input_element.set_input_value(self.VALID_TELEPHONE_NUMBER)
         step_two.click_next_step_button()
-
 
     def check_step_three_description_elements_present(self, sider: AddClubSider, step_three: AddClubStepThree):
         self.assertTrue(sider.step_one.step_icon.is_displayed(), "Step One icon should be displayed")
@@ -145,8 +143,8 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
         self.check_step_three_description_elements_present(sider, step_three)
 
     def test_check_when_add_club_textarea_field_is_blank(self):
-        self.fill_step_one()
-        self.fill_step_two()
+        self.fill_step_one_mandatory_fields_with_valid_data()
+        self.fill_step_two_mandatory_fields_with_valid_data()
 
         step_three = self.add_club_popup.step_three_container
         step_three.clear_textarea()
@@ -194,7 +192,7 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
         self.assertTrue(step_one.dropdown_placeholder_text() == "Назва центру",
                         "Default inner text is Назва центру")
 
-        self.fill_step_one()
+        self.fill_step_one_mandatory_fields_with_valid_data()
 
         step_two = self.add_club_popup.step_two_container
         work_days = step_two.work_days_list
@@ -217,7 +215,7 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
         self.assertTrue(step_two.site_input_element.get_input_value() == "",
                         "Skype input is empty")
 
-        self.fill_step_two()
+        self.fill_step_two_mandatory_fields_with_valid_data()
 
         step_three = self.add_club_popup.step_three_container
         self.assertTrue(step_three.get_description_textarea_value() == "",
@@ -242,6 +240,6 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
         self.assertEqual(len(step_three.get_list_of_gallery_image_elements()), 2,
                          "Should be uploaded 2 images")
 
-        step_three.set_description_textarea_value(self.TEXT_50_SYMBOLS)
+        step_three.set_description_textarea_value(self.TEXT_40_SYMBOLS)
         self.assertTrue(step_three.get_error_messages_text_list() == [])
         step_three.click_complete_button()

@@ -7,54 +7,21 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from src.ui.components.base_component import BaseComponent
 
-LEFT_ARROW_BUTTON = (By.XPATH, ".//span[contains(@aria-label, 'arrow-left')]")
-RIGHT_ARROW_BUTTON = (By.XPATH, ".//span[contains(@aria-label, 'arrow-right')]")
-SLICK_DOTS = (By.XPATH, ".//ul[contains(@class,\"slick-dots\")]/li")
-SLICK_DOTS_CONTAINER = (By.XPATH, ".//ul[contains(@class,\"slick-dots\")]")
-SLIDER_CONTAINER = (By.XPATH, ".//div[contains(@class,\"slick-slider\")]")
-
-
 class BasicCarouselComponent(BaseComponent):
-    def __init__(self, driver: webdriver, node: WebElement) -> None:
-        super().__init__(driver)
-        self._driver = driver
-        self._node = node
-        self._left_arrow_button = None
-        self._right_arrow_button = None
-        self._slick_dots = None
-        self._slick_dots_container = None
-        self._slider_container = None
-        self._wait = WebDriverWait(self._driver, 30)
-
-    @property
-    def left_arrow_button(self) -> WebElement:
-        if not self._left_arrow_button:
-            self._left_arrow_button = self._node.find_element(*LEFT_ARROW_BUTTON)
-        return self._left_arrow_button
-
-    @property
-    def right_arrow_button(self) -> WebElement:
-        if not self._right_arrow_button:
-            self._right_arrow_button = self._node.find_element(*RIGHT_ARROW_BUTTON)
-        return self._right_arrow_button
+    def __init__(self, node: WebElement) -> None:
+        super().__init__(node)
+        self.locators = {
+            "left_arrow_button": ("xpath",".//span[contains(@aria-label, 'arrow-left')]"),
+            "right_arrow_button": ("xpath", ".//span[contains(@aria-label, 'arrow-right')]"),
+            "slick_dots": ("xpath", ".//ul[contains(@class,\"slick-dots\")]/li"),
+            "slick_dots_container": ("xpath", ".//ul[contains(@class,\"slick-dots\")]"),
+            "slider_container": ("xpath", ".//div[contains(@class,\"slick-slider\")]"),
+        }
+        self._wait = WebDriverWait(self.driver, 30)
 
     @property
     def slick_dots(self) -> list[WebElement]:
-        if not self._slick_dots:
-            self._slick_dots = self._node.find_elements(*SLICK_DOTS)
-        return self._slick_dots
-
-    @property
-    def slick_dots_container(self) -> WebElement:
-        if not self._slick_dots_container:
-            self._slick_dots_container = self._node.find_element(*SLICK_DOTS_CONTAINER)
-        return self._slick_dots_container
-
-    @property
-    def slider_container(self) -> WebElement:
-        if not self._slider_container:
-            self._slider_container = self._node.find_element(*SLIDER_CONTAINER)
-        return self._slider_container
+        return self.node.find_elements(*self.locators["slick_dots"])
 
     def click_right_arrow_button(self):
         self.right_arrow_button.click()
@@ -93,4 +60,3 @@ class BasicCarouselComponent(BaseComponent):
 
     def get_slick_dot_color(self, slick_dot: WebElement) -> str:
         return Color.from_string(slick_dot.value_of_css_property("background-color")).hex
-

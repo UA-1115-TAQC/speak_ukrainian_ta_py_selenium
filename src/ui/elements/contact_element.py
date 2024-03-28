@@ -15,5 +15,5 @@ class ContactElement(BaseElement):
 
     def click_contact(self):
         href = self.name.find_elements(*self.locators["href"])
-        if len(href) > 0:
+        if len(href):
             href[0].click()

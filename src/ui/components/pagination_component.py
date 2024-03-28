@@ -6,14 +6,13 @@ from src.ui.components.base_component import BaseComponent
 
 class PaginationComponent(BaseComponent):
 
-    def __init__(self, driver, node):
+    def __init__(self,node):
         super().__init__(node)
         self.locators = {
             "previous": ("xpath", ".//li[contains(@class,'ant-pagination-prev')]"),
             "next": ("xpath", ".//li[contains(@class,'ant-pagination-next')]"),
             "items": ("xpath", ".//li[contains(@class, 'ant-pagination-item') or contains(@class, 'ant-pagination-jump-')]"),
         }
-        self._driver = driver
 
     @property
     def items(self):
@@ -48,7 +47,7 @@ class PaginationComponent(BaseComponent):
         return self
 
     def scroll_into_view(self):
-        ActionChains(self._driver).move_to_element(self.next).perform()
+        ActionChains(self.driver).move_to_element(self.next).perform()
         return self
 
     def get_active_item(self):

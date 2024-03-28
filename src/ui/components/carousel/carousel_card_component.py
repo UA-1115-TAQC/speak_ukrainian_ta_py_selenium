@@ -9,9 +9,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from src.ui.components.carousel.club_direction_card import ClubDirectionCard
 from src.ui.pages.clubs_page import ClubsPage
 
-CAROUSEL_CARD_HEADING = (By.XPATH, "//div[contains(@class,\"categories-header\")]/h2")
-CAROUSEL_CARD_ALL_CLUBS_BUTTON = (By.XPATH, "//div[contains(@class,\"categories-header\")]/a/button")
-
 
 class CarouselCardComponent(BasicCarouselComponent):
     def __init__(self, driver: webdriver, node: WebElement) -> None:
@@ -19,22 +16,13 @@ class CarouselCardComponent(BasicCarouselComponent):
         self._driver = driver
         self._wait = WebDriverWait(self._driver, 30)
         self._node = node
-        self._carousel_card_heading = None
-        self._carousel_card_all_clubs_button = None
+        self.locators = {
+            "carousel_card_heading": ("xpath", "//div[contains(@class,\"categories-header\")]/h2"),
+            "carousel_card_all_clubs_button": ("xpath", "//div[contains(@class,\"categories-header\")]/a/button"),
+        }
+
         self._carousel_cards = None
         self._active_carousel_cards = None
-
-    @property
-    def carousel_card_heading(self) -> WebElement:
-        if not self._carousel_card_heading:
-            self._carousel_card_heading = self._node.find_element(*CAROUSEL_CARD_HEADING)
-        return self._carousel_card_heading
-
-    @property
-    def carousel_card_all_clubs_button(self) -> WebElement:
-        if not self._carousel_card_all_clubs_button:
-            self._carousel_card_all_clubs_button = self._node.find_element(*CAROUSEL_CARD_ALL_CLUBS_BUTTON)
-        return self._carousel_card_all_clubs_button
 
     @property
     def carousel_cards(self) -> list[ClubDirectionCard]:

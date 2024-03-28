@@ -7,30 +7,30 @@ load_dotenv()
 
 class Credentials:
 
-    @classmethod
-    def get_url(cls) -> str:
+    @staticmethod
+    def get_url() -> str:
         return os.getenv("BASE_URL")
 
-    @classmethod
-    def get_admin_email(cls) -> str:
+    @staticmethod
+    def get_admin_email() -> str:
         return os.getenv("ADMIN_EMAIL")
 
-    @classmethod
-    def get_admin_password(cls) -> str:
+    @staticmethod
+    def get_admin_password() -> str:
         return os.getenv("ADMIN_PASSWORD")
 
-    @classmethod
-    def get_manager_email(cls) -> str:
+    @staticmethod
+    def get_manager_email() -> str:
         return os.getenv("MANAGER_EMAIL")
 
-    @classmethod
-    def get_manager_password(cls) -> str:
+    @staticmethod
+    def get_manager_password() -> str:
         return os.getenv("MANAGER_PASSWORD")
 
-    @classmethod
-    def get_user_email(cls) -> str:
+    @staticmethod
+    def get_user_email() -> str:
         return os.getenv("USER_EMAIL")
 
-    @classmethod
-    def get_user_password(cls) -> str:
+    @staticmethod
+    def get_user_password() -> str:
         return os.getenv("USER_PASSWORD")

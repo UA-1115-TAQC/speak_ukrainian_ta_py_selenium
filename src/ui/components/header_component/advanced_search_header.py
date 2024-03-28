@@ -5,70 +5,22 @@ from selenium.webdriver.support.wait import WebDriverWait
 from src.ui.components.header_component.advanced_search_tooltip import AdvancedSearchToolTip
 from src.ui.components.base_component import BaseComponent
 
-ADVANCED_SEARCH_TEXT_HEADING = (By.XPATH, '//h2[@class=\'city-name\']')
-SELECTION_SEARCH_INPUT_FIELD = (By.XPATH, '//div[contains(@class, "search")]//input[@type="search"]')
-SELECTION_SEARCH_INPUT_FIELD_PLACEHOLDER = (By.XPATH, '//span[@class=\'ant-select-selection-placeholder\']')
-SEARCH_ICON = (By.XPATH, '//div[contains(@class, "search-icon-group")]/span[@aria-label="search"]')
-ADVANCED_SEARCH_ICON = (By.XPATH, '//div[contains(@class, "search-icon-group")]/span[@aria-label="control"]')
-ADVANCED_SEARCH_TOOLTIP_NODE = (By.XPATH, '//div[contains(@class, "rc-virtual-list-holder-inner")]')
-SELECTION_SEARCH_CLOSE_BUTTON = (By.XPATH, '//span[@aria-label="close-circle"]')
-SHOW_ON_MAP_BUTTON = (By.XPATH, ".//button[contains(@class,'show-map-button')]")
-
 
 class AdvancedSearchHeaderComponent(BaseComponent):
     def __init__(self, driver: webdriver, node: WebElement) -> None:
         super().__init__(node)
         self._driver = driver
-        self._advanced_search_text_heading = None
-        self._selection_search_input_field = None
-        self._selection_search_input_field_placeholder = None
-        self._search_icon = None
-        self._advanced_search_icon = None
-        self._advanced_search_tooltip_node = None
-        self._selection_search_close_button = None
-
-    @property
-    def advanced_search_text_heading(self) -> WebElement:
-        if not self._advanced_search_text_heading:
-            self._advanced_search_text_heading = self.node.find_element(*ADVANCED_SEARCH_TEXT_HEADING)
-        return self._advanced_search_text_heading
-
-    @property
-    def selection_search_input_field(self) -> WebElement:
-        if not self._selection_search_input_field:
-            self._selection_search_input_field = self.node.find_element(*SELECTION_SEARCH_INPUT_FIELD)
-        return self._selection_search_input_field
-
-    @property
-    def selection_search_input_field_placeholder(self) -> WebElement:
-        if not self._selection_search_input_field_placeholder:
-            self._selection_search_input_field_placeholder = self.node.find_element(
-                *SELECTION_SEARCH_INPUT_FIELD_PLACEHOLDER)
-        return self._selection_search_input_field_placeholder
-
-    @property
-    def search_icon(self) -> WebElement:
-        if not self._search_icon:
-            self._search_icon = self.node.find_element(*SEARCH_ICON)
-        return self._search_icon
-
-    @property
-    def advanced_search_icon(self) -> WebElement:
-        if not self._advanced_search_icon:
-            self._advanced_search_icon = self.node.find_element(*ADVANCED_SEARCH_ICON)
-        return self._advanced_search_icon
-
-    @property
-    def selection_search_close_button(self) -> WebElement:
-        if not self._selection_search_close_button:
-            self._selection_search_close_button = self.node.find_element(*SELECTION_SEARCH_CLOSE_BUTTON)
-        return self._selection_search_close_button
-
-    @property
-    def advanced_search_tooltip_node(self) -> WebElement:
-        if not self._advanced_search_tooltip_node:
-            self._advanced_search_tooltip_node = self.node.find_element(*ADVANCED_SEARCH_TOOLTIP_NODE)
-        return self._advanced_search_tooltip_node
+        self._node = node
+        self.locators = {
+            "advanced_search_text_heading": ("xpath", "//h2[@class=\'city-name\']"),
+            "selection_search_input_field": ("xpath", '//div[contains(@class, "search")]//input[@type="search"]'),
+            "selection_search_input_field_placeholder": ("xpath", '//span[@class=\'ant-select-selection-placeholder\']'),
+            "search_icon": ("xpath", '//div[contains(@class, "search-icon-group")]/span[@aria-label="search"]'),
+            "advanced_search_icon": ("xpath", '//div[contains(@class, "search-icon-group")]/span[@aria-label="control"]'),
+            "advanced_search_tooltip_node": ("xpath", '//div[contains(@class, "rc-virtual-list-holder-inner")]'),
+            "selection_search_close_button": ("xpath", '//span[@aria-label="close-circle"]'),
+            "show_on_map_button": ("xpath", ".//button[contains(@class,'show-map-button')]"),
+        }
 
     def get_text_selection_search_input_field(self) -> str:
         return self.selection_search_input_field.get_attribute("value")
@@ -105,12 +57,6 @@ class AdvancedSearchClubsHeaderComponent(AdvancedSearchHeaderComponent):
     def __init__(self, driver, node):
         super().__init__(driver, node)
         self._show_on_map_button = None
-
-    @property
-    def show_on_map_button(self):
-        if not self._show_on_map_button:
-            self._show_on_map_button = self.node.find_element(*SHOW_ON_MAP_BUTTON)
-        return self._show_on_map_button
 
     def click_show_on_map_button(self):
         self.show_on_map_button.click()

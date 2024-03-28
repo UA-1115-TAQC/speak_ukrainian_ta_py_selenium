@@ -16,7 +16,7 @@ class PaginationComponent(BaseComponent):
         self._driver = driver
 
     @property
-    def items(self) :
+    def items(self):
         return self.node.find_elements(*self.locators["items"])
 
     def is_next_disabled(self):
@@ -27,7 +27,9 @@ class PaginationComponent(BaseComponent):
         return self
 
     def click_next(self):
+        active_item = self.get_active_item()
         self.next.click()
+        self._wait.until(lambda wd: not ("-active" in active_item.get_attribute("class")))
         return self
 
     def get_item_by_title(self, num):
@@ -49,6 +51,12 @@ class PaginationComponent(BaseComponent):
         ActionChains(self._driver).move_to_element(self.next).perform()
         return self
 
+    def get_active_item(self):
+        for e in self.items:
+            if "-active" in e.get_attribute("class"):
+                return e
+        return None
+
 
 class ClubsPaginationComponent(PaginationComponent):
 
@@ -59,13 +67,11 @@ class ClubsPaginationComponent(PaginationComponent):
             "first_club": ("xpath", "//div[contains(@class,'content-clubs-list')]//div[contains(@class, 'ant-card-body')]//div[@class='title']//div[@class='name']"),
         }
         self._driver = driver
-        self._wait = WebDriverWait(self._driver, 30)
+        self._node = node
+        self._wait = WebDriverWait(self._driver, 40)
 
     def click_next(self):
         first_club_text = self.first_club.text
         self.next.click()
-        self._wait.until(lambda wd: self.first_club.text != first_club_text)
+        self._wait.until(lambda wd: self._node.find_element(*self.locators["first_club"]).text != first_club_text)
         return self
-
-
-

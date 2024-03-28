@@ -45,7 +45,7 @@ class ClubsPage(BasePage):
     @property
     def list_control(self):
         if self.is_element_present("list_control"):
-            return ListControlComponent(self._driver.find_element(*self.locators["list_control"]))
+            return ListControlComponent(self._driver, self._driver.find_element(*self.locators["list_control"]))
         return None
 
     @property

@@ -7,7 +7,7 @@ class PopUpStep(BaseElement):
         super().__init__(node)
         self.locators = {
             "step_icon": ("xpath", ".//div[@class='ant-steps-item-icon']"),
-            "step_success_icon": ("xpath", ".//span[contains(@class, 'steps-finish-icon')"),
+            "step_success_icon": ("xpath", ".//span[contains(@class, 'ant-steps-finish-icon')]"),
             "step_title": ("xpath", ".//div[@class='ant-steps-item-title']")
         }
 

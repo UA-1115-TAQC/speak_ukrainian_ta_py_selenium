@@ -7,25 +7,13 @@ from selenium.webdriver.support import expected_conditions as EC
 
 CHALLENGE_IMAGE_PATH = " //div[contains(@class,\"title\") and not(contains(@role,\"menuitem\"))]"
 
-CHALLENGE_IMAGE_TEXT = (By.XPATH, CHALLENGE_IMAGE_PATH + "/span[contains(@class,\"text\")]")
-CHALLENGE_IMAGE_TEXT_CONTENT = (By.XPATH, CHALLENGE_IMAGE_PATH + "/span[contains(@class,\"content\")]")
-
 
 class ChallengeTeachInUkrainian(BaseChallengePage):
     def __init__(self, driver: webdriver) -> None:
         super().__init__(driver)
         self._driver = driver
-        self._challenge_image_text = None
-        self._challenge_image_text_content = None
+        self.locators = {
+            "challenge_image_text": ("xpath", CHALLENGE_IMAGE_PATH + "/span[contains(@class,\"text\")]"),
+            "challenge_image_text_content": ("xpath", CHALLENGE_IMAGE_PATH + "/span[contains(@class,\"content\")]"),
+        }
 
-    @property
-    def challenge_img_text(self) -> WebElement:
-        if not self._challenge_image_text:
-            self._challenge_image_text= self._driver.find_element(*CHALLENGE_IMAGE_TEXT)
-        return self._challenge_image_text
-
-    @property
-    def challenge_img_text_content(self) -> WebElement:
-        if not self._challenge_image_text_content:
-            self._challenge_image_text_content = self._driver.find_element(*CHALLENGE_IMAGE_TEXT_CONTENT)
-        return self._challenge_image_text_content

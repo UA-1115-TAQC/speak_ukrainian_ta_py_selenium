@@ -13,11 +13,9 @@ class AdvancedSearchHeaderComponent(BaseComponent):
         self.locators = {
             "advanced_search_text_heading": ("xpath", "//h2[@class=\'city-name\']"),
             "selection_search_input_field": ("xpath", '//div[contains(@class, "search")]//input[@type="search"]'),
-            "selection_search_input_field_placeholder": (
-            "xpath", '//span[@class=\'ant-select-selection-placeholder\']'),
+            "selection_search_input_field_placeholder": ("xpath", '//span[@class=\'ant-select-selection-placeholder\']'),
             "search_icon": ("xpath", '//div[contains(@class, "search-icon-group")]/span[@aria-label="search"]'),
-            "advanced_search_icon": (
-            "xpath", '//div[contains(@class, "search-icon-group")]/span[@aria-label="control"]'),
+            "advanced_search_icon": ("xpath", '//div[contains(@class, "search-icon-group")]/span[@aria-label="control"]'),
             "advanced_search_tooltip_node": ("xpath", '//div[contains(@class, "rc-virtual-list-holder-inner")]'),
             "selection_search_close_button": ("xpath", '//span[@aria-label="close-circle"]'),
             "show_on_map_button": ("xpath", ".//button[contains(@class,'show-map-button')]"),

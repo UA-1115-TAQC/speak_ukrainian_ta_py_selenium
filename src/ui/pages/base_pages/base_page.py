@@ -10,7 +10,9 @@ class BasePage(BasePageWithoutHeaderAndFooter):
         super().__init__(driver)
         self.locators = {
             "header_locator": ("xpath", "//header"),
-            "footer_locator": ("xpath", "//footer")
+            "footer_locator": ("xpath", "//footer"),
+            "top_notice_message": ("xpath", "//div[@class='ant-message-notice-wrapper']/descendant::div[contains(@class, 'ant-message-error') " 
+                                            "or contains(@class, 'ant-message-success')]")
         }
 
     @property
@@ -21,5 +23,5 @@ class BasePage(BasePageWithoutHeaderAndFooter):
     def footer(self) -> FooterComponent:
         return FooterComponent(self.footer_locator)
 
-    def scroll_to_footer(self) -> None:
-        self.driver.execute_script("window.scrollBy(0,document.body.scrollHeight)")
+    def get_top_notice_message(self):
+        return self.top_notice_message.get_text()

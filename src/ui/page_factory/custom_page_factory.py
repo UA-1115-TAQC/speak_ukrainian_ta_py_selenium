@@ -5,9 +5,10 @@ from seleniumpagefactory import PageFactory
 
 class CustomPageFactory(PageFactory):
 
-    def __init__(self):
+    def __init__(self, driver=None, node=None):
         super().__init__()
-        self.node = None
+        self.node = node
+        self.driver = driver
 
     def get_web_element(self, *loc):
         element = self.driver.find_element(*loc) if self.node is None else self.node.find_element(*loc)

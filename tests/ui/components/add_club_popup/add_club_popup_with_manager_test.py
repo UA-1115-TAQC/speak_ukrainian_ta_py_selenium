@@ -1,6 +1,7 @@
 from selenium.webdriver import Keys
 
 from tests.base_test_runner import LogInWithManagerTestRunner
+from tests.utils.config_properties import ConfigProperties
 
 
 class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
@@ -48,3 +49,15 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
         self.assertTrue(self.INVALID_CIRCLE_ICON in
                         step_three.textarea_validation_icon.getAttribute("class"),
                         "[STEP_THREE] Red circle appeared in right side on the description textarea")
+
+
+    def test_club_without_center_created(self):
+        test_image = "harrybean.jpg"
+
+        self.fill_step_one()
+        self.fill_step_two()
+
+        step_three = self.add_club_popup.step_three_container
+        step_three.click_logo_download_button()
+        path = ConfigProperties.get_image_path(test_image)
+        step_three.upload_logo(path)

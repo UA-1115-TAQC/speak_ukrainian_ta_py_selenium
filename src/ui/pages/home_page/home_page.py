@@ -1,3 +1,5 @@
+from typing import Self
+
 from selenium import webdriver
 from selenium.webdriver import Keys, ActionChains
 from selenium.webdriver.common.by import By
@@ -17,8 +19,8 @@ CHALLENGE_DESCRIPTION_PATH = "//div[contains(@class,\"challenge-description\")]"
 class HomePage(BasePageWithAdvancedSearch):
     def __init__(self, driver: webdriver) -> None:
         super().__init__(driver)
-        self._driver = driver
         self.locators = {
+            **self.locators,
             "carousel_img_component_element": ("xpath", '//div[contains(@class,"about-carousel-block")]'),
             "carousel_card_component_element": ("xpath", '//div[contains(@class,"categories-carousel-block")]'),
             "challenge_find_out_more_button": ("xpath", CHALLENGE_DESCRIPTION_PATH + "//button"),
@@ -28,28 +30,27 @@ class HomePage(BasePageWithAdvancedSearch):
             "speaking_club_heading": ("xpath", '//div[contains(@class,"speakingclub-description")]//h2'),
             "speaking_club_image": ("xpath", '//img[contains(@class,"banner-image")]'),
         }
-        self._carousel_img_component = None
-        self._carousel_card_component = None
-        self._wait = WebDriverWait(self._driver, 30)
+        # self._carousel_img_component = None
+        # self._carousel_card_component = None
+        self._wait = WebDriverWait(self.driver, 30)
         self._jsExecutor = None
 
     @property
     def carousel_img_component(self):
-        if not self._carousel_img_component:
-            self._carousel_img_component = CarouselImgComponent(self.driver,
-                                                                self._driver.find_element(self.locators["carousel_img_component_element"]))
-        return self._carousel_img_component
+        # if not self._carousel_img_component:
+        #     self._carousel_img_component = CarouselImgComponent(self.driver,
+        #                                                         self.carousel_img_component_element)
+        return CarouselImgComponent(self.carousel_img_component_element)
 
     @property
     def carousel_card_component(self):
-        if not self._carousel_card_component:
-            self._carousel_card_component = CarouselCardComponent(self.driver,
-                                                                  self._driver.find_element(self.locators["carousel_card_component_element"]))
-        return self._carousel_card_component
+        # if not self._carousel_card_component:
+        #     self._carousel_card_component =
+        return CarouselCardComponent(self.carousel_card_component_element)
 
     @property
     def challenge_find_out_more_button(self):
-        find_out_more_button = self._driver.find_element(self.locators["challenge_find_out_more_button"])
+        find_out_more_button = self.driver.find_element(self.locators["challenge_find_out_more_button"])
         self._jsExecutor = self.driver.execute_script
         self._jsExecutor("arguments[0].scrollIntoView(true);", find_out_more_button)
         self._wait.until(EC.element_to_be_clickable(find_out_more_button))
@@ -77,7 +78,7 @@ class HomePage(BasePageWithAdvancedSearch):
         self._wait.until(EC.visibility_of(language_sphere_facebook_page.facebook_logo))
         return language_sphere_facebook_page
 
-    def scroll_to_all_clubs_button(self):
+    def scroll_to_all_clubs_button(self) -> Self:
         self._jsExecutor = self.driver.execute_script
         self._jsExecutor("arguments[0].scrollIntoView();", self.carousel_card_component.carousel_card_all_clubs_button)
         return self

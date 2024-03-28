@@ -26,6 +26,7 @@ class AddClubStepOne(BaseComponent):
             "max_age_input": ("xpath", ".//span[contains(@class,'add-club-age')]"
                                        "/descendant::div[contains(@class,'ant-form-item ')][2]"),
             "center_dropdown": ("xpath", ".//div[contains(@class, 'add-club-select')]"),
+            "dropdown_placeholder": ("xpath", ".//span[@class='ant-select-selection-placeholder']"),
             "step_container": ("xpath", "//main[contains(@class,'add-club-container')]")
         }
 
@@ -71,6 +72,9 @@ class AddClubStepOne(BaseComponent):
     @property
     def center_dropdown_element(self) -> Dropdown:
         return Dropdown(self.center_dropdown)
+
+    def dropdown_placeholder_text(self) -> str:
+        return self.dropdown_placeholder.text
 
     def click_next_step_button(self) -> AddClubStepTwo:
         self.next_step_button.click_button()

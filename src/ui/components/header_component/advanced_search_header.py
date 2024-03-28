@@ -1,6 +1,5 @@
 from selenium.webdriver.remote.webelement import WebElement
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from src.ui.components.header_component.advanced_search_tooltip import AdvancedSearchToolTip
 from src.ui.components.base_component import BaseComponent
@@ -56,7 +55,10 @@ class AdvancedSearchClubsHeaderComponent(AdvancedSearchHeaderComponent):
 
     def __init__(self, driver, node):
         super().__init__(driver, node)
-        self._show_on_map_button = None
+        self.locators = {
+            **self.locators,
+            "show_on_map_button": ("xpath", ".//button[contains(@class,'show-map-button')]"),
+        }
 
     def click_show_on_map_button(self):
         self.show_on_map_button.click()

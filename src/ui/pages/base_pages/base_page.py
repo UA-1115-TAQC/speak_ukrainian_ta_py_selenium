@@ -25,6 +25,3 @@ class BasePage(BasePageWithoutHeaderAndFooter):
 
     def get_top_notice_message(self):
         return self.top_notice_message.get_text()
-
-    def scroll_to_footer(self) -> None:
-        self.driver.execute_script("window.scrollBy(0,document.body.scrollHeight)")

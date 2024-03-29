@@ -11,7 +11,6 @@ CHALLENGE_IMAGE_PATH = " //div[contains(@class,\"title\") and not(contains(@role
 class ChallengeTeachInUkrainian(BaseChallengePage):
     def __init__(self, driver: webdriver) -> None:
         super().__init__(driver)
-        self._driver = driver
         self.locators = {
             "challenge_image_text": ("xpath", CHALLENGE_IMAGE_PATH + "/span[contains(@class,\"text\")]"),
             "challenge_image_text_content": ("xpath", CHALLENGE_IMAGE_PATH + "/span[contains(@class,\"content\")]"),

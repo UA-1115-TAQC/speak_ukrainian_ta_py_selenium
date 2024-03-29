@@ -14,6 +14,6 @@ class BasePageWithAdvancedSearch(BasePage):
 
     def get_advanced_search_header_component(self) -> AdvancedSearchHeaderComponent:
         if not self._advanced_search_header:
-            self._advanced_search_header = AdvancedSearchHeaderComponent(self._driver, self._driver
-                                                                        .find_element(*ADVANCED_SEARCH_HEADER))
+            self._advanced_search_header = AdvancedSearchHeaderComponent(self.driver
+                                                                         .find_element(*ADVANCED_SEARCH_HEADER))
         return self._advanced_search_header

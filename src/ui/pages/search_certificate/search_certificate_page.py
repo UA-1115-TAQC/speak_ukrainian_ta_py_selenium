@@ -21,7 +21,7 @@ class SearchCertificatePage(BasePage):
         return self.search_certificate_title.text
 
     def get_search_input_value(self) -> str:
-        return self.search_input_placeholder.text
+        return self.search_input_placeholder.get_attribute("value")
 
     def set_search_input_value(self, search_text: str) -> None:
         self.search_input_placeholder.visibility_of_element_located().send_keys(search_text)

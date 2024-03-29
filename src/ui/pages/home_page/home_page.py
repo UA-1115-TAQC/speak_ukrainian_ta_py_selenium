@@ -56,7 +56,6 @@ class HomePage(BasePageWithAdvancedSearch):
         self._wait.until(EC.element_to_be_clickable(find_out_more_button))
         return find_out_more_button
 
-
     def click_challenge_find_out_more_button(self) -> BaseChallengePage:
         self.challenge_find_out_more_button.click()
         base_challenge_page = BaseChallengePage(self.driver)
@@ -90,14 +89,14 @@ class HomePage(BasePageWithAdvancedSearch):
 
     def scroll_to_carousel_card_component_web_element(self):
         action = ActionChains(self.driver)
-        action.move_to_element(self.carousel_card_component).perform()
+        action.move_to_element(self.carousel_card_component_element).perform()
         action.send_keys(Keys.PAGE_DOWN).perform()
         return self
 
     def wait_until_home_page_is_loaded(self):
         # todo change with config home url
         initial_url = "http://speak-ukrainian.eastus2.cloudapp.azure.com/dev/"  # todo change with config home url
-        self._wait.until(lambda driver: initial_url == driver.current_url)
+        self.get_wait(40).until(lambda driver: initial_url == driver.current_url)
 
     def wait_until_home_page_is_visible(self):
-        self._wait.until(EC.visibility_of(self.carousel_card_component))
+        self.get_wait(40).until(EC.visibility_of(self.carousel_card_component_element))

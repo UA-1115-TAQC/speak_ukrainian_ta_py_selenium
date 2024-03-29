@@ -9,7 +9,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 class ClubDirectionCard(BaseComponent):
     def __init__(self, driver: webdriver, node: WebElement) -> None:
-        super().__init__(driver)
+        super().__init__(node)
         self._driver = driver
         self._node = node
         self.locators = {
@@ -19,7 +19,6 @@ class ClubDirectionCard(BaseComponent):
             "club_card_button": ("xpath", ".//div[contains(@class,\"details\")]"),
             "club_card_button_pointer": ("xpath", ".//span[@aria-label=\"arrow-right\"]"),
         }
-
 
     def click_club_card_button(self) -> ClubsPage:
         self.club_card_button.click()

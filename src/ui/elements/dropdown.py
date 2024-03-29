@@ -44,3 +44,6 @@ class Dropdown(BaseElement):
             if current_last_element == self.visible_items_list()[-1]:
                 break
         return self
+
+    def dropdown_placeholder_text(self) -> str:
+        return self.placeholder.text

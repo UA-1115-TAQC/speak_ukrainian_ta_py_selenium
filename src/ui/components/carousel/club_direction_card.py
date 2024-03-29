@@ -8,10 +8,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 
 class ClubDirectionCard(BaseComponent):
-    def __init__(self, driver: webdriver, node: WebElement) -> None:
-        super().__init__(driver)
-        self._driver = driver
-        self._node = node
+    def __init__(self, node: WebElement) -> None:
+        super().__init__(node)
         self.locators = {
             "club_card_image": ("xpath", ".//div[contains(@class,\"icon-box\")]/img"),
             "club_card_heading": ("xpath", ".//div[contains(@class,\"name\")]"),
@@ -23,12 +21,12 @@ class ClubDirectionCard(BaseComponent):
 
     def click_club_card_button(self) -> ClubsPage:
         self.club_card_button.click()
-        return ClubsPage(self._driver).wait_until_clubs_page_is_loaded()
+        return ClubsPage(self.driver).wait_until_clubs_page_is_loaded()
 
     def click_club_card_button_pointer(self) -> ClubsPage:
         self.club_card_button_pointer.click()
-        return ClubsPage(self._driver).wait_until_clubs_page_is_loaded()
+        return ClubsPage(self.driver).wait_until_clubs_page_is_loaded()
 
     def click_card(self) -> ClubsPage:
         self.club_card_text.click()
-        return ClubsPage(self._driver).wait_until_clubs_page_is_loaded()
+        return ClubsPage(self.driver).wait_until_clubs_page_is_loaded()

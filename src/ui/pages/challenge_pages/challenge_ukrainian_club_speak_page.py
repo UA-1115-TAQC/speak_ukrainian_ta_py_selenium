@@ -9,4 +9,3 @@ from selenium.webdriver.support import expected_conditions as EC
 class ChallengeUkrainianClubSpeakPage(BaseChallengePage):
     def __init__(self, driver: webdriver) -> None:
         super().__init__(driver)
-        self._driver = driver

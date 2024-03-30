@@ -1,5 +1,6 @@
 from selenium.webdriver.remote.webelement import WebElement
 
+from src.ui.components.add_center_popup.add_center_step_four import AddCenterStepFour
 from src.ui.components.add_center_popup.add_center_step_one import AddCenterStepOne
 from src.ui.components.add_center_popup.add_center_step_three import AddCenterStepThree
 from src.ui.components.add_center_popup.add_center_step_two import AddCenterStepTwo
@@ -44,6 +45,10 @@ class AddCenterPopUp(BasePopUp):
     @property
     def step_three_container(self) -> AddCenterStepThree:
         return AddCenterStepThree(self.step_container)
+
+    @property
+    def step_four_container(self) -> AddCenterStepFour:
+        return AddCenterStepFour(self.step_container)
 
     @property
     def get_active_step(self) -> WebElement:

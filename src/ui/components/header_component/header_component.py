@@ -2,6 +2,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from src.ui.components.add_club_popup.add_clup_popup_component import AddClubPopUp
 from src.ui.components.base_component import BaseComponent
 from src.ui.components.header_component.menu.guest_menu import GuestMenu
+from src.ui.components.header_component.menu.user_menu import UserMenu
 
 
 class HeaderComponent(BaseComponent):
@@ -22,3 +23,6 @@ class HeaderComponent(BaseComponent):
         self.profile_menu_button.click()
         return GuestMenu(self.profile_menu_node)
 
+    def open_user_menu(self) -> UserMenu:
+        self.profile_menu_button.click()
+        return UserMenu(self.profile_menu_node)

@@ -19,6 +19,9 @@ class InputWithLabelIconsErrors(Input):
                                              "//div[@class='ant-form-item-explain-error']")
         }
 
+    def get_input_label_text(self) -> str:
+        return self.input_label.text
+
     @property
     def error_messages_list(self) -> list[WebElement]:
         return self.node.find_elements(*self.locators["error_messages_list"])

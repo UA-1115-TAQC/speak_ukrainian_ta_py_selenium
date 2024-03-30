@@ -39,6 +39,12 @@ class AddClubStepThree(BaseComponent):
             "step_container": ("xpath", ".//main[contains(@class,'add-club-container')]")
         }
 
+    def get_club_popup_title_text(self) -> str:
+        return self.club_popup_title.text
+
+    def get_club_cover_title_text(self) -> str:
+        return self.club_cover_title.text
+
     def click_logo_download_button(self) -> Self:
         self.logo_download_button.click_button()
         return self
@@ -52,6 +58,9 @@ class AddClubStepThree(BaseComponent):
         self.logo_uploaded_img_container.visibility_of_element_located()
         return self
 
+    def get_club_logo_title_text(self) -> str:
+        return self.club_logo_title.text
+
     def click_cover_download_button(self) -> Self:
         self.cover_download_button.click_button()
         return self
@@ -64,6 +73,9 @@ class AddClubStepThree(BaseComponent):
         self.node.find_element(*self.locators["cover_download_input"]).send_keys(img_path)
         self.cover_uploaded_img_container.visibility_of_element_located()
         return self
+
+    def get_club_gallery_title_text(self) -> str:
+        return self.club_gallery_title.text
 
     @property
     def gallery_img_list(self) -> list[WebElement]:
@@ -83,6 +95,9 @@ class AddClubStepThree(BaseComponent):
         self.node.find_element(*self.locators["gallery_download_input"]).send_keys(img_path)
         self.get_wait(5).until(lambda d: img_count < len(self.gallery_img_list))
         return self
+
+    def get_description_title_text(self) -> str:
+        return self.description_title.text
 
     def get_description_textarea_value(self) -> str:
         return self.description_textarea.get_attribute("value")

@@ -25,9 +25,15 @@ class AddCenterStepOne(BaseComponent):
             "next_step_button": ("xpath", ".//button[contains(@class,'next-btn')]")
         }
 
+    def get_center_popup_title_text(self) -> str:
+        return self.center_popup_title.text
+
     @property
     def center_input_element(self) -> InputWithInfoTooltip:
         return InputWithInfoTooltip(self.center_input_node)
+
+    def get_center_location_title_text(self) -> str:
+        return self.center_location_title.text
 
     def click_add_location_button(self) -> AddLocationPopUp:
         self.add_location_button.click_button()

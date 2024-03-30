@@ -1,5 +1,3 @@
-from typing import Self
-
 from selenium.webdriver.remote.webelement import WebElement
 
 from src.ui.components.add_center_popup.add_center_step_three import AddCenterStepThree
@@ -11,7 +9,7 @@ class AddCenterStepTwo(BaseComponent):
         super().__init__(node)
         self.locators = {
             "center_popup_title": ("xpath", ".//div[@class='modal-title']"),
-            "center_inputs_title": ("xpath", ".//span[contains(@class,'ant-typography')]"),
+            "center_contacts_title": ("xpath", ".//span[contains(@class,'ant-typography')]"),
             "telephone_input_node": ("xpath", ".//div[contains(@class,'add-club-contacts')]"
                                               "/descendant::div[contains(@class,'add-club-contact')][1]"),
             "facebook_input_node": ("xpath", ".//div[contains(@class,'add-club-contacts')]"
@@ -27,6 +25,12 @@ class AddCenterStepTwo(BaseComponent):
             "next_step_button": ("xpath", ".//button[contains(@class,'next-btn')]"),
             "previous_step_button": ("xpath", ".//button[contains(@class,'prev-btn')]")
         }
+
+    def get_center_popup_title_text(self) -> str:
+        return self.center_popup_title.text
+
+    def get_center_contacts_title_text(self) -> str:
+        return self.center_contacts_title.text
 
     def click_next_step_button(self) -> AddCenterStepThree:
         self.next_step_button.click_button()

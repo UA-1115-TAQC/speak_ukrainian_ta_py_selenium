@@ -12,6 +12,11 @@ class NewsCardComponent(BaseComponent):
             "news_card_link": ("xpath", ".//a[contains(@href, '/news/')]")
         }
 
+    def click_news_card_link(self) -> 'NewsPage':
+        self.news_card_link.click_button()
+        from ..pages.news_page import NewsPage
+        return NewsPage(self.driver)
+
     def get_news_card_title(self) -> str:
         return self.news_card_title.text
 

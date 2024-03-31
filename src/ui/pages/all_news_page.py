@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.remote.webelement import WebElement
 from .base_pages.base_page_with_advanced_search import BasePageWithAdvancedSearch
+from ..components.pagination_component import PaginationComponent
 
 
 class AllNewsPage(BasePageWithAdvancedSearch):
@@ -29,5 +30,7 @@ class AllNewsPage(BasePageWithAdvancedSearch):
         from ..components.club_card_component import ClubCardComponent
         return [ClubCardComponent(club) for club in self.club_card_webelements_list]
 
-    def news_title_first(self) -> str:
-        return self.news_titles_list()[0].text
+    @property
+    def get_pagination(self) -> PaginationComponent:
+        return PaginationComponent(self.driver, self.pagination_root)
+

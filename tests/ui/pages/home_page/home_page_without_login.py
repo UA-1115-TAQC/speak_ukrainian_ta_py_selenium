@@ -1,5 +1,3 @@
-from src.ui.components.carousel.carousel_card_component import CarouselCardComponent
-from src.ui.pages.home_page.home_page import HomePage
 from tests.base_test_runner import BaseTestRunner
 
 

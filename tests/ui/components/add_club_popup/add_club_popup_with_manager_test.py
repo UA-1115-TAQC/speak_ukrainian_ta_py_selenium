@@ -22,7 +22,7 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
 
     def setUp(self):
         super().setUp()
-        self.add_club_popup = self.homepage.header.add_club_click()
+        self.add_club_popup = self.homepage.header.add_club_click
         self.add_club_popup.wait_popup_open(5)
 
     def fill_step_one_mandatory_fields_with_valid_data(self):

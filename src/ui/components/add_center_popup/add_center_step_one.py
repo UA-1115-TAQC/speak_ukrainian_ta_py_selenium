@@ -29,7 +29,7 @@ class AddCenterStepOne(BaseComponent):
         return self.center_popup_title.text
 
     @property
-    def center_input_element(self) -> InputWithInfoTooltip:
+    def center_name_element(self) -> InputWithInfoTooltip:
         return InputWithInfoTooltip(self.center_input_node)
 
     def get_center_location_title_text(self) -> str:
@@ -43,7 +43,7 @@ class AddCenterStepOne(BaseComponent):
     def locations_list(self) -> list[WebElement]:
         return self.node.find_elements(*self.locators["locations_elements"])
 
-    def locations_list_names(self) -> list[str]:
+    def get_locations_list_names(self) -> list[str]:
         return [location.text for location in self.locations_list]
 
     @property
@@ -54,13 +54,13 @@ class AddCenterStepOne(BaseComponent):
         return [location.text for location in self.checked_locations_list]
 
     def click_location_checkbox_by_name(self, name: str) -> Self:
-        for location in self.locations_elements_list:
+        for location in self.locations_list:
             if name in location.text:
                 location.click()
         return self
 
     def click_location_checkbox_by_index(self, index: int) -> Self:
-        self.locations_elements_list[index].click()
+        self.locations_list[index].click()
         return self
 
     def click_next_step_button(self) -> AddCenterStepTwo:

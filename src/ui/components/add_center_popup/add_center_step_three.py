@@ -40,12 +40,22 @@ class AddCenterStepThree(BaseComponent):
     def get_logo_title_text(self) -> str:
         return self.logo_title.text
 
+    def upload_logo(self, image_path) -> Self:
+        self.node.find_element(*self.locators["logo_download_input"]).send_keys(image_path)
+        self.uploaded_logo_img_container.visibility_of_element_located()
+        return self
+
     @property
     def logo_uploaded_element(self) -> UploadedImageElement:
         return UploadedImageElement(self.uploaded_logo_img_container)
 
     def get_photo_title_text(self) -> str:
         return self.photo_title.text
+
+    def upload_photo(self, image_path) -> Self:
+        self.node.find_element(*self.locators["photo_download_input"]).send_keys(image_path)
+        self.uploaded_photo_img_container.visibility_of_element_located()
+        return self
 
     @property
     def photo_uploaded_element(self) -> UploadedImageElement:

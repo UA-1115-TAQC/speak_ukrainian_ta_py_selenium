@@ -25,7 +25,7 @@ class AddCenterStepFour(BaseComponent):
 
     @property
     def club_webelements_list(self) -> list[WebElement]:
-        return self.node.findElements(*self.locators["club_webelements"])
+        return self.node.find_elements(*self.locators["club_webelements"])
 
     @property
     def club_checkbox_logo_names_list(self) -> list[ClubCheckboxLogoNameComponent]:

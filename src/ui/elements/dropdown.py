@@ -50,3 +50,6 @@ class Dropdown(BaseElement):
 
     def get_dropdown_placeholder_text(self) -> str:
         return self.placeholder.text
+
+    def get_dropdown_selected_item_text(self) -> str:
+        return self.selected_item.text

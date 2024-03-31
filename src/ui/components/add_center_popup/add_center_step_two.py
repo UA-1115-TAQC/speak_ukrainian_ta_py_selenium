@@ -2,6 +2,7 @@ from selenium.webdriver.remote.webelement import WebElement
 
 from src.ui.components.add_center_popup.add_center_step_three import AddCenterStepThree
 from src.ui.components.base_component import BaseComponent
+from src.ui.elements.input_with_label_icons_errors import InputWithLabelIconsErrors
 
 
 class AddCenterStepTwo(BaseComponent):
@@ -31,6 +32,31 @@ class AddCenterStepTwo(BaseComponent):
 
     def get_center_contacts_title_text(self) -> str:
         return self.center_contacts_title.text
+
+    @property
+    def telephone_element(self) -> InputWithLabelIconsErrors:
+        return InputWithLabelIconsErrors(self.telephone_input_node)
+
+    @property
+    def facebook_element(self) -> InputWithLabelIconsErrors:
+        return InputWithLabelIconsErrors(self.facebook_input_node)
+
+    @property
+    def whatsapp_element(self) -> InputWithLabelIconsErrors:
+        return InputWithLabelIconsErrors(self.whatsapp_input_node)
+
+    @property
+    def email_element(self) -> InputWithLabelIconsErrors:
+        return InputWithLabelIconsErrors(self.email_input_node)
+
+    @property
+    def skype_element(self) -> InputWithLabelIconsErrors:
+        return InputWithLabelIconsErrors(self.skype_input_node)
+
+    @property
+    def site_element(self) -> InputWithLabelIconsErrors:
+        return InputWithLabelIconsErrors(self.site_input_node)
+
 
     def click_next_step_button(self) -> AddCenterStepThree:
         self.next_step_button.click_button()

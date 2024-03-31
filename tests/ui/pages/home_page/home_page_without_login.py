@@ -10,4 +10,5 @@ class TestHomePageWithoutLogin(BaseTestRunner):
 
     def test_button_all_clubs(self):
         self.homepage.scroll_to_all_clubs_button().carousel_card_component.click_carousel_card_all_clubs_button()
+        self.assertTrue(self.driver.current_url.__contains__("clubs"), "URL for clubs page are different")
 

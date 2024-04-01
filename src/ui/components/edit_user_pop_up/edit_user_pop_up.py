@@ -1,6 +1,5 @@
 from typing import Self
 
-from selenium.webdriver import ActionChains
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from src.ui.components.base_pop_up import BasePopUp
@@ -43,14 +42,12 @@ class EditUserPopUp(BasePopUp):
                                                         " and not (contains(@class,'login-box'))])[3]"),
             "submit_button": ("xpath", ".//button[contains(@class, 'submit-button')]")
         }
-        self._wait = WebDriverWait(self.driver, 30)
-        self._actions = ActionChains(self.driver)
 
     def click_on_manager_type_button(self) -> Self:
-        return self.manager_type_button.click
+        return self.manager_type_button.click_button()
 
     def click_on_user_type_button(self):
-        return self.user_type_button.click
+        return self.user_type_button.click_button()
 
     @property
     def last_name_element(self) -> InputWithLabelIconsErrors:
@@ -74,7 +71,7 @@ class EditUserPopUp(BasePopUp):
         return self
 
     def click_on_checkbox_change_password(self) -> Self:
-        return self.checkbox_change_password_input.click
+        return self.checkbox_change_password_input.click_button()
 
     @property
     def get_current_password_input_element(self) -> InputWithIconElement:
@@ -89,7 +86,7 @@ class EditUserPopUp(BasePopUp):
         return InputWithIconElement(self.confirm_password_input_element)
 
     def click_on_submit_button(self):
-        return self.submit_button.click
+        return self.submit_button.click_button()
 
     def get_tooltip_text(self) -> Self:
         self._actions.move_to_element(self.question_circle_for_photo).perform()
@@ -104,7 +101,7 @@ class EditUserPopUp(BasePopUp):
          .move_to_element(self.uploaded_photo_element.image_title)
          .pause(2)
          .move_to_element(self.uploaded_photo_element.delete_image_button)
-         .click()
+         .click_button()
          .perform())
         self._wait.until(EC.invisibility_of_element(self.uploaded_photo_element.image_title))
         return self

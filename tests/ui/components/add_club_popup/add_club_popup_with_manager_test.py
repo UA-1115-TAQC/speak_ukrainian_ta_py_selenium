@@ -138,3 +138,8 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
         self.driver.set_window_size(WINDOW_WIDTH, WINDOW_HEIGHT)
 
         self.check_step_three_description_elements_present(sider, step_three)
+
+    # TUA-173
+    def test_description_valid_data(self):
+        self.fill_step_one_mandatory_fields_with_valid_data()
+        self.fill_step_two_mandatory_fields_with_valid_data()

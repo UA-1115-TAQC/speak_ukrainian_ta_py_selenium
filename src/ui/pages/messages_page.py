@@ -1,60 +1,94 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 
+from src.ui.components.message_component import MessageComponent
 from src.ui.pages.base_pages.base_page import BasePage
 
-SEARCH_INPUT = (By.XPATH, ".//input[contains(@class, 'input') and @placeholder='Пошук...']")
-SELECTED_ITEM_DROPDOWN = (By.XPATH, ".//span[contains(@class, 'selection-item')]")
-DROPDOWN = (By.XPATH, ".//div[contains(@class, 'select-dropdown')]")
-NEW_FIRST_ITEM_DROPDOWN = (By.XPATH, ".//div[contains(@id, 'rc_select_2_list_0')]")
-OLD_FIRST_ITEM_DROPDOWN = (By.XPATH, ".//div[contains(@id, 'rc_select_2_list_1')]")
-SHOW_UNREAD_MESSAGE_ITEM = (By.XPATH, ".//span[text()='Показати тільки непрочитані повідомлення: ']")
-SHOW_UNANSWERED_MESSAGE_ITEM = (By.XPATH, ".//span[text()='Повідомлення без відповіді: ']")
-UNREAD_MESSAGES_SWITCH = (By.XPATH,
-                          ".//span[text()='Показати тільки непрочитані повідомлення: ']/following-sibling::button//span[@class='ant-switch-inner']")
-UNANSWERED_MESSAGES_SWITCH = (
-By.XPATH, ".//span[text()='Повідомлення без відповіді: ']/following-sibling::button//span[@class='ant-switch-inner']")
-NO_MESSAGE_TITLE = (By.XPATH, ".//div[contains(@class, 'noMessages')]")
-MESSAGE_ELEMENTS = (By.XPATH, ".//ul[contains(@class, 'ant-list-items')]//div[contains(@class, 'collapse ')]")
-
-
 class MessagePage(BasePage):
-    def init(self, driver):
-        super().init(driver)
-        self._search_itput = None
-        self._selected_item_dropdown = None
-        self._dropdown = None
-        self._new_first_item_dropdown = None
-        self._old_first_item_dropdown = None
-        self._show_undread_message_item = None
-        self._show_unanswered_message_item = None
-        self._no_message_title = None
-        # todo ????????????
-        self._message_elements = None
 
-    #todo все протестити чи воно шукається по цим ікспасам
+    def __init__(self, node: WebElement) -> None:
+        super().__init__(node)
+        self.locators = {
+            "search_input": ("xpath", ".//input[contains(@class, 'input') and @placeholder='Пошук...']"),
+            "selected_item_dropdown": ("xpath", ".//span[contains(@class, 'selection-item')]"),
+
+            "dropdown": ("xpath", ".//div[contains(@class, 'select-dropdown')]"),
+            "new_first_item_dropdown": ("xpath", ".//div[contains(@id, 'rc_select_2_list_0')]"),
+            "old_first_item_dropdown": ("xpath", ".//div[contains(@id, 'rc_select_2_list_1')]"),
+            "show_unread_message_title": ("xpath", ".//span[text()='Показати тільки непрочитані повідомлення: ']"),
+            "show_unanswered_message_title": ("xpath", ".//span[text()='Повідомлення без відповіді: ']"),
+            "unread_messages_switch": ("xpath", ".//span[text()='Показати тільки непрочитані повідомлення: "
+                                                "']/following-sibling::button//span[@class='ant-switch-inner']"),
+            "unanswered_messages_switch": ("xpath", ".//span[text()='Повідомлення без відповіді: "
+                                                    "']/following-sibling::button//span[@class='ant-switch-inner']"),
+            "no_message_title": ("xpath", ".//div[contains(@class, 'noMessages')]"),
+            "message_elements": ("xpath", ".//ul[contains(@class, 'ant-list-items')]//div[contains(@class, 'collapse ')]"),
+        }
+
     @property
-    def search_itput(self):
-        if not self._search_itput:
-            self._search_itput = self._driver.find_element(*SEARCH_INPUT)
-        return self._search_itput
+    def search_input(self) -> WebElement:
+        return self.node.find_elements(*self.locators["search_input"])
 
     def search_input_send_keys(self, keys):
-        self._search_itput.send_keys(keys)
+        self.search_input.send_keys(keys)
 
     @property
-    def selected_item_dropdown(self):
-        if not self._selected_item_dropdown:
-            self._selected_item_dropdown = self._driver.find_element(*SELECTED_ITEM_DROPDOWN)
-        return self._selected_item_dropdown
+    def selected_item_dropdown(self) -> WebElement:
+        return self.node.find_elements(*self.locators["selected_item_dropdown"])
+
+    def selected_item_dropdown_click(self):
+        self.selected_item_dropdown.click()
 
     @property
-    def dropdown(self):
-        if not self._dropdown:
-            self._dropdown = self._driver.find_element(*DROPDOWN)
-        return self._dropdown
+    def dropdown(self) -> WebElement:
+        return self.node.find_elements(*self.locators["dropdown"])
 
     @property
-    def new_first_item_dropdown(self):
-        if not self._new_first_item_dropdown:
-            self._new_first_item_dropdown = self._driver.find_element(*NEW_FIRST_ITEM_DROPDOWN)
-        return self._new_first_item_dropdown
+    def new_first_item_dropdown(self) -> WebElement:
+        return self.node.find_elements(*self.locators["new_first_item_dropdown"])
+
+    def new_first_item_dropdown_click(self):
+        self.new_first_item_dropdown.click()
+
+    @property
+    def old_first_item_dropdown(self) -> WebElement:
+        return self.node.find_elements(*self.locators["old_first_item_dropdown"])
+
+    def old_first_item_dropdown_click(self):
+        self.old_first_item_dropdown.click()
+
+    @property
+    def show_unread_message_title(self) -> WebElement:
+        return self.node.find_elements(*self.locators["show_unread_message_title"])
+
+    @property
+    def show_unanswered_message_title(self) -> WebElement:
+        return self.node.find_elements(*self.locators["old_first_item_dropdown"])
+
+
+    @property
+    def unread_messages_switch(self) -> WebElement:
+        return self.node.find_elements(*self.locators["unread_messages_switch"])
+
+    def unread_messages_switch_click(self):
+        self.unread_messages_switch.click()
+
+    @property
+    def unanswered_messages_switch(self) -> WebElement:
+        return self.node.find_elements(*self.locators["unanswered_messages_switch"])
+
+    def unanswered_messages_switch_click(self):
+        self.unanswered_messages_switch.click()
+
+    @property
+    def no_message_title(self) -> WebElement:
+        return self.node.find_elements(*self.locators["no_message_title"])
+
+    @property
+    def message_elements(self) -> list[WebElement]:
+        return self.node.find_elements(*self.locators["message_elements"])
+
+    #todo отут помилка отримується WebElement, а не list
+
+    def get_message_elements(self):
+        return [MessageComponent(el) for el in self.message_elements]

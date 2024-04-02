@@ -7,8 +7,7 @@ class InputWithInfoTooltip(InputWithLabelIconsErrors):
         super().__init__(node)
         self.locators = {
             **self.locators,
-            "info_icon": ("xpath", ".//div[@class='ant-form-item-control-input']"
-                                   "/descendant::span[contains(@class,'anticon-check-circle')]"),
+            "info_icon": ("xpath", ".//div[@class='ant-form-item-control-input']//span[@aria-label='info-circle']"),
             "info_icon_tooltip": ("xpath", "//div[contains(@class, 'ant-tooltip ') "
                                            "and not(contains(@class, 'ant-tooltip-hidden'))]"
                                            "//div[@class='ant-tooltip-inner']")

@@ -22,6 +22,9 @@ class Dropdown(BaseElement):
         self.dropdown.click_button()
         return self
 
+    def get_dropdown_label_text(self) -> str:
+        return self.dropdown_label.text
+
     def visible_items_list(self) -> list[WebElement]:
         return self.node.find_elements(*self.locators["dropdown_items_list"])
 
@@ -45,5 +48,8 @@ class Dropdown(BaseElement):
                 break
         return self
 
-    def dropdown_placeholder_text(self) -> str:
+    def get_dropdown_placeholder_text(self) -> str:
         return self.placeholder.text
+
+    def get_dropdown_selected_item_text(self) -> str:
+        return self.selected_item.text

@@ -35,5 +35,6 @@ class UploadedImageElement(BaseElement):
         self.upload_done.visibility_of_element_located()
         return self
 
-    def image_title_text(self) -> str:
+    def get_image_title_text(self) -> str:
         return self.image_title.text
+

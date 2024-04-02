@@ -1,9 +1,11 @@
+from selenium.webdriver.support.wait import WebDriverWait
+
 from src.ui.components.base_component import BaseComponent
 
 
 class ListControlComponent(BaseComponent):
 
-    def __init__(self, node):
+    def __init__(self, driver, node):
         super().__init__(node)
         self.locators = {
             "sort_by_alphabet": ("xpath", ".//span[text()='за алфавітом']"),
@@ -13,6 +15,8 @@ class ListControlComponent(BaseComponent):
             "wrapper_list": ("xpath", ".//label[contains(@class, 'ant-radio-button-wrapper')][1]"),
             "wrapper_block": ("xpath", ".//label[contains(@class, 'ant-radio-button-wrapper')][2]"),
         }
+        self._driver = driver
+        self._wait = WebDriverWait(self._driver, 30)
 
     def click_sort_by_alphabet(self):
         self.sort_by_alphabet.click()
@@ -24,10 +28,12 @@ class ListControlComponent(BaseComponent):
 
     def click_arrow_up(self):
         self.arrow_up.click()
+        self.wait_arrow_change(self.arrow_up)
         return self
 
     def click_arrow_down(self):
         self.arrow_down.click()
+        self.wait_arrow_change(self.arrow_down)
         return self
 
     def click_wrapper_list(self):
@@ -37,3 +43,6 @@ class ListControlComponent(BaseComponent):
     def click_wrapper_block(self):
         self.wrapper_block.click()
         return self
+
+    def wait_arrow_change(self, arrow_element):
+        self._wait.until(lambda wd: arrow_element.get_attribute("style") == "color: rgb(255, 192, 105);")

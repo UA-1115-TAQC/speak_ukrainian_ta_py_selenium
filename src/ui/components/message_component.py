@@ -25,47 +25,11 @@ class MessageComponent(BaseComponent):
         button_text = reply_button.text
         return full_text.replace(button_text, "").strip()
 
-    @property
-    def arrow_icon(self) -> WebElement:
-        return self.node.find_elements(*self.locators["arrow_icon"])
-
     def arrow_icon_click(self):
         self.arrow_icon.click()
 
-    @property
-    def message_header(self) -> WebElement:
-        return self.node.find_elements(*self.locators["message_header"])
-
-    @property
-    def date_title(self) -> WebElement:
-        return self.node.find_elements(*self.locators["date_title"])
-
-    @property
-    def message_status_icon(self) -> WebElement:
-        return self.node.find_elements(*self.locators["message_status_icon"])
-
-    @property
-    def message_delete_icon(self) -> WebElement:
-        return self.node.find_elements(*self.locators["message_delete_icon"])
-
     def message_delete_icon_click(self):
         self.message_delete_icon.click()
-
-    @property
-    def user_avatar(self) -> WebElement:
-        return self.node.find_elements(*self.locators["user_avatar"])
-
-    @property
-    def user_name(self) -> WebElement:
-        return self.node.find_elements(*self.locators["user_name"])
-
-    @property
-    def message_text(self) -> WebElement:
-        return self.node.find_elements(*self.locators["message_text"])
-
-    @property
-    def answer_button(self) -> WebElement:
-        return self.node.find_elements(*self.locators["answer_button"])
 
     def answer_button_click(self):
         self.answer_button.click()

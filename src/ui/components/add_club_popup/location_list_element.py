@@ -1,4 +1,5 @@
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.components.add_location_popup.add_location_popup_component import AddLocationPopUp
 from src.ui.elements.base_element import BaseElement
 

@@ -1,8 +1,8 @@
 from selenium.webdriver.remote.webelement import WebElement
-from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
-from src.ui.components.header_component.advanced_search_tooltip import AdvancedSearchToolTip
+
 from src.ui.components.base_component import BaseComponent
+from src.ui.components.header_component.advanced_search_tooltip import AdvancedSearchToolTip
 
 
 class AdvancedSearchHeaderComponent(BaseComponent):

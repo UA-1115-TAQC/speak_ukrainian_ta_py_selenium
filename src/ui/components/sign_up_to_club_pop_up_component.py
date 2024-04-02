@@ -1,6 +1,7 @@
-from selenium.webdriver.remote.webelement import WebElement
-from src.ui.components.base_component import BaseComponent
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
+
+from src.ui.components.base_component import BaseComponent
 
 SELF_SIGN_IN = (By.XPATH, "//div[contains(@class,'SignUpForClub_customCheckbox')]")
 ADD_COMMENT = (By.XPATH, "//textarea[@id='registration-to-club_comment']")

@@ -1,8 +1,9 @@
 from typing import Self
 
+from selenium.webdriver import Keys
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.elements.base_element import BaseElement
-from selenium.webdriver import Keys, ActionChains
 
 
 class Input(BaseElement):

@@ -1,5 +1,6 @@
-from .base_component import BaseComponent
 from selenium.webdriver.remote.webelement import WebElement
+
+from .base_component import BaseComponent
 
 
 class NewsCardComponent(BaseComponent):

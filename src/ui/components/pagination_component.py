@@ -1,4 +1,5 @@
 from selenium.webdriver import ActionChains
+
 from src.ui.components.base_component import BaseComponent
 
 

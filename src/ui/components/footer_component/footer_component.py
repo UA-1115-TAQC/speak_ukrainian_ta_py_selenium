@@ -1,6 +1,7 @@
 from typing import Self
 
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.components.base_component import BaseComponent
 
 

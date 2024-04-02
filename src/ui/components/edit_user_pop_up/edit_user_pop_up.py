@@ -1,12 +1,13 @@
 from typing import Self
 
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
+
 from src.ui.components.base_pop_up import BasePopUp
 from src.ui.elements.input_with_icon_element import InputWithIconElement
 from src.ui.elements.input_with_label_icons_errors import InputWithLabelIconsErrors
 from src.ui.elements.uploaded_image_element import UploadedImageElement
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class EditUserPopUp(BasePopUp):

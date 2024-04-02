@@ -1,5 +1,7 @@
 from typing import Self
+
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.components.add_club_popup.add_club_step_two import AddClubStepTwo
 from src.ui.components.base_component import BaseComponent
 from src.ui.elements.dropdown import Dropdown

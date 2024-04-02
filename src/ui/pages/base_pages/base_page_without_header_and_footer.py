@@ -1,6 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver.remote.webelement import WebElement
-from seleniumpagefactory import PageFactory
 
 from src.ui.page_factory.custom_page_factory import CustomPageFactory
 

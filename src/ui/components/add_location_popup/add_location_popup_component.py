@@ -1,4 +1,5 @@
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.components.base_pop_up import BasePopUp
 from src.ui.elements.dropdown_with_icon_errors import DropdownWithIconErrors
 from src.ui.elements.input_with_info_tooltip import InputWithInfoTooltip

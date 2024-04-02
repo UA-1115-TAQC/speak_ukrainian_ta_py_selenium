@@ -1,4 +1,5 @@
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.elements.input_with_label_icons_errors import InputWithLabelIconsErrors
 
 

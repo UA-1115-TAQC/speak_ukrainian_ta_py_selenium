@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.remote.webelement import WebElement
+
 from .base_pages.base_page_with_advanced_search import BasePageWithAdvancedSearch
 from ..components.pagination_component import PaginationComponent
 

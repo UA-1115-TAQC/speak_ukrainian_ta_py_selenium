@@ -1,10 +1,11 @@
-from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+
 from src.ui.pages.base_pages.base_page_with_advanced_search import BasePageWithAdvancedSearch
 from src.ui.pages.payment_pages.payment import Payment
+
 CHALLENGE_IMAGE_PATH = "//div[contains(@class,\"banner\")]"
 HELP_BUTTON_PATH = "//div[contains(@class,\"help-button\")]"
 SOCIAL_MEDIA_PATH = "//div[contains(@class,\"social-info\")]"

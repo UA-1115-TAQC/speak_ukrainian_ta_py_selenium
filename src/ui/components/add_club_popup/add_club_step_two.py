@@ -1,11 +1,12 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.components.add_club_popup.add_club_step_three import AddClubStepThree
+from src.ui.components.add_club_popup.day_time_checkbox_element import DayTimeCheckboxElement
+from src.ui.components.add_club_popup.location_list_element import LocationListElement
 from src.ui.components.add_location_popup.add_location_popup_component import AddLocationPopUp
 from src.ui.components.base_component import BaseComponent
-from src.ui.components.add_club_popup.day_time_checkbox_element import DayTimeCheckboxElement
 from src.ui.elements.input_with_label_icons_errors import InputWithLabelIconsErrors
-from src.ui.components.add_club_popup.location_list_element import LocationListElement
 
 
 class AddClubStepTwo(BaseComponent):

@@ -1,6 +1,8 @@
 from typing import Self
-from selenium.webdriver import Keys, ActionChains
+
+from selenium.webdriver import Keys
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.components.base_component import BaseComponent
 from src.ui.elements.gallery_image_element import GalleryImageElement
 from src.ui.elements.uploaded_image_element import UploadedImageElement

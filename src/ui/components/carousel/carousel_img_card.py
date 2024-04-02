@@ -1,9 +1,6 @@
-from src.ui.components.base_component import BaseComponent
-from selenium.webdriver.common.by import By
-from selenium import webdriver
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.wait import WebDriverWait
+
+from src.ui.components.base_component import BaseComponent
 
 
 class CarouselImgCard(BaseComponent):

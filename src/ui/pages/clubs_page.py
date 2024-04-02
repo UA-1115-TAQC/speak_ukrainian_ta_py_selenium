@@ -1,4 +1,6 @@
 from selenium.common import NoSuchElementException
+from selenium.webdriver.support import expected_conditions as ec
+
 from src.ui.components.center_card_component import CenterCardComponent
 from src.ui.components.club_card_component import ClubCardComponent
 from src.ui.components.header_component.advanced_search_header import AdvancedSearchClubsHeaderComponent
@@ -6,7 +8,6 @@ from src.ui.components.list_control_component import ListControlComponent
 from src.ui.components.pagination_component import ClubsPaginationComponent
 from src.ui.components.search_sider_component import SearchSiderComponent
 from src.ui.pages.base_pages.base_page import BasePage
-from selenium.webdriver.support import expected_conditions as ec
 
 
 class ClubsPage(BasePage):

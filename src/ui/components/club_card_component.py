@@ -1,4 +1,5 @@
 from selenium.webdriver.support import expected_conditions as ec
+
 from src.ui.components.base_component import BaseComponent
 from src.ui.components.club_info_popup import ClubInfoPopup
 from src.ui.elements.direction_element import DirectionElement

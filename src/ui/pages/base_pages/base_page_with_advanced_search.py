@@ -1,7 +1,7 @@
 from selenium import webdriver
-from src.ui.components.header_component.advanced_search_header import AdvancedSearchHeaderComponent
 from selenium.webdriver.common.by import By
 
+from src.ui.components.header_component.advanced_search_header import AdvancedSearchHeaderComponent
 from src.ui.pages.base_pages.base_page import BasePage
 
 ADVANCED_SEARCH_HEADER = (By.XPATH, '//div[contains(@class, "lower-header-box")]')

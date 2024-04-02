@@ -3,7 +3,7 @@ from src.ui.components.base_component import BaseComponent
 from typing import Self
 
 
-class AddChildComponent(BaseComponent):
+class AddChild(BaseComponent):
 
     def __init__(self, node: WebElement) -> None:
         super().__init__(node)
@@ -14,7 +14,8 @@ class AddChildComponent(BaseComponent):
             "add_age": ("xpath", "./descendant::input[@id='add-child_age']"),
             "male_gender": ("xpath", "./descendant::input[@value='MALE']"),
             "female_gander": ("xpath", "./descendant::input[@value='FEMALE']"),
-            "submit_button": ("xpath", "./descendant::button[contains(@class,'submit-button')]")
+            #"submit_button": ("xpath", "./descendant::button[contains(@class,'submit-button')]"),
+            "pop_up_window": ("xpath", ".//div[@class='ant-modal-content']"),
         }
 
     def set_first_name(self, value: str) -> None:
@@ -32,5 +33,5 @@ class AddChildComponent(BaseComponent):
     def click_female_gender(self) -> None:
         self.female_gander.click_button()
 
-    def click_submit_button(self) -> None:
-        self.submit_button.click_button()
+   #def click_submit_button(self) -> None:
+        #self.submit_button.click_button()

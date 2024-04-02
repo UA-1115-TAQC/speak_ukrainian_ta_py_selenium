@@ -1,11 +1,12 @@
 from selenium import webdriver
-
+from selenium.webdriver.support.wait import WebDriverWait
 from src.ui.page_factory.custom_page_factory import CustomPageFactory
 
 
 class BasePageWithoutHeaderAndFooter(CustomPageFactory):
     def __init__(self, driver: webdriver) -> None:
         super().__init__(driver)
+        self.wait = WebDriverWait(self.driver, 30)
         self._current_tab_handle = None
         self._tab_handles = None
 

@@ -7,6 +7,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from src.ui.components.carousel.carousel_card_component import CarouselCardComponent
 from src.ui.components.carousel.carousel_img_component import CarouselImgComponent
+from src.ui.components.header_component.header_component import HeaderComponent
 from src.ui.pages.base_pages.base_page_with_advanced_search import BasePageWithAdvancedSearch
 from src.ui.pages.challenge_pages.base_challenge_page import BaseChallengePage
 from src.ui.pages.challenge_pages.challenge_ukrainian_club_speak_page import ChallengeUkrainianClubSpeakPage

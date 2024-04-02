@@ -248,9 +248,9 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
 
     # TUA-173
     def test_description_valid_data(self):
-        descriptions = (["Lorem ipsum dolor sit amet consectetur efficitur",
+        descriptions = ["Lorem ipsum dolor sit amet consectetur efficitur",
                         "123 Lorem ipsum dolor 456 sit amet consectetur 789",
-                        "!\\\"Lorem!#$%&'()*+ipsum,-./:;<=>?@dolor[]^_`{}~"])
+                        "!\\\"Lorem!#$%&'()*+ipsum,-./:;<=>?@dolor[]^_`{}~"]
         self.fill_step_one_mandatory_fields_with_valid_data()
         self.fill_step_two_mandatory_fields_with_valid_data()
         step_three = self.add_club_popup.step_three_container
@@ -263,12 +263,12 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
 
     # TUA-250
     def test_error_invalid_address_add_location(self):
-        addresses = (["Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean ma",
+        addresses = ["Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean ma",
                 "абвг",
                 "абвгдъ",
                 "абвгдё",
                 "абвгдэ",
-                "абвгды"])
+                "абвгды"]
         self.fill_step_one_mandatory_fields_with_valid_data()
         step_two = self.add_club_popup.step_two_container
         add_location = step_two.click_add_location_button()

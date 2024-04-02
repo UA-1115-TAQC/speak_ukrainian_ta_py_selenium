@@ -18,7 +18,7 @@ class InputWithLabelIconsErrors(Input):
                                      "/div[@class='icon']"),
             "error_messages_list": ("xpath", ".//div[contains(@class,'ant-col')]"
                                              "//div[@class='ant-form-item-explain-error']"),
-            "all_error_messages_list": ("xpath", ".//div[contains(@class,'ant-col')]"
+            "loading_error_messages_list": ("xpath", ".//div[contains(@class,'ant-col')]"
                                              "//div[contains(@class,'ant-form-item-explain-error')]"),
         }
 
@@ -33,11 +33,11 @@ class InputWithLabelIconsErrors(Input):
         return [error.get_attribute("innerText") for error in self.error_messages_list]
 
     @property
-    def all_error_messages_list(self) -> list[WebElement]:
-        return self.node.find_elements(*self.locators["all_error_messages_list"])
+    def loading_error_messages_list(self) -> list[WebElement]:
+        return self.node.find_elements(*self.locators["loading_error_messages_list"])
 
     def clear_input_with_wait(self):
         self.clear_input()
-        self.get_wait(20).until(lambda wd: not self.all_error_messages_list[0].get_attribute("style"))
+        self.get_wait(20).until(lambda wd: not self.loading_error_messages_list[0].get_attribute("style"))
         return self
 

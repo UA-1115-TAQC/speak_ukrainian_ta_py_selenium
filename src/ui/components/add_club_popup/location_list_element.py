@@ -1,4 +1,5 @@
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.components.add_location_popup.add_location_popup_component import AddLocationPopUp
 from src.ui.elements.base_element import BaseElement
 
@@ -22,6 +23,12 @@ class LocationListElement(BaseElement):
             "location_popup": ("xpath", "//descendant::div[contains(@class,'modal-add-club')][2]")
         }
 
+    def get_location_title_text(self) -> str:
+        return self.location_title.text
+
+    def get_location_description_text(self) -> str:
+        return self.location_description.text
+
     def click_edit_icon(self) -> AddLocationPopUp:
         self.edit_icon.click_button()
         return AddLocationPopUp(self.location_popup)
@@ -32,6 +39,9 @@ class LocationListElement(BaseElement):
 
     def click_pop_confirm_ok_button(self) -> None:
         self.pop_confirm_ok_button.click_button()
+
+    def get_pop_confirm_title_text(self) -> str:
+        return self.pop_confirm_title.text
 
     def click_pop_confirm_cancel_button(self) -> None:
         self.pop_confirm_cancel_button.click_button()

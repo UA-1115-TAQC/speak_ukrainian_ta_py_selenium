@@ -1,11 +1,9 @@
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 from src.ui.components.carousel.basic_carousel_component import BasicCarouselComponent
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
 from src.ui.components.carousel.club_direction_card import ClubDirectionCard
 from src.ui.pages.clubs_page import ClubsPage
 
@@ -15,10 +13,10 @@ class CarouselCardComponent(BasicCarouselComponent):
         super().__init__(node)
         self._wait = WebDriverWait(self.driver, 30)
         self.locators = {
+            **self.locators,
             "carousel_card_heading": ("xpath", "//div[contains(@class,\"categories-header\")]/h2"),
             "carousel_card_all_clubs_button": ("xpath", "//div[contains(@class,\"categories-header\")]/a/button"),
         }
-
         self._carousel_cards = None
         self._active_carousel_cards = None
 
@@ -27,7 +25,7 @@ class CarouselCardComponent(BasicCarouselComponent):
         if not self._carousel_cards:
             cards = self.slider_container.find_elements(By.XPATH, ".//div[contains(@class,\"slick-slide\")]")
             for card in cards:
-                self._carousel_cards.append(ClubDirectionCard(self.driver, card))
+                self._carousel_cards.append(ClubDirectionCard(self.node, card))
         return self._carousel_cards
 
     def click_carousel_card_all_clubs_button(self) -> ClubsPage:

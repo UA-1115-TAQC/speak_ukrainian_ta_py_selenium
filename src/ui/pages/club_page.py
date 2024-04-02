@@ -1,7 +1,8 @@
-from src.ui.pages.base_pages import base_page
-from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webdriver import WebDriver
+
 from src.ui.components.rating_component import RatingComponent
+from src.ui.pages.base_pages import base_page
 
 RATING = (By.XPATH, "./descendant::ul[@role='radiogroup']")
 SIGN_UP_TO_CLUB = (By.XPATH, "./descendant::span[text()='Записатись на гурток']")

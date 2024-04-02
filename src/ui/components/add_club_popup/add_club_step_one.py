@@ -1,5 +1,7 @@
 from typing import Self
+
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.components.add_club_popup.add_club_step_two import AddClubStepTwo
 from src.ui.components.base_component import BaseComponent
 from src.ui.elements.dropdown import Dropdown
@@ -29,9 +31,15 @@ class AddClubStepOne(BaseComponent):
             "step_container": ("xpath", "//main[contains(@class,'add-club-container')]")
         }
 
+    def get_popup_title_text(self) -> str:
+        return self.popup_title.text
+
     @property
     def name_input_element(self) -> InputWithLabelIconsErrors:
         return InputWithLabelIconsErrors(self.name_input)
+
+    def get_categories_title_text(self) -> str:
+        return self.categories_title.text
 
     @property
     def categories_node_list(self) -> list[WebElement]:
@@ -59,6 +67,9 @@ class AddClubStepOne(BaseComponent):
 
     def get_category_error_texts_list(self) -> list[str]:
         return [error.get_attribute("value") for error in self.categories_errors]
+
+    def get_age_title_text(self) -> str:
+        return self.age_title.text
 
     @property
     def min_age_input_element(self) -> NumberInput:

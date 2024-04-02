@@ -1,5 +1,7 @@
 from typing import Self
+
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.elements.base_element import BaseElement
 
 
@@ -29,6 +31,9 @@ class DayTimeCheckboxElement(BaseElement):
     def click_on_checkbox(self) -> Self:
         self.checkbox_title.click_button()
         return self
+
+    def get_checkbox_title_text(self) -> str:
+        return self.checkbox_title.text
 
     def set_time_from_input(self, value: str) -> Self:
         self.time_from_input.visibility_of_element_located().send_keys(value)

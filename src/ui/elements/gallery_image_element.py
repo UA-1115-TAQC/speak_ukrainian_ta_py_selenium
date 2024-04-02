@@ -1,5 +1,7 @@
 from typing import Self
+
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.elements.base_element import BaseElement
 
 
@@ -15,6 +17,9 @@ class GalleryImageElement(BaseElement):
             "gallery_image_error": ("xpath", ".//div[@class='ant-tooltip-inner']"),
             "preview_close_button": ("xpath", "//button[@class='ant-modal-close']")
         }
+
+    def get_gallery_image_name_text(self) -> str:
+        return self.gallery_image_name.text
 
     def click_image_preview_icon(self) -> Self:
         self.gallery_actions_container.hover()
@@ -33,3 +38,6 @@ class GalleryImageElement(BaseElement):
     def click_image_container(self) -> Self:
         self.node.click()
         return self
+
+    def get_gallery_image_error_text(self) -> str:
+        return self.gallery_image_error.text

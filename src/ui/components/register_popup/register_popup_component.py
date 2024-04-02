@@ -1,4 +1,3 @@
-from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
 from src.ui.components.base_pop_up import BasePopUp

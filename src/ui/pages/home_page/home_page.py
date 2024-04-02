@@ -2,9 +2,8 @@ from typing import Self
 
 from selenium import webdriver
 from selenium.webdriver import Keys, ActionChains
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 from src.ui.components.carousel.carousel_card_component import CarouselCardComponent
 from src.ui.components.carousel.carousel_img_component import CarouselImgComponent
@@ -30,22 +29,15 @@ class HomePage(BasePageWithAdvancedSearch):
             "speaking_club_heading": ("xpath", '//div[contains(@class,"speakingclub-description")]//h2'),
             "speaking_club_image": ("xpath", '//img[contains(@class,"banner-image")]'),
         }
-        # self._carousel_img_component = None
-        # self._carousel_card_component = None
         self._wait = WebDriverWait(self.driver, 30)
         self._jsExecutor = None
 
     @property
     def carousel_img_component(self):
-        # if not self._carousel_img_component:
-        #     self._carousel_img_component = CarouselImgComponent(self.driver,
-        #                                                         self.carousel_img_component_element)
         return CarouselImgComponent(self.carousel_img_component_element)
 
     @property
     def carousel_card_component(self):
-        # if not self._carousel_card_component:
-        #     self._carousel_card_component =
         return CarouselCardComponent(self.carousel_card_component_element)
 
     @property
@@ -55,7 +47,6 @@ class HomePage(BasePageWithAdvancedSearch):
         self._jsExecutor("arguments[0].scrollIntoView(true);", find_out_more_button)
         self._wait.until(EC.element_to_be_clickable(find_out_more_button))
         return find_out_more_button
-
 
     def click_challenge_find_out_more_button(self) -> BaseChallengePage:
         self.challenge_find_out_more_button.click()
@@ -90,7 +81,7 @@ class HomePage(BasePageWithAdvancedSearch):
 
     def scroll_to_carousel_card_component_web_element(self):
         action = ActionChains(self.driver)
-        action.move_to_element(self.carousel_card_component).perform()
+        action.move_to_element(self.carousel_card_component.slick_dots_container).perform()
         action.send_keys(Keys.PAGE_DOWN).perform()
         return self
 
@@ -100,4 +91,4 @@ class HomePage(BasePageWithAdvancedSearch):
         self._wait.until(lambda driver: initial_url == driver.current_url)
 
     def wait_until_home_page_is_visible(self):
-        self._wait.until(EC.visibility_of(self.carousel_card_component))
+        self._wait.until(EC.visibility_of(self.carousel_card_component.slick_dots_container))

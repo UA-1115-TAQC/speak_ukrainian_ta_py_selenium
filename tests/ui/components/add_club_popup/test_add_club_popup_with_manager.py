@@ -2,6 +2,7 @@ from selenium.webdriver import Keys
 
 from src.ui.components.add_club_popup.add_club_step_three import AddClubStepThree
 from src.ui.components.add_club_popup.add_clup_popup_component import AddClubSider
+from src.ui.components.add_location_popup.add_location_popup_component import AddLocationPopUp
 from tests.base_test_runner import LogInWithManagerTestRunner
 from tests.utils.config_properties import ConfigProperties
 
@@ -19,10 +20,11 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
     TEXT_40_SYMBOLS = "Abc " * 10
     INVALID_CIRCLE_ICON = "close-circle"
     ERROR_MESSAGE = "Некоректний опис гуртка"
+    VALID_DESCRIPTION = "Lorem ipsum dolor sit amet orci aliquam."
 
     def setUp(self):
         super().setUp()
-        self.add_club_popup = self.homepage.header.add_club_click
+        self.add_club_popup = self.homepage.header.add_club_click()
         self.add_club_popup.wait_popup_open(5)
 
     def fill_step_one_mandatory_fields_with_valid_data(self):
@@ -246,5 +248,41 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
 
     # TUA-173
     def test_description_valid_data(self):
+        descriptions = (["Lorem ipsum dolor sit amet consectetur efficitur",
+                        "123 Lorem ipsum dolor 456 sit amet consectetur 789",
+                        "!\\\"Lorem!#$%&'()*+ipsum,-./:;<=>?@dolor[]^_`{}~"])
         self.fill_step_one_mandatory_fields_with_valid_data()
         self.fill_step_two_mandatory_fields_with_valid_data()
+        step_three = self.add_club_popup.step_three_container
+
+        for description in descriptions:
+            step_three.set_description_textarea_value(description)
+            self.assertTrue(not step_three.error_messages_list)
+            self.assertEqual(step_three.textarea_validation_icon.value_of_css_property("color"), "rgba(82, 196, 26, 1)")
+            step_three.clear_textarea()
+
+    # TUA-250
+    def test_error_invalid_address_add_location(self):
+        addresses = (["Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean ma",
+                "абвг",
+                "абвгдъ",
+                "абвгдё",
+                "абвгдэ",
+                "абвгды"])
+        self.fill_step_one_mandatory_fields_with_valid_data()
+        step_two = self.add_club_popup.step_two_container
+        add_location = step_two.click_add_location_button()
+        add_location.name_input_element.set_input_value("Lorem")
+        add_location.city_dropdown_element.click_dropdown().select_item("Одеса")
+        add_location.district_dropdown_element.click_dropdown().select_item("Малиновський")
+        add_location.metro_dropdown_element.click_dropdown().select_item("Фонтан")
+
+        for address in addresses:
+            add_location.address_input_element.set_input_value(address)
+            self.assertEqual(add_location.address_input_element.get_error_messages_text_list()[0], "Некоректна адреса")
+
+            add_location.address_input_element.clear_input_with_wait()
+            (self.assertEqual(add_location.address_input_element.get_error_messages_text_list()[0]+
+                              "\n"+
+                              add_location.address_input_element.get_error_messages_text_list()[1],
+                "Це поле є обов'язковим\nНекоректна адреса"))

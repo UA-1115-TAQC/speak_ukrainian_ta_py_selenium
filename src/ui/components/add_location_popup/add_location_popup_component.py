@@ -1,7 +1,7 @@
 from selenium.webdriver.remote.webelement import WebElement
 
 from src.ui.components.base_pop_up import BasePopUp
-from src.ui.elements.dropdown_with_icon_errors import DropdownWithIconErrors
+from src.ui.elements.dropdown_with_icon_errors import DropdownWithIconErrors, AddLocationDropdown
 from src.ui.elements.input_with_info_tooltip import InputWithInfoTooltip
 from src.ui.elements.input_with_label_icons_errors import InputWithLabelIconsErrors
 
@@ -31,15 +31,15 @@ class AddLocationPopUp(BasePopUp):
 
     @property
     def city_dropdown_element(self) -> DropdownWithIconErrors:
-        return DropdownWithIconErrors(self.location_city)
+        return AddLocationDropdown(self.location_city, "cityName_list")
 
     @property
     def district_dropdown_element(self) -> DropdownWithIconErrors:
-        return DropdownWithIconErrors(self.location_district)
+        return AddLocationDropdown(self.location_district, "districtName_list")
 
     @property
     def metro_dropdown_element(self) -> DropdownWithIconErrors:
-        return DropdownWithIconErrors(self.location_metro)
+        return AddLocationDropdown(self.location_metro, "stationName_list")
 
     @property
     def address_input_element(self) -> InputWithLabelIconsErrors:

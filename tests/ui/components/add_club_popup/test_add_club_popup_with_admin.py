@@ -124,3 +124,25 @@ class AddClubPopUpWithAdminTest(LogInWithAdminTestRunner):
 
         self.assertTrue(self.driver.current_url == (Credentials.get_url()),
                         "Home Page should be opened after adding club")
+
+    #TUA-312
+    def test_display_add_club_popup(self):
+        self.assertTrue(self.add_club_popup.is_open())
+
+    # TUA-931
+    def test_valid_club_name(self):
+        names = ["0123456789",
+                 "фЙїqfGJHdsmnФІля",
+                 "!@#$%^&*()_{:\"}]'",
+                 "%;?*(?:фЙїqfG123456789",
+                 "1&hЦ*",
+                 "123Qw*&#єЇ123Qw*&#єЇ123Qw*&#єЇ123Qw*&#єЇ123Qw*&#єЇ123Qw*&#єЇ123Qw*&#єЇ123Qw*&#єЇ123Qw*&#єЇ123Qw*&#єЇ"]
+        step_one = self.add_club_popup.step_one_container
+
+        for name in names:
+            step_one.name_input_element.set_input_value(name)
+            self.assertEqual(step_one.name_input_element.validation_circle_icon.value_of_css_property("color"), "rgba(82, 196, 26, 1)")
+
+            step_one.name_input_element.clear_input()
+            self.assertEqual(step_one.name_input_element.validation_circle_icon.value_of_css_property("color"), "rgba(255, 77, 79, 1)")
+            self.assertEqual(step_one.name_input_element.get_error_messages_text_list()[0], "Введіть назву гуртка")

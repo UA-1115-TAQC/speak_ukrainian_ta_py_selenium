@@ -1,4 +1,5 @@
 from typing import Self
+
 from selenium.webdriver.remote.webelement import WebElement
 
 from src.ui.components.add_center_popup.add_center_step_two import AddCenterStepTwo

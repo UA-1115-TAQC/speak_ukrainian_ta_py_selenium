@@ -75,6 +75,9 @@ class AddClubStepThree(BaseComponent):
     def get_gallery_image_element_by_index(self, index: int) -> GalleryImageElement:
         return self.get_list_of_gallery_image_elements()[index]
 
+    def click_gallery_download_button(self):
+        return self.gallery_download_button.click_button()
+
     def upload_img_to_gallery(self, img_path: str) -> Self:
         img_count = len(self.gallery_img_list)
         self.node.find_element(*self.locators["gallery_download_input"]).send_keys(img_path)

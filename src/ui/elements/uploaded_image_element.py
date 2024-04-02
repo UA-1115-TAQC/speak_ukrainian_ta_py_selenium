@@ -1,5 +1,7 @@
 from typing import Self
+
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.elements.base_element import BaseElement
 
 
@@ -34,3 +36,7 @@ class UploadedImageElement(BaseElement):
         self.get_wait(timeout).until(lambda d: self.image_title.text != prev_img)
         self.upload_done.visibility_of_element_located()
         return self
+
+    def get_image_title_text(self) -> str:
+        return self.image_title.text
+

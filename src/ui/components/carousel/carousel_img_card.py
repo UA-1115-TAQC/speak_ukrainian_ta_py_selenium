@@ -1,16 +1,11 @@
-from src.ui.components.base_component import BaseComponent
-from selenium.webdriver.common.by import By
-from selenium import webdriver
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.wait import WebDriverWait
+
+from src.ui.components.base_component import BaseComponent
 
 
 class CarouselImgCard(BaseComponent):
-    def __init__(self, driver: webdriver, node: WebElement) -> None:
-        super().__init__(driver)
-        self._driver = driver
-        self._node = node
+    def __init__(self, node: WebElement) -> None:
+        super().__init__(node)
         self.locators = {
             "background_image": ("xpath", ".//div[@class=\"carousel-item\"]"),
             "card_heading": ("xpath", ".//h2"),

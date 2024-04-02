@@ -1,5 +1,7 @@
 from typing import Self
+
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.elements.base_element import BaseElement
 
 
@@ -21,6 +23,9 @@ class Dropdown(BaseElement):
     def click_dropdown(self) -> Self:
         self.dropdown.click_button()
         return self
+
+    def get_dropdown_label_text(self) -> str:
+        return self.dropdown_label.text
 
     def visible_items_list(self) -> list[WebElement]:
         return self.node.find_elements(*self.locators["dropdown_items_list"])
@@ -44,3 +49,9 @@ class Dropdown(BaseElement):
             if current_last_element == self.visible_items_list()[-1]:
                 break
         return self
+
+    def get_dropdown_placeholder_text(self) -> str:
+        return self.placeholder.text
+
+    def get_dropdown_selected_item_text(self) -> str:
+        return self.selected_item.text

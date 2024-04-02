@@ -1,5 +1,6 @@
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
+
 from src.ui.elements.base_element import BaseElement
 
 

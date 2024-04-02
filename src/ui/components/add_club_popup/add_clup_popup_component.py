@@ -1,9 +1,10 @@
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.components.add_club_popup.add_club_step_one import AddClubStepOne
 from src.ui.components.add_club_popup.add_club_step_three import AddClubStepThree
 from src.ui.components.add_club_popup.add_club_step_two import AddClubStepTwo
-from src.ui.components.base_pop_up import BasePopUp
 from src.ui.components.base_component import BaseComponent
+from src.ui.components.base_pop_up import BasePopUp
 from src.ui.elements.popup_step_element import PopUpStep
 
 

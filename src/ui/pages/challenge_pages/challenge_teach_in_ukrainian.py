@@ -1,9 +1,6 @@
-from src.ui.pages.challenge_pages.base_challenge_page import BaseChallengePage
-from selenium.webdriver.common.by import By
 from selenium import webdriver
-from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+
+from src.ui.pages.challenge_pages.base_challenge_page import BaseChallengePage
 
 CHALLENGE_IMAGE_PATH = " //div[contains(@class,\"title\") and not(contains(@role,\"menuitem\"))]"
 

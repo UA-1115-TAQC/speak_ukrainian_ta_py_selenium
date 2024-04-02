@@ -1,4 +1,5 @@
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.elements.input import Input
 
 
@@ -18,6 +19,9 @@ class InputWithLabelIconsErrors(Input):
             "error_messages_list": ("xpath", ".//div[contains(@class,'ant-col')]"
                                              "//div[@class='ant-form-item-explain-error']")
         }
+
+    def get_input_label_text(self) -> str:
+        return self.input_label.text
 
     @property
     def error_messages_list(self) -> list[WebElement]:

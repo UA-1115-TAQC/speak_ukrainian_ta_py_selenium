@@ -1,6 +1,8 @@
 from typing import Self
-from selenium.webdriver import Keys, ActionChains
+
+from selenium.webdriver import Keys
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.components.base_component import BaseComponent
 from src.ui.elements.gallery_image_element import GalleryImageElement
 from src.ui.elements.uploaded_image_element import UploadedImageElement
@@ -39,6 +41,12 @@ class AddClubStepThree(BaseComponent):
             "step_container": ("xpath", ".//main[contains(@class,'add-club-container')]")
         }
 
+    def get_club_popup_title_text(self) -> str:
+        return self.club_popup_title.text
+
+    def get_club_cover_title_text(self) -> str:
+        return self.club_cover_title.text
+
     def click_logo_download_button(self) -> Self:
         self.logo_download_button.click_button()
         return self
@@ -51,6 +59,9 @@ class AddClubStepThree(BaseComponent):
         self.node.find_element(*self.locators["logo_download_input"]).send_keys(img_path)
         self.logo_uploaded_img_container.visibility_of_element_located()
         return self
+
+    def get_club_logo_title_text(self) -> str:
+        return self.club_logo_title.text
 
     def click_cover_download_button(self) -> Self:
         self.cover_download_button.click_button()
@@ -65,6 +76,9 @@ class AddClubStepThree(BaseComponent):
         self.cover_uploaded_img_container.visibility_of_element_located()
         return self
 
+    def get_club_gallery_title_text(self) -> str:
+        return self.club_gallery_title.text
+
     @property
     def gallery_img_list(self) -> list[WebElement]:
         return self.node.find_elements(*self.locators["gallery_image_container"])
@@ -75,11 +89,17 @@ class AddClubStepThree(BaseComponent):
     def get_gallery_image_element_by_index(self, index: int) -> GalleryImageElement:
         return self.get_list_of_gallery_image_elements()[index]
 
+    def click_gallery_download_button(self):
+        return self.gallery_download_button.click_button()
+
     def upload_img_to_gallery(self, img_path: str) -> Self:
         img_count = len(self.gallery_img_list)
         self.node.find_element(*self.locators["gallery_download_input"]).send_keys(img_path)
         self.get_wait(5).until(lambda d: img_count < len(self.gallery_img_list))
         return self
+
+    def get_description_title_text(self) -> str:
+        return self.description_title.text
 
     def get_description_textarea_value(self) -> str:
         return self.description_textarea.get_attribute("value")

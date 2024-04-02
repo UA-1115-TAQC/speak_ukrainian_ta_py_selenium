@@ -2,6 +2,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from src.ui.components.add_club_popup.add_clup_popup_component import AddClubPopUp
 from src.ui.components.base_component import BaseComponent
 from src.ui.components.header_component.menu.guest_menu import GuestMenu
+from src.ui.components.header_component.menu.user_menu import UserMenu
 
 
 class HeaderComponent(BaseComponent):
@@ -13,6 +14,7 @@ class HeaderComponent(BaseComponent):
             "profile_menu_button": ("xpath", ".//div[contains(@class, 'user-profile')]"),
             "profile_menu_node": ("xpath", "//ul[contains(@class, 'ant-dropdown-menu')]"),
             "clubs_button":("xpath", ".//a[contains(@href,'clubs')]"),
+            "news_button": ("xpath", "//a[contains(@href, '/news')]")
         }
 
     def add_club_click(self) -> AddClubPopUp:
@@ -28,3 +30,11 @@ class HeaderComponent(BaseComponent):
         self.clubs_button.click()
         return ClubsPage(self.driver)
 
+    def click_news_button(self) -> 'AllNewsPage':
+        self.news_button.click_button()
+        from ...pages.all_news_page import AllNewsPage
+        return AllNewsPage(self.driver)
+
+    def open_user_menu(self) -> UserMenu:
+        self.profile_menu_button.click()
+        return UserMenu(self.profile_menu_node)

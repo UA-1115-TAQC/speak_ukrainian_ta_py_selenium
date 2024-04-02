@@ -23,9 +23,11 @@ class CarouselCardComponent(BasicCarouselComponent):
     @property
     def carousel_cards(self) -> list[ClubDirectionCard]:
         if not self._carousel_cards:
-            cards = self.slider_container.find_elements(By.XPATH, ".//div[contains(@class,\"slick-slide\")]")
+            self._carousel_cards = []
+            cards = self.node.find_elements(By.XPATH,
+                                            ".//div[contains(@class, 'slick-slide')]//div[contains(@class, 'slick-slide')]")
             for card in cards:
-                self._carousel_cards.append(ClubDirectionCard(self.node, card))
+                self._carousel_cards.append(ClubDirectionCard(card))
         return self._carousel_cards
 
     def click_carousel_card_all_clubs_button(self) -> ClubsPage:

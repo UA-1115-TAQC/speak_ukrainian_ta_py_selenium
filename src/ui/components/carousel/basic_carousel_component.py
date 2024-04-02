@@ -24,7 +24,7 @@ class BasicCarouselComponent(BaseComponent):
         return self.node.find_elements(*self.locators["slick_dots"])
 
     def click_right_arrow_button(self):
-        self.right_arrow_button.click()
+        self.right_arrow_button.click_button()
         return self
 
     def click_left_arrow_button(self):
@@ -46,7 +46,7 @@ class BasicCarouselComponent(BaseComponent):
         ))
         return self
 
-    def get_active_slick_dot(self) -> WebElement:
+    def get_active_slick_dot(self) -> WebElement | None:
         for dot in self.slick_dots:
             if dot.get_attribute("class") == "slick-active":
                 return dot

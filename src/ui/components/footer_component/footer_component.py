@@ -23,7 +23,7 @@ class FooterComponent(BaseComponent):
         }
 
     def click_on_logo(self) -> Self:
-        return self.logo.click
+        return self.logo.click_button()
 
     @property
     def list_of_social_links(self) -> list[WebElement]:
@@ -40,4 +40,4 @@ class FooterComponent(BaseComponent):
         return [link.get_attribute("href") for link in self.list_of_sponsors_links]
 
     def click_on_donate_button(self) -> Self:
-        return self.donate_button.click
+        return self.donate_button.click_button()

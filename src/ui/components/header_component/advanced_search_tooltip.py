@@ -6,9 +6,8 @@ from selenium import webdriver
 
 
 class AdvancedSearchToolTip(BaseComponent):
-    def __init__(self, driver: webdriver, node: WebElement) -> None:
+    def __init__(self, node: WebElement) -> None:
         super().__init__(node)
-        self._driver = driver
         self.locators = {
             "category_name_categories": ("xpath", "//div[contains(@title,\"Категорії\")]"),
             "category_name_clubs": ("xpath", "//div[contains(@title,\"Гуртки\")]"),

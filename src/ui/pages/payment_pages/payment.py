@@ -11,7 +11,6 @@ INITIATIVE_DESCRIPTION_PATH = "//div[contains(@class,\"description\")]"
 class Payment(BasePageWithoutHeaderAndFooter):
     def __init__(self, driver: webdriver) -> None:
         super().__init__(driver)
-        self._driver = driver
         self.locators = {
             "large_logo_image": ("xpath", INITIATIVE_HEADER_PATH + "//div[contains(@class,\"large\")]"),
             "initiative_title": ("xpath", INITIATIVE_HEADER_PATH + "//div[contains(@class,\"title\")]"),

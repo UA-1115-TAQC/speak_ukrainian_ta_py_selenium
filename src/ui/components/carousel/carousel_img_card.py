@@ -7,10 +7,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 
 class CarouselImgCard(BaseComponent):
-    def __init__(self, driver: webdriver, node: WebElement) -> None:
-        super().__init__(driver)
-        self._driver = driver
-        self._node = node
+    def __init__(self, node: WebElement) -> None:
+        super().__init__(node)
         self.locators = {
             "background_image": ("xpath", ".//div[@class=\"carousel-item\"]"),
             "card_heading": ("xpath", ".//h2"),

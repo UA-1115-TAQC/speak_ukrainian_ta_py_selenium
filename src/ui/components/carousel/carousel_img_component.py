@@ -11,14 +11,12 @@ from src.ui.components.carousel.carousel_img_card import CarouselImgCard
 
 
 class CarouselImgComponent(BasicCarouselComponent):
-    def __init__(self, driver: webdriver, node: WebElement) -> None:
-        super().__init__(driver, node)
-        self._driver = driver
-        self._node = node
-        self._wait = WebDriverWait(self._driver, 60)
+    def __init__(self, node: WebElement) -> None:
+        super().__init__(node)
+        self._wait = WebDriverWait(self.driver, 60)
         self._switching_carousel_img_cards: dict[int, WebElement] = {}
         self._active_carousel_img_card = None
-        self._actions = ActionChains(self._driver)
+        self._actions = ActionChains(self.driver)
 
     @property
     def switching_carousel_img_cards(self) -> dict[int, WebElement]:
@@ -34,12 +32,12 @@ class CarouselImgComponent(BasicCarouselComponent):
     def active_carousel_img_card(self) -> CarouselImgCard:
         data_index = self.find_active_carousel_img_card_index()
         if not self._active_carousel_img_card:
-            self._active_carousel_img_card = CarouselImgCard(self._driver,
+            self._active_carousel_img_card = CarouselImgCard(self.driver,
                                                              self.switching_carousel_img_cards[data_index])
         else:
             old_card = self._active_carousel_img_card
             self._wait.until(EC.invisibility_of_element(old_card.card_heading))
-            self._active_carousel_img_card = CarouselImgCard(self._driver,
+            self._active_carousel_img_card = CarouselImgCard(self.driver,
                                                              self.switching_carousel_img_cards[data_index])
         return self._active_carousel_img_card
 
@@ -47,7 +45,7 @@ class CarouselImgComponent(BasicCarouselComponent):
         if 0 <= data_index < len(self.switching_carousel_img_cards):
             img_card = self.switching_carousel_img_cards[data_index]
             self._wait.until(EC.visibility_of(img_card))
-            return CarouselImgCard(self._driver, img_card)
+            return CarouselImgCard(self.driver, img_card)
         raise ValueError("The index must be in the range from 0 to "
                          + str(len(self.switching_carousel_img_cards) - 1) + ", inclusive.")
 

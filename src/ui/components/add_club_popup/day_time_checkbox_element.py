@@ -32,6 +32,9 @@ class DayTimeCheckboxElement(BaseElement):
         self.checkbox_title.click_button()
         return self
 
+    def get_checkbox_title_text(self) -> str:
+        return self.checkbox_title.text
+
     def set_time_from_input(self, value: str) -> Self:
         self.time_from_input.visibility_of_element_located().send_keys(value)
         self.click_time_picker_button()

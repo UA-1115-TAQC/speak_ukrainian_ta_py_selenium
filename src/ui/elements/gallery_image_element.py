@@ -18,6 +18,9 @@ class GalleryImageElement(BaseElement):
             "preview_close_button": ("xpath", "//button[@class='ant-modal-close']")
         }
 
+    def get_gallery_image_name_text(self) -> str:
+        return self.gallery_image_name.text
+
     def click_image_preview_icon(self) -> Self:
         self.gallery_actions_container.hover()
         self.gallery_image_preview_icon.click_button()
@@ -35,3 +38,6 @@ class GalleryImageElement(BaseElement):
     def click_image_container(self) -> Self:
         self.node.click()
         return self
+
+    def get_gallery_image_error_text(self) -> str:
+        return self.gallery_image_error.text

@@ -22,7 +22,7 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
 
     def setUp(self):
         super().setUp()
-        self.add_club_popup = self.homepage.header.add_club_click()
+        self.add_club_popup = self.homepage.header.add_club_click
         self.add_club_popup.wait_popup_open(5)
 
     def fill_step_one_mandatory_fields_with_valid_data(self):
@@ -189,7 +189,7 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
                         "Min age input should be empty")
         self.assertTrue(step_one.max_age_input_element.get_input_value() == "",
                         "Max age input should be empty")
-        self.assertTrue(step_one.center_dropdown_element.dropdown_placeholder_text() == "Назва центру",
+        self.assertTrue(step_one.center_dropdown_element.get_dropdown_placeholder_text() == "Назва центру",
                         "Default inner text is Назва центру")
 
         self.fill_step_one_mandatory_fields_with_valid_data()

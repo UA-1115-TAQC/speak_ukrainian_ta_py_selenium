@@ -1,11 +1,12 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.components.add_club_popup.add_club_step_three import AddClubStepThree
+from src.ui.components.add_club_popup.day_time_checkbox_element import DayTimeCheckboxElement
+from src.ui.components.add_club_popup.location_list_element import LocationListElement
 from src.ui.components.add_location_popup.add_location_popup_component import AddLocationPopUp
 from src.ui.components.base_component import BaseComponent
-from src.ui.components.add_club_popup.day_time_checkbox_element import DayTimeCheckboxElement
 from src.ui.elements.input_with_label_icons_errors import InputWithLabelIconsErrors
-from src.ui.components.add_club_popup.location_list_element import LocationListElement
 
 
 class AddClubStepTwo(BaseComponent):
@@ -44,6 +45,12 @@ class AddClubStepTwo(BaseComponent):
             "step_container": ("xpath", ".//main[contains(@class,'add-club-container')]")
         }
 
+    def get_club_popup_title_text(self) -> str:
+        return self.club_popup_title.text
+
+    def get_locations_title_text(self) -> str:
+        return self.locations_title.text
+
     def click_add_location_button(self) -> AddLocationPopUp:
         self.add_location_button.click_button()
         return AddLocationPopUp(self.location_popup)
@@ -58,6 +65,9 @@ class AddClubStepTwo(BaseComponent):
     def get_list_of_location_elements(self) -> list[LocationListElement]:
         return [LocationListElement(location) for location in self.location_list] if self.location_list else []
 
+    def get_available_online_title_text(self) -> str:
+        return self.available_online_title.text
+
     def click_switch_button(self):
         self.switch_button.click_button()
 
@@ -70,6 +80,9 @@ class AddClubStepTwo(BaseComponent):
 
     def info_hint_text(self) -> str:
         return self.info_hint_container.text
+
+    def get_work_hours_title_text(self) -> str:
+        return self.work_hours_title.text
 
     @property
     def work_days_list(self) -> list[WebElement]:
@@ -100,6 +113,9 @@ class AddClubStepTwo(BaseComponent):
 
     def checked_work_days_texts_list(self) -> list[str]:
         return [day.get_attribute("innerText") for day in self.checked_work_days_list]
+
+    def get_contacts_title_text(self) -> str:
+        return self.contacts_title.text
 
     @property
     def telephone_input_element(self) -> InputWithLabelIconsErrors:
@@ -132,4 +148,4 @@ class AddClubStepTwo(BaseComponent):
     def click_previous_step_button(self) -> 'AddClubStepOne':
         self.previous_step_button.click_button()
         from src.ui.components.add_club_popup.add_club_step_one import AddClubStepOne
-        return AddClubStepOne(self.step_container)
+        return AddClubStepOne(self.node)

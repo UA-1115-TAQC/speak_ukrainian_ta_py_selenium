@@ -1,4 +1,5 @@
 from selenium.webdriver import Keys
+
 from src.ui.components.base_component import BaseComponent
 from src.ui.elements.location_search_sider_element import LocationSearchSiderElement
 

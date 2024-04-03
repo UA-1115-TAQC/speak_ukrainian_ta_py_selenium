@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 
 from src.ui.components.center_card_component import CenterCardComponent
 from src.ui.components.club_card_component import ClubCardComponent
+from src.ui.components.edit_user_pop_up.edit_user_pop_up import EditUserPopUp
 from src.ui.pages.base_pages.base_page import BasePage
 
 MY_PROFILE_TITLE = (By.XPATH, ".//div[@class='content-title']")
@@ -41,8 +42,6 @@ class ProfilePage(BasePage):
         self._add_button = None
         self._add_club_button = None
         self._add_center_button = None
-        # todo : коли буде едіт профайл, дописати гет
-        self._edit_user_modal_form = None
 
         self._left_side_root = None
 
@@ -85,15 +84,16 @@ class ProfilePage(BasePage):
         if not self._user_email:
             self._user_email = self.driver.find_element(*USER_EMAIL)
         return self._user_email
+
     @property
     def edit_profile_button(self):
         if not self._edit_profile_button:
             self._edit_profile_button = self.driver.find_element(*EDIT_PROFILE_BUTTON)
         return self._edit_profile_button
 
-    def click_edit_profile_button(self):
-        self._edit_profile_button.click()
-        return self
+    def click_edit_profile_button(self) -> EditUserPopUp:
+        self.edit_profile_button.click()
+        return EditUserPopUp(self.driver.find_element(*EDIT_USER_MODAL_FORM))
 
     @property
     def my_lessons_or_centers_dropdown(self):

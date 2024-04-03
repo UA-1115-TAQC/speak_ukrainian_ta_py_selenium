@@ -35,8 +35,10 @@ class UserMenu(BaseComponent):
         from src.ui.pages.search_certificate.search_certificate_page import SearchCertificatePage
         return SearchCertificatePage(self.driver)
 
-    def click_profile(self):  # TODO (add page and finish method)
-        pass
+    def click_profile(self) -> 'ProfilePage':
+        self.profile.click_button()
+        from src.ui.pages.profile_page import ProfilePage
+        return ProfilePage(self.driver)
 
     @property
     def click_logout(self) -> None:

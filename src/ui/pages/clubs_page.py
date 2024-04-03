@@ -26,7 +26,7 @@ class ClubsPage(BasePage):
 
     @property
     def search_clubs_header(self):
-        return AdvancedSearchClubsHeaderComponent(self.driver, self.search_clubs_header_element)
+        return AdvancedSearchClubsHeaderComponent(self.search_clubs_header_element)
 
     @property
     def pagination(self):

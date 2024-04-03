@@ -26,6 +26,7 @@ class RegisterWithValidDataTest(BaseTestRunner):
         self.assertIn(self.homepage.get_top_notice_message(), self.REGISTRATION_SUCCESS,
                       "After registration popup with the following text should appear " + self.REGISTRATION_SUCCESS)
 
+
     def test_the_corresponding_message(self):
         email = "a40qwxrnd518dd@emailabox.pro"
         self.register_popup.click_manager_type_button()
@@ -62,3 +63,4 @@ class RegisterWithValidDataTest(BaseTestRunner):
         self.register_popup.register()
         self.assertIn(self.homepage.get_top_notice_message(), self.REGISTRATION_SUCCESS,
                       "After registration popup with the following text should appear " + self.REGISTRATION_SUCCESS)
+

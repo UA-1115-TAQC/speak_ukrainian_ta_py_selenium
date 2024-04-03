@@ -20,3 +20,15 @@ class DropdownWithIconErrors(Dropdown):
 
     def get_list_of_error_texts(self) -> list[str]:
         return [error.text for error in self.error_list]
+
+
+class AddLocationDropdown(DropdownWithIconErrors):
+    def __init__(self, node, list_id):
+        super().__init__(node)
+        self._list_id = list_id
+
+    def visible_items_list(self) -> list[WebElement]:
+        xpath = ("//div[@id='"
+                 +self._list_id+
+                 "']/following-sibling::div/descendant::div[contains(@class,'ant-select-item ant-select-item-option')]")
+        return self.node.find_elements(*("xpath", xpath))

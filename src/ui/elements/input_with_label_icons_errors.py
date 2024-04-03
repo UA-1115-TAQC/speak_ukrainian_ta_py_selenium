@@ -1,5 +1,5 @@
 from selenium.webdriver.remote.webelement import WebElement
-
+from selenium.webdriver.support import expected_conditions as ec
 from src.ui.elements.input import Input
 
 
@@ -17,7 +17,9 @@ class InputWithLabelIconsErrors(Input):
                                      "//span[@class='ant-input-suffix']"
                                      "/div[@class='icon']"),
             "error_messages_list": ("xpath", ".//div[contains(@class,'ant-col')]"
-                                             "//div[@class='ant-form-item-explain-error']")
+                                             "//div[@class='ant-form-item-explain-error']"),
+            "loading_error_messages_list": ("xpath", ".//div[contains(@class,'ant-col')]"
+                                             "//div[contains(@class,'ant-form-item-explain-error')]"),
         }
 
     def get_input_label_text(self) -> str:
@@ -29,3 +31,13 @@ class InputWithLabelIconsErrors(Input):
 
     def get_error_messages_text_list(self) -> list[str]:
         return [error.get_attribute("innerText") for error in self.error_messages_list]
+
+    @property
+    def loading_error_messages_list(self) -> list[WebElement]:
+        return self.node.find_elements(*self.locators["loading_error_messages_list"])
+
+    def clear_input_with_wait(self):
+        self.clear_input()
+        self.get_wait(20).until(lambda wd: not self.loading_error_messages_list[0].get_attribute("style"))
+        return self
+

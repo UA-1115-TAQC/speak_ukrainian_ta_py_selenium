@@ -7,8 +7,8 @@ from src.ui.pages.base_pages.base_page import BasePage
 
 class MessagePage(BasePage):
 
-    def __init__(self, node: WebElement) -> None:
-        super().__init__(node)
+    def __init__(self, driver: WebElement) -> None:
+        super().__init__(driver)
         self.locators = {
             "search_input": ("xpath", ".//input[contains(@class, 'input') and @placeholder='Пошук...']"),
             "selected_item_dropdown": ("xpath", ".//span[contains(@class, 'selection-item')]"),
@@ -23,8 +23,9 @@ class MessagePage(BasePage):
             "unanswered_messages_switch": ("xpath", ".//span[text()='Повідомлення без відповіді: "
                                                     "']/following-sibling::button//span[@class='ant-switch-inner']"),
             "no_message_title": ("xpath", ".//div[contains(@class, 'noMessages')]"),
-            "message_elements": (
-            "xpath", ".//ul[contains(@class, 'ant-list-items')]//div[contains(@class, 'collapse ')]"),
+            "message_elements": ("xpath", ".//ul[contains(@class, 'ant-list-items')]//div[contains(@class, 'collapse "
+                                          "')]"),
+
         }
 
     def search_input_send_keys(self, keys):
@@ -47,9 +48,9 @@ class MessagePage(BasePage):
 
     @property
     def message_elements(self) -> list[WebElement]:
-        return self.node.find_elements(*self.locators["message_elements"])
+        return self.driver.find_elements(*self.locators["message_elements"])
 
-    # todo отут помилка отримується WebElement, а не list
+    # todo here am I
 
     def get_message_elements(self):
         return [MessageComponent(el) for el in self.message_elements]

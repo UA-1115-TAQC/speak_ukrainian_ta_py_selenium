@@ -22,13 +22,11 @@ class RegisterPopupComponent(BasePopUp):
             "registration_button": ("xpath", ".//button[contains(@class, 'registration-button')]"),
         }
 
-    def user_type_button(self) -> 'RegisterPopupComponent':
-        self.user_type_button.click_button()
-        return self
+    def click_user_type_button(self) -> 'RegisterPopupComponent':
+        return self.user_type_button.click_button()
 
-    def click_manager_type_button(self)-> 'RegisterPopupComponent':
-        self.manager_type_button.click_button()
-        return self
+    def click_manager_type_button(self) -> 'RegisterPopupComponent':
+        return self.manager_type_button.click_button()
 
     def click_google_button(self) -> 'RegisterPopupComponent':
         self.google_button.click_button()

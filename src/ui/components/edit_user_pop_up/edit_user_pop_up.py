@@ -12,7 +12,7 @@ from src.ui.elements.uploaded_image_element import UploadedImageElement
 
 class EditUserPopUp(BasePopUp):
     def __init__(self, node: WebElement) -> None:
-        super(self).__init__(node)
+        super().__init__(node)
         self.locators = {
             **self.locators,
             "edit_user_popup_title": ("xpath", ".//div[@class='edit-header']"),

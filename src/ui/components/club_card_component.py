@@ -20,6 +20,7 @@ class ClubCardComponent(BaseComponent):
             "online": ("xpath", "./descendant::div[@class='club-online']"),
             "details_button": ("xpath", ".//*[contains(@class,'details-button')]"),
             "popup": ("xpath", "//div[@class='ant-modal-root css-1kvr9ql']"),
+            "club_info_popup_root": ("xpath", "//div[contains(@class,'clubInfo')]"),
         }
 
     @property
@@ -70,7 +71,6 @@ class ClubCardWithEditComponent(ClubCardComponent):
             "participants_club_menu_item": ("xpath", "//ul[contains(@class,'update-menu')]/li[1]"),
             "edit_club_menu_item": ("xpath", "//ul[contains(@class,'update-menu')]/li[2]"),
             "delete_club_menu_item": ("xpath", "//ul[contains(@class,'update-menu')]/li[3]"),
-            "add_club_popup": ("xpath", "//div[contains(@class,'modal-add-club')]"),
         }
 
     def get_name_text(self):

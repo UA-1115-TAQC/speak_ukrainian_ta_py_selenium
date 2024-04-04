@@ -23,6 +23,14 @@ class TestHeaderComponent(BaseTestRunner):
         self.assertTrue(all_news_page.advanced_search_header_component.node.is_displayed())
         self.header = all_news_page.header
 
+        about_us_page = self.header.click_about_us_button()
+        self.assertTrue(about_us_page.advanced_search_header_component.node.is_displayed())
+        self.header = about_us_page.header
+
+        service_page = self.header.click_service_page_button()
+        self.assertTrue(service_page.advanced_search_header_component.node.is_displayed())
+        self.header = service_page.header
+
         home_page = self.header.click_teach_in_ukr_logo()
         self.assertTrue(home_page.advanced_search_header_component.node.is_displayed())
         self.header = home_page.header

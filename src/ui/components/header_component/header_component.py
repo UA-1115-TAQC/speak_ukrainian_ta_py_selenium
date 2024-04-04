@@ -18,6 +18,8 @@ class HeaderComponent(BaseComponent):
             "teach_in_ukr_logo": ("xpath", "//div[contains(@class, 'logo')]"),
             "challenge_button": ("xpath", "//span[contains(@class, 'challenge-text')]"),
             "challenge_dropdown_node": ("xpath", "//ul[contains(@id,'challenge_ONE-popup')]"),
+            "about_us_button": ("xpath", ".//a[contains(@href,'about')]"),
+            "service_page_button": ("xpath", ".//a[contains(@href,'service')]"),
         }
 
     def add_club_click(self) -> AddClubPopUp:
@@ -38,14 +40,24 @@ class HeaderComponent(BaseComponent):
         self.clubs_button.click_button()
         return ClubsPage(self.driver)
 
-    def click_challenge_button(self):
-        self.challenge_button.click_button()
-        return HeaderChallengesDropdown(self.challenge_dropdown_node)
+    def click_about_us_button(self):
+        self.about_us_button.click_button()
+        from src.ui.pages.about_us_page import AboutUsPage
+        return AboutUsPage(self.driver)
+
+    def click_service_page_button(self):
+        self.service_page_button.click_button()
+        from src.ui.pages.service_page import ServicePage
+        return ServicePage(self.driver)
 
     def click_news_button(self) -> 'AllNewsPage':
         self.news_button.click_button()
         from ...pages.all_news_page import AllNewsPage
         return AllNewsPage(self.driver)
+
+    def click_challenge_button(self):
+        self.challenge_button.click_button()
+        return HeaderChallengesDropdown(self.challenge_dropdown_node)
 
     def open_user_menu(self) -> UserMenu:
         self.profile_menu_button.click()

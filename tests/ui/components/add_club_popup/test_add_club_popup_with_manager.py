@@ -3,6 +3,7 @@ from selenium.webdriver import Keys
 from src.ui.components.add_club_popup.add_club_step_three import AddClubStepThree
 from src.ui.components.add_club_popup.add_clup_popup_component import AddClubSider
 from src.ui.components.add_location_popup.add_location_popup_component import AddLocationPopUp
+from src.ui.pages.profile_page import ProfilePage
 from tests.base_test_runner import LogInWithManagerTestRunner
 from tests.utils.config_properties import ConfigProperties
 
@@ -286,3 +287,44 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
                               "\n"+
                               add_location.address_input_element.get_error_messages_text_list()[1],
                 "Це поле є обов'язковим\nНекоректна адреса"))
+
+    # TUA-923
+    def test_default_icon_is_set(self):
+        new_club_name = "Club With Default Icon"
+
+        step_one = self.add_club_popup.step_one_container
+        step_one.name_input_element.set_input_value(new_club_name)
+        step_one.click_on_category_by_name(self.VALID_CATEGORY)
+        step_one.min_age_input_element.set_input_value(self.VALID_MIN_AGE)
+        step_one.get_actions().send_keys(Keys.TAB).perform()
+        step_one.max_age_input_element.set_input_value(self.VALID_MAX_AGE)
+        step_one.get_actions().send_keys(Keys.TAB).perform()
+        step_one.click_next_step_button()
+
+        self.fill_step_two_mandatory_fields_with_valid_data()
+
+        step_three = self.add_club_popup.step_three_container
+        step_three.set_description_textarea_value(self.VALID_DESCRIPTION)
+        step_three.click_complete_button()
+
+        new_club = self.get_club_added_club(new_club_name)
+        if not new_club:
+            self.assertTrue(False, "Club was not added")
+
+        logo_src = new_club.get_logo_src()
+        # TODO delete club
+        self.assertNotEqual(logo_src, None)
+
+    def get_club_added_club(self, club_name):
+        while True:
+            profile_page = ProfilePage(self.driver)
+            clubs = profile_page.club_cards_list()
+
+            for club in clubs:
+                if club.get_name_text() == club_name:
+                    return club
+
+            pagination = profile_page.switch_pagination_web_element
+            if not pagination or pagination.is_next_disabled():
+                return None
+            pagination.click_next()

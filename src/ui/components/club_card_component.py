@@ -1,5 +1,4 @@
 from selenium.webdriver.support import expected_conditions as ec
-
 from src.ui.components.base_component import BaseComponent
 from src.ui.components.club_info_popup import ClubInfoPopup
 from src.ui.elements.direction_element import DirectionElement
@@ -29,7 +28,7 @@ class ClubCardComponent(BaseComponent):
         return [DirectionElement(direction) for direction in directions]
 
     def get_logo_src(self):
-        self.logo.get_attribute("src")
+        return self.logo.get_attribute("src")
 
     def get_name_text(self):
         return self.name.text

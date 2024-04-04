@@ -1,5 +1,4 @@
 from selenium.webdriver.support import expected_conditions as ec
-from src.ui.components.add_club_popup.add_clup_popup_component import AddClubPopUp
 from src.ui.components.base_component import BaseComponent
 from src.ui.components.club_info_popup import ClubInfoPopup
 from src.ui.elements.direction_element import DirectionElement
@@ -21,7 +20,6 @@ class ClubCardComponent(BaseComponent):
             "online": ("xpath", "./descendant::div[@class='club-online']"),
             "details_button": ("xpath", ".//*[contains(@class,'details-button')]"),
             "popup": ("xpath", "//div[@class='ant-modal-root css-1kvr9ql']"),
-            "club_info_popup_root": ("xpath", "//div[contains(@class,'clubInfo')]"),
         }
 
     @property
@@ -87,7 +85,6 @@ class ClubCardWithEditComponent(ClubCardComponent):
 
     def click_edit_club(self):
         self.edit_club_menu_item.click()
-        return AddClubPopUp(self.add_club_popup)
 
     def click_delete_club(self):
         self.delete_club_menu_item.click()

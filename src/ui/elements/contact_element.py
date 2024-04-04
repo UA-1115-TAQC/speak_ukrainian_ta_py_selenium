@@ -10,8 +10,6 @@ class ContactElement(BaseElement):
             "name": ("xpath", ".//span[contains(@class,'contact-name')]"),
             "href": ("xpath", ".//a"),
         }
-        self._icon = None
-        self._name = None
 
     def click_contact(self):
         href = self.name.find_elements(*self.locators["href"])

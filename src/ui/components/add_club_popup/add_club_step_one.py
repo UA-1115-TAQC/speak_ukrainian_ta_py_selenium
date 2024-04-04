@@ -81,7 +81,7 @@ class AddClubStepOne(BaseComponent):
 
     @property
     def center_dropdown_element(self) -> Dropdown:
-        return Dropdown(self.center_dropdown)
+        return Dropdown(self.center_dropdown, "basic_centerId_list")
 
     def click_next_step_button(self) -> AddClubStepTwo:
         self.next_step_button.click_button()

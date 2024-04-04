@@ -6,8 +6,9 @@ from src.ui.elements.base_element import BaseElement
 
 
 class Dropdown(BaseElement):
-    def __init__(self, node: WebElement):
+    def __init__(self, node: WebElement, dropdown_id):
         super().__init__(node)
+        self._dropdown_id = dropdown_id
         self.locators = {
             "dropdown": ("xpath", ".//div[contains(@class,'ant-select-selector')]"),
             "dropdown_label": ("xpath", "./ancestor::div[contains(@class,'ant-form-item')]"
@@ -15,9 +16,7 @@ class Dropdown(BaseElement):
             "arrow_icon": ("xpath", ".//span[contains(@class,'ant-select-arrow')]/span[@aria-label='down']"),
             "placeholder": ("xpath", ".//span[@class='ant-select-selection-placeholder']"),
             "selected_item": ("xpath", ".//span[@class='ant-select-selection-item']"),
-            "dropdown_container": ("xpath", "//div[@class='rc-virtual-list-holder']"),
-            "dropdown_items_list": ("xpath", "//div[@class='rc-virtual-list']"
-                                             "/descendant::div[contains(@class,'ant-select-item ant-select-item-option')]")
+            "dropdown_container": ("xpath", "//div[@class='rc-virtual-list-holder']")
         }
 
     def click_dropdown(self) -> Self:
@@ -28,7 +27,10 @@ class Dropdown(BaseElement):
         return self.dropdown_label.text
 
     def visible_items_list(self) -> list[WebElement]:
-        return self.node.find_elements(*self.locators["dropdown_items_list"])
+        xpath = ("//div[@id='"
+                 + self._dropdown_id
+                 + "']/following-sibling::div//div[contains(@class,'ant-select-item ant-select-item-option')]")
+        return self.node.find_elements(*("xpath", xpath))
 
     def scroll_to_top(self):
         while True:
@@ -55,3 +57,17 @@ class Dropdown(BaseElement):
 
     def get_dropdown_selected_item_text(self) -> str:
         return self.selected_item.text
+
+
+class DropdownWithIconError(Dropdown):
+    def __init__(self, node: WebElement, dropdown_id: str):
+        super().__init__(node, dropdown_id)
+        self.locators = {
+            **self.locators,
+            "validation_circle_icon": ("xpath", ".//span[contains(@class,'anticon-close-circle') "
+                                                "or contains(@class,'anticon-check-circle')]"),
+            "error_message": ("xpath", ".//div[@class='ant-form-item-explain-error']")
+        }
+
+    def get_list_of_error_text(self) -> str:
+        return self.error_message.text

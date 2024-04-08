@@ -18,6 +18,7 @@ class AddClubPopUpWithAdminTest(LogInWithAdminTestRunner):
     INVALID_TELEPHONE_NUMBER = "&*^роYT8"
     VALID_TELEPHONE_NUMBER = "0987656453"
     INVALID_DESCRIPTION = "%;№?*(?:фЙїqfG123456789 ÄыЁЪ ¥¼µ€"
+    VALID_DESCRIPTION = "Bla bla, 123!! Text@ 1232"
     VALID_CIRCLE_ICON = "check-circle"
     INVALID_CIRCLE_ICON = "close-circle"
     SECOND_STEP = "2"
@@ -124,3 +125,19 @@ class AddClubPopUpWithAdminTest(LogInWithAdminTestRunner):
 
         self.assertTrue(self.driver.current_url == (Credentials.get_url()),
                         "Home Page should be opened after adding club")
+
+
+    def test_add_club_with_valid_data(self):
+        step_one = self.add_club_popup.step_one_container
+        step_one.name_input_element.set_input_value(self.VALID_CLUB_NAME)
+        step_one.click_on_category_by_name(self.VALID_CATEGORY)
+        step_one.min_age_input_element.set_input_value(3)
+        step_one.max_age_input_element.set_input_value(15)
+        step_one.click_next_step_button()
+
+        step_two = self.add_club_popup.step_two_container
+        step_two.telephone_input_element.set_input_value(self.VALID_TELEPHONE_NUMBER)
+
+        step_three = step_two.click_next_step_button()
+        step_three.set_description_textarea_value(self.VALID_DESCRIPTION)
+        self.assertTrue(step_three.complete_button.is_enabled(), "Complete button is not enabled")

@@ -1,4 +1,7 @@
+from selenium.webdriver.support import expected_conditions as EC
+
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
 
 from src.ui.components.center_card_component import CenterCardComponent
 from src.ui.components.club_card_component import ClubCardComponent
@@ -85,6 +88,7 @@ class ProfilePage(BasePage):
         if not self._user_email:
             self._user_email = self.driver.find_element(*USER_EMAIL)
         return self._user_email
+
     @property
     def edit_profile_button(self):
         if not self._edit_profile_button:
@@ -137,6 +141,7 @@ class ProfilePage(BasePage):
 
     @property
     def add_club_button(self):
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@class,'ant-dropdown')]/child::*[1]//div[text()='Додати гурток']")))
         if not self._add_club_button:
             self._add_club_button = self.driver.find_element(*ADD_CLUB_BUTTON)
         return self._add_club_button
@@ -147,6 +152,7 @@ class ProfilePage(BasePage):
 
     @property
     def add_center_button(self):
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.XPATH, "//div[contains(@class,'ant-dropdown')]/child::*[1]//div[text()='Додати центр']")))
         if not self._add_center_button:
             self._add_center_button = self.driver.find_element(*ADD_CENTER_BUTTON)
         return self._add_center_button

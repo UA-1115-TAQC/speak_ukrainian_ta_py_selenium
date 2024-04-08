@@ -13,6 +13,9 @@ class HeaderComponent(BaseComponent):
             "add_club_button": ("xpath", ".//button[contains(@class,'add-club-button')]"),
             "add_club_popup": ("xpath", "//div[contains(@class,'modal-add-club')]"),
             "profile_menu_button": ("xpath", ".//div[contains(@class, 'user-profile')]"),
+
+            "personal_cabinet_button": ("xpath", "//a[text()='Особистий кабінет']"),
+
             "profile_menu_node": ("xpath", "//ul[contains(@class, 'ant-dropdown-menu')]"),
             "clubs_button":("xpath", ".//a[contains(@href,'clubs')]"),
             "news_button": ("xpath", "//a[contains(@href, '/news')]")
@@ -25,6 +28,9 @@ class HeaderComponent(BaseComponent):
     def click_profile_button(self) -> GuestMenu:
         self.profile_menu_button.click()
         return GuestMenu(self.profile_menu_node)
+
+    def click_personal_cabinet_button(self):
+        self.personal_cabinet_button.click()
 
     def click_clubs_button(self):
         from src.ui.pages.clubs_page import ClubsPage

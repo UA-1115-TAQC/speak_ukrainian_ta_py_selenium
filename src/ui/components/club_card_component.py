@@ -64,7 +64,7 @@ class ClubCardWithEditComponent(ClubCardComponent):
         super().__init__(node)
         self.locators = {
             **self.locators,
-            "title": ("xpath", ".//div[@class='title-name']"),
+            "name": ("xpath", ".//div[@class='title-name']"),
             "more_button": ("xpath", ".//span[@aria-label='more']"),
             "more_button_menu": ("xpath", "//ul[contains(@class,'update-menu')]"),
             "more_button_menu_items": ("xpath", "//ul[contains(@class,'update-menu')]/li"),
@@ -72,10 +72,6 @@ class ClubCardWithEditComponent(ClubCardComponent):
             "edit_club_menu_item": ("xpath", "//ul[contains(@class,'update-menu')]/li[2]"),
             "delete_club_menu_item": ("xpath", "//ul[contains(@class,'update-menu')]/li[3]"),
         }
-
-    @property
-    def name(self):
-        return self.title
 
     def get_name_text(self):
         return self.title.text

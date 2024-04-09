@@ -13,7 +13,7 @@ class TestRegistrationCancellation(BaseTestRunner):
         register_popup.firstname_input_element.set_input_value("Qwerty")
         register_popup.lastname_input_element.set_input_value("Qwerty")
         register_popup.phone_input_element.set_input_value("0123456789")
-        register_popup.phone_input_element.set_input_value("qwerty@email.com")
+        register_popup.email_input_element.set_input_value("qwerty@email.com")
         register_popup.click_close_button()
 
         new_url = self.driver.current_url

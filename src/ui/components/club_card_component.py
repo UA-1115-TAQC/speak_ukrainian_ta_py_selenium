@@ -73,9 +73,6 @@ class ClubCardWithEditComponent(ClubCardComponent):
             "delete_club_menu_item": ("xpath", "//ul[contains(@class,'update-menu')]/li[3]"),
         }
 
-    def get_name_text(self):
-        return self.title.text
-
     def click_more_button(self):
         self.more_button.click()
 

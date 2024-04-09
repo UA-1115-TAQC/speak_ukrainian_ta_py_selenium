@@ -1,4 +1,5 @@
 from selenium.webdriver.remote.webelement import WebElement
+
 from src.ui.elements.dropdown import Dropdown
 
 
@@ -22,12 +23,12 @@ class DropdownWithIconErrors(Dropdown):
 
 
 class AddLocationDropdown(DropdownWithIconErrors):
-    def __init__(self, node, dropdown_id):
+    def __init__(self, node, list_id):
         super().__init__(node)
-        self._dropdown_id = dropdown_id
+        self._list_id = list_id
 
     def visible_items_list(self) -> list[WebElement]:
         xpath = ("//div[@id='"
-                 +self._dropdown_id+
+                 +self._list_id+
                  "']/following-sibling::div/descendant::div[contains(@class,'ant-select-item ant-select-item-option')]")
         return self.node.find_elements(*("xpath", xpath))

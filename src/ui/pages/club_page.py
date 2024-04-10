@@ -1,23 +1,46 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.support import expected_conditions as EC
 
-from src.ui.components.rating_component import RatingComponent
-from src.ui.pages.base_pages import base_page
+from selenium.webdriver.support.wait import WebDriverWait
 
-RATING = (By.XPATH, "./descendant::ul[@role='radiogroup']")
-SIGN_UP_TO_CLUB = (By.XPATH, "./descendant::span[text()='Записатись на гурток']")
-WRITE_TO_MANAGER = (By.XPATH, "./descendant::span[text()='Написати менеджеру']")
-CLUB_DESCRIPTION = (By.XPATH, "./descendant::div[@class='content']")
-CLUB_NAME = (By.XPATH, "./descendant::span[@class='club-name']")
-CLUB_COVER = (By.XPATH, ".//header[contains(@class,'page-header')]")
+from src.ui.components.comments_component import CommentsClubComponent
+from src.ui.pages.base_pages.base_page import BasePage
+from selenium import webdriver
+from src.ui.components.sign_up_to_club_popup.sign_up_to_club import SignUpToClub
 
 
+class ClubPage(BasePage):
 
-class ClubPage(base_page):
-
-    def __init__(self, driver: WebDriver) -> None:
+    def __init__(self, driver: webdriver) -> None:
         super().__init__(driver)
-        self.rating_elements = driver.find_elements(*RATING)
+        self.locators = {
+            "club_rating": ("xpath", "./descendant::div[@class='page-rating']"),
+            "sign_up_to_club": (
+                "xpath", "//button[contains(@class, 'apply-button')]//span[contains(text(),'Записатись на гурток')]"),
+            "write_to_manager": ("xpath", "./descendant::span[text()='Написати менеджеру']"),
+            "club_description": ("xpath", "./descendant::div[@class='content']"),
+            "club_name": ("xpath", "./descendant::span[@class='club-name']"),
+            "club_cover": ("xpath", "/header[contains(@class,'page-header')]"),
+            "leave_comment": ("xpath", "./descendant::button[contains(@class,'comment-button')][1]"),
+            "sign_up_to_club_pop_up": ("xpath", "//div[contains(@class,'SignUpForClub_signUpForClubModal')]"),
+            "submit_button": ("xpath", ".//button[@type='submit']"),
+            "add_comment_pop_up": ("xpath", "//div[contains(@class,'comment-modal')]"),
+            "comments_component": ("xpath", ".//div[@class='ant-comment-inner']"),
+            "category_club_name": ("xpath", "//div[@class='tags ']//span[@class='name']")
+        }
 
-    def get_rating(self):
-        return [RatingComponent(web_element) for web_element in self.rating_elements]
+        self.wait = WebDriverWait(self.driver, 30)
+
+    @property
+    def sign_in_to_club(self) -> SignUpToClub:
+        self.sign_up_to_club.click_button()
+        self.wait.until(EC.visibility_of_element_located(self.locators["sign_up_to_club_pop_up"]))
+        return SignUpToClub(self.sign_up_to_club_pop_up)
+
+    def sign_up_to_club_popup(self) -> SignUpToClub:
+        return SignUpToClub(self.sign_up_to_club_pop_up)
+
+    def get_comments_list(self) -> list['CommentsClubComponent']:
+        return [CommentsClubComponent(comments) for comments in self.comments_component]
+
+    def get_category_club_text(self) -> str:
+        return self.category_club_name.text

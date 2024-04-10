@@ -5,8 +5,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 from src.ui.components.base_pop_up import BasePopUp
-from src.ui.elements.input_with_icon_element import InputWithIconElement
-from src.ui.elements.input_with_label_icons_errors import InputWithLabelIconsErrors
+from src.ui.components.edit_user_pop_up.edit_user_profile_input_element import EditUserProfilePopupInputElement
+from src.ui.components.edit_user_pop_up.edit_user_profile_password_input_element import EditUserProfilePasswordInputElement
 from src.ui.elements.uploaded_image_element import UploadedImageElement
 
 
@@ -51,16 +51,16 @@ class EditUserPopUp(BasePopUp):
         return self.user_type_button.click_button()
 
     @property
-    def last_name_element(self) -> InputWithLabelIconsErrors:
-        return InputWithLabelIconsErrors(self.last_name_input_element)
+    def last_name_element(self) -> EditUserProfilePopupInputElement:
+        return EditUserProfilePopupInputElement(self.last_name_input_element)
 
     @property
-    def first_name_element(self) -> InputWithLabelIconsErrors:
-        return InputWithLabelIconsErrors(self.first_name_input_element)
+    def first_name_element(self) -> EditUserProfilePopupInputElement:
+        return EditUserProfilePopupInputElement(self.first_name_input_element)
 
     @property
-    def phone_element(self) -> InputWithLabelIconsErrors:
-        return InputWithLabelIconsErrors(self.phone_input_element)
+    def phone_element(self) -> EditUserProfilePopupInputElement:
+        return EditUserProfilePopupInputElement(self.phone_input_element)
 
     @property
     def uploaded_photo_element(self) -> UploadedImageElement:
@@ -75,16 +75,16 @@ class EditUserPopUp(BasePopUp):
         return self.checkbox_change_password_input.click_button()
 
     @property
-    def get_current_password_input_element(self) -> InputWithIconElement:
-        return InputWithIconElement(self.current_password_input_element)
+    def get_current_password_input_element(self) -> EditUserProfilePasswordInputElement:
+        return EditUserProfilePasswordInputElement(self.current_password_input_element)
 
     @property
-    def get_new_password_input_element(self) -> InputWithIconElement:
-        return InputWithIconElement(self.new_password_input_element)
+    def get_new_password_input_element(self) -> EditUserProfilePasswordInputElement:
+        return EditUserProfilePasswordInputElement(self.new_password_input_element)
 
     @property
-    def get_confirm_password_input_element(self) -> InputWithIconElement:
-        return InputWithIconElement(self.confirm_password_input_element)
+    def get_confirm_password_input_element(self) -> EditUserProfilePasswordInputElement:
+        return EditUserProfilePasswordInputElement(self.confirm_password_input_element)
 
     def click_on_submit_button(self):
         return self.submit_button.click_button()

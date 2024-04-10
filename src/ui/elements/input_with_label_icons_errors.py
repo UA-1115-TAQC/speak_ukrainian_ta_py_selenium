@@ -1,5 +1,4 @@
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support import expected_conditions as ec
 from src.ui.elements.input import Input
 
 
@@ -8,8 +7,7 @@ class InputWithLabelIconsErrors(Input):
         super().__init__(node)
         self.locators = {
             **self.locators,
-            "input_label": ("xpath", "./preceding-sibling::span[contains(@class,'ant-typography')][1] | "
-                                     ".//div[contains(@class, 'user-edit-input')]//label"),
+            "input_label": ("xpath", "./preceding-sibling::span[contains(@class,'ant-typography')][1]"),
             "validation_circle_icon": ("xpath", ".//div[@class='ant-form-item-control-input']"
                                                 "//span[contains(@class,'anticon-close-circle') "
                                                 "or contains(@class,'anticon-check-circle')]"),
@@ -19,7 +17,7 @@ class InputWithLabelIconsErrors(Input):
             "error_messages_list": ("xpath", ".//div[contains(@class,'ant-col')]"
                                              "//div[@class='ant-form-item-explain-error']"),
             "loading_error_messages_list": ("xpath", ".//div[contains(@class,'ant-col')]"
-                                             "//div[contains(@class,'ant-form-item-explain-error')]"),
+                                                     "//div[contains(@class,'ant-form-item-explain-error')]")
         }
 
     def get_input_label_text(self) -> str:

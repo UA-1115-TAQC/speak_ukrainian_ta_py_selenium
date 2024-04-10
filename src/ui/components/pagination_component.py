@@ -25,9 +25,7 @@ class PaginationComponent(BaseComponent):
         return self
 
     def click_next(self):
-        active_item = self.get_active_item()
-        self.next.click()
-        self.get_wait(30).until(lambda wd: not ("-active" in active_item.get_attribute("class")))
+        self.next.click_button()
         return self
 
     def get_item_by_title(self, num):

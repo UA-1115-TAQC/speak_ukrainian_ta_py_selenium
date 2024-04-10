@@ -1,8 +1,9 @@
 from selenium.webdriver.common.by import By
 
 from src.ui.components.center_card_component import CenterCardComponent
-from src.ui.components.club_card_component import ClubCardComponent
+from src.ui.components.club_card_component import ClubCardWithEditComponent
 from src.ui.components.edit_user_pop_up.edit_user_pop_up import EditUserPopUp
+from src.ui.components.pagination_component import PaginationComponent
 from src.ui.pages.base_pages.base_page import BasePage
 
 MY_PROFILE_TITLE = (By.XPATH, ".//div[@class='content-title']")
@@ -155,12 +156,11 @@ class ProfilePage(BasePage):
         self._add_center_button.click()
         return self
 
-
     def club_cards_list(self):
         club_elements = self.driver.find_elements(*CLUB_CARDS_LIST_WEB_ELEMENTS)
         club_components = []
         for element in club_elements:
-            club_components.append(ClubCardComponent(element, self.driver))
+            club_components.append(ClubCardWithEditComponent(element))
         return club_components
 
     @property
@@ -174,5 +174,5 @@ class ProfilePage(BasePage):
     @property
     def switch_pagination_web_element(self):
         if not self._switch_pagination_web_element:
-            self._switch_pagination_web_element = self.driver.find_element(*SWITCH_PAGINATION_WEB_ELEMENT)
+            self._switch_pagination_web_element = PaginationComponent(self.driver.find_element(*SWITCH_PAGINATION_WEB_ELEMENT))
         return self._switch_pagination_web_element

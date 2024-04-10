@@ -8,8 +8,8 @@ from src.ui.components.base_component import BaseComponent
 class ClubCheckboxLogoNameComponent(BaseComponent):
     def __init__(self, node: WebElement) -> None:
         super().__init__(node)
-        self.locators ={
-            "club_checkbox": ("xpath",".//input"),
+        self.locators = {
+            "club_checkbox": ("xpath", ".//input"),
             "club_logo": ("xpath", ".//img"),
             "club_name": ("xpath", ".//span[@class='club-name']")
         }

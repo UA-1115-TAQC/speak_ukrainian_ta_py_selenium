@@ -51,6 +51,7 @@ class AddClubPopUpWithAdminTest(LogInWithAdminTestRunner):
         step_two.telephone_input_element.set_input_value(self.VALID_TELEPHONE_NUMBER)
         step_two.click_next_step_button()
 
+    #TUA-928
     def test_adding_club_with_corrected_data(self):
         step_one = self.add_club_popup.step_one_container
         step_one.name_input_element.set_input_value(self.INVALID_CLUB_NAME)

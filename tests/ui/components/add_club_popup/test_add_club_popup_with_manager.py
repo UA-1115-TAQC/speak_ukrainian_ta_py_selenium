@@ -74,6 +74,7 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
                         "Step Previous Step Button should be displayed")
         self.assertTrue(step_three.complete_button.is_displayed(), "Step Submit Button should be displayed")
 
+    #TUA-119
     def test_step_three_description_ui(self):
         WINDOW_WIDTH = 400
         WINDOW_HEIGHT = 600

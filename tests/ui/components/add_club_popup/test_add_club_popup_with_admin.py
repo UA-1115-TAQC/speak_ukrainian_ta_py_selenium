@@ -24,12 +24,35 @@ class AddClubPopUpWithAdminTest(LogInWithAdminTestRunner):
     SECOND_STEP = "2"
     THIRD_STEP = "3"
     TEXT_40_SYMBOLS = "Abc " * 10
+    TEXT_1000_SYMBOLS = "AaBbCcDdEeFfGgHhIiJjKkLl " * 4
+    TEXT_1500_SYMBOLS = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxY " * 30
 
     def setUp(self):
         super().setUp()
         self.add_club_popup = self.homepage.header.add_club_click()
         self.add_club_popup.wait_popup_open(5)
 
+    def valid_description_textarea_value(self):
+        return [
+            (self.TEXT_40_SYMBOLS, "Green circle check icon should appear on the description textarea"),
+            (self.TEXT_1000_SYMBOLS, "Green circle check icon should appear on the description textarea"),
+            (self.TEXT_1500_SYMBOLS, "Green circle check icon should appear on the description textarea")
+        ]
+
+    def fill_step_one_with_valid_data_preconditions(self):
+        step_one = self.add_club_popup.step_one_container
+        step_one.name_input_element.set_input_value(self.VALID_CLUB_NAME)
+        step_one.click_on_category_by_name(self.VALID_CATEGORY)
+        step_one.min_age_input_element.set_input_value(self.VALID_MIN_AGE)
+        step_one.max_age_input_element.set_input_value(self.VALID_MAX_AGE)
+        step_one.click_next_step_button()
+
+    def fill_step_two_with_valid_data_preconditions(self):
+        step_two = self.add_club_popup.step_two_container
+        step_two.telephone_input_element.set_input_value(self.VALID_TELEPHONE_NUMBER)
+        step_two.click_next_step_button()
+
+    #TUA-928
     def test_adding_club_with_corrected_data(self):
         step_one = self.add_club_popup.step_one_container
         step_one.name_input_element.set_input_value(self.INVALID_CLUB_NAME)
@@ -141,3 +164,36 @@ class AddClubPopUpWithAdminTest(LogInWithAdminTestRunner):
         step_three = step_two.click_next_step_button()
         step_three.set_description_textarea_value(self.VALID_DESCRIPTION)
         self.assertTrue(step_three.complete_button.is_enabled(), "Complete button is not enabled")
+
+    #TUA-312
+    def test_display_add_club_popup(self):
+        self.assertTrue(self.add_club_popup.is_open())
+
+    # TUA-931
+    def test_valid_club_name(self):
+        names = ["0123456789",
+                 "фЙїqfGJHdsmnФІля",
+                 "!@#$%^&*()_{:\"}]'",
+                 "%;?*(?:фЙїqfG123456789",
+                 "1&hЦ*",
+                 "123Qw*&#єЇ123Qw*&#єЇ123Qw*&#єЇ123Qw*&#єЇ123Qw*&#єЇ123Qw*&#єЇ123Qw*&#єЇ123Qw*&#єЇ123Qw*&#єЇ123Qw*&#єЇ"]
+        step_one = self.add_club_popup.step_one_container
+
+        for name in names:
+            step_one.name_input_element.set_input_value(name)
+            self.assertEqual(step_one.name_input_element.validation_circle_icon.value_of_css_property("color"), "rgba(82, 196, 26, 1)")
+
+            step_one.name_input_element.clear_input()
+            self.assertEqual(step_one.name_input_element.validation_circle_icon.value_of_css_property("color"), "rgba(255, 77, 79, 1)")
+            self.assertEqual(step_one.name_input_element.get_error_messages_text_list()[0], "Введіть назву гуртка")
+
+    def test_check_validation_icon_with_valid_data_for_description_field(self):
+        self.fill_step_one_with_valid_data_preconditions()
+        self.fill_step_two_with_valid_data_preconditions()
+        step_three = self.add_club_popup.step_three_container
+        for valid_value, error_message in self.valid_description_textarea_value():
+            with self.subTest(description=f"Testing description text area with text: {valid_value}"):
+                step_three.clear_textarea().set_description_textarea_value(valid_value)
+                self.assertTrue(self.VALID_CIRCLE_ICON in step_three.textarea_validation_icon.getAttribute("class"),
+                                error_message)
+

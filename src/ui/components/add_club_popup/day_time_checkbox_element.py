@@ -17,12 +17,12 @@ class DayTimeCheckboxElement(BaseElement):
                                        "/descendant::input[@placeholder='HH:mm'][2]"),
             "time_picker_container": ("xpath", "//div[@class='ant-picker-panel-container']"),
             "time_picker_button": ("xpath", "//div[@class='ant-picker-panel-container']//button"),
-            "time_from_picker_list": ("xpath", "//div[contains(@class,'ant-picker-dropdown')]"
-                                               "/descendant::ul[contains(@class,'ant-picker-time-panel-column')][1]"
-                                               "//div[@class='ant-picker-time-panel-cell-inner']"),
-            "time_to_picker_list": ("xpath", "//div[contains(@class,'ant-picker-dropdown')]"
-                                             "/descendant::ul[contains(@class,'ant-picker-time-panel-column')][2]"
-                                             "//div[@class='ant-picker-time-panel-cell-inner']"),
+            "hours_picker": ("xpath", "//div[contains(@class,'ant-picker-dropdown')]"
+                                      "/descendant::ul[contains(@class,'ant-picker-time-panel-column')][1]"
+                                      "//div[@class='ant-picker-time-panel-cell-inner']"),
+            "minutes_picker": ("xpath", "//div[contains(@class,'ant-picker-dropdown')]"
+                                        "/descendant::ul[contains(@class,'ant-picker-time-panel-column')][2]"
+                                        "//div[@class='ant-picker-time-panel-cell-inner']"),
             "clock_icon": ("xpath", "//div[contains(@class,'ant-picker-dropdown')]"
                                     "/descendant::span[@class='ant-picker-suffix']"
                                     "/span[@aria-label='clock-circle']")
@@ -50,9 +50,15 @@ class DayTimeCheckboxElement(BaseElement):
         return self
 
     @property
-    def time_from_picker_list(self) -> list[WebElement]:
-        return self.node.find_elements(*self.locators["time_from_picker_list"])
+    def hours_picker_list(self) -> list[WebElement]:
+        return self.node.find_elements(*self.locators["hours_picker"])
+
+    def hours_text_picker_list(self) -> list[str]:
+        return [item.text for item in self.hours_picker_list]
 
     @property
-    def time_to_picker_list(self) -> list[WebElement]:
-        return self.node.find_elements(*self.locators["time_to_picker_list"])
+    def minutes_picker_list(self) -> list[WebElement]:
+        return self.node.find_elements(*self.locators["minutes_picker"])
+
+    def minutes_text_picker_list(self) -> list[str]:
+        return [item.text for item in self.hours_picker_list]

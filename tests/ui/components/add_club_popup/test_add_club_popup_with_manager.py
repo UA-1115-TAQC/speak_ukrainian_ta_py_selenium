@@ -2,6 +2,8 @@ from selenium.webdriver import Keys
 
 from src.ui.components.add_club_popup.add_club_step_three import AddClubStepThree
 from src.ui.components.add_club_popup.add_clup_popup_component import AddClubSider
+from src.ui.components.add_location_popup.add_location_popup_component import AddLocationPopUp
+from src.ui.pages.profile_page import ProfilePage
 from tests.base_test_runner import LogInWithManagerTestRunner
 from tests.utils.config_properties import ConfigProperties
 
@@ -19,10 +21,11 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
     TEXT_40_SYMBOLS = "Abc " * 10
     INVALID_CIRCLE_ICON = "close-circle"
     ERROR_MESSAGE = "Некоректний опис гуртка"
+    VALID_DESCRIPTION = "Lorem ipsum dolor sit amet orci aliquam."
 
     def setUp(self):
         super().setUp()
-        self.add_club_popup = self.homepage.header.add_club_click
+        self.add_club_popup = self.homepage.header.add_club_click()
         self.add_club_popup.wait_popup_open(5)
 
     def fill_step_one_mandatory_fields_with_valid_data(self):
@@ -72,6 +75,7 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
                         "Step Previous Step Button should be displayed")
         self.assertTrue(step_three.complete_button.is_displayed(), "Step Submit Button should be displayed")
 
+    #TUA-119
     def test_step_three_description_ui(self):
         WINDOW_WIDTH = 400
         WINDOW_HEIGHT = 600
@@ -243,3 +247,88 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
         step_three.set_description_textarea_value(self.TEXT_40_SYMBOLS)
         self.assertTrue(step_three.get_error_messages_text_list() == [])
         step_three.click_complete_button()
+
+    # TUA-173
+    def test_description_valid_data(self):
+        descriptions = ["Lorem ipsum dolor sit amet consectetur efficitur",
+                        "123 Lorem ipsum dolor 456 sit amet consectetur 789",
+                        "!\\\"Lorem!#$%&'()*+ipsum,-./:;<=>?@dolor[]^_`{}~"]
+        self.fill_step_one_mandatory_fields_with_valid_data()
+        self.fill_step_two_mandatory_fields_with_valid_data()
+        step_three = self.add_club_popup.step_three_container
+
+        for description in descriptions:
+            step_three.set_description_textarea_value(description)
+            self.assertTrue(not step_three.error_messages_list)
+            self.assertEqual(step_three.textarea_validation_icon.value_of_css_property("color"), "rgba(82, 196, 26, 1)")
+            step_three.clear_textarea()
+
+    # TUA-250
+    def test_error_invalid_address_add_location(self):
+        addresses = ["Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean ma",
+                "абвг",
+                "абвгдъ",
+                "абвгдё",
+                "абвгдэ",
+                "абвгды"]
+        self.fill_step_one_mandatory_fields_with_valid_data()
+        step_two = self.add_club_popup.step_two_container
+        add_location = step_two.click_add_location_button()
+        add_location.name_input_element.set_input_value("Lorem")
+        add_location.city_dropdown_element.click_dropdown().select_item("Одеса")
+        add_location.district_dropdown_element.click_dropdown().select_item("Малиновський")
+        add_location.metro_dropdown_element.click_dropdown().select_item("Фонтан")
+
+        for address in addresses:
+            add_location.address_input_element.set_input_value(address)
+            self.assertEqual(add_location.address_input_element.get_error_messages_text_list()[0], "Некоректна адреса")
+
+            add_location.address_input_element.clear_input_with_wait()
+            (self.assertEqual(add_location.address_input_element.get_error_messages_text_list()[0]+
+                              "\n"+
+                              add_location.address_input_element.get_error_messages_text_list()[1],
+                "Це поле є обов'язковим\nНекоректна адреса"))
+
+    # TUA-923
+    def test_default_icon_is_set(self):
+        new_club_name = "Club With Default Icon"
+
+        step_one = self.add_club_popup.step_one_container
+        step_one.name_input_element.set_input_value(new_club_name)
+        step_one.click_on_category_by_name(self.VALID_CATEGORY)
+        step_one.min_age_input_element.set_input_value(self.VALID_MIN_AGE)
+        step_one.get_actions().send_keys(Keys.TAB).perform()
+        step_one.max_age_input_element.set_input_value(self.VALID_MAX_AGE)
+        step_one.get_actions().send_keys(Keys.TAB).perform()
+        step_one.click_next_step_button()
+
+        self.fill_step_two_mandatory_fields_with_valid_data()
+
+        step_three = self.add_club_popup.step_three_container
+        step_three.set_description_textarea_value(self.VALID_DESCRIPTION)
+        step_three.click_complete_button()
+
+        new_club = self.get_club_added_club(new_club_name)
+        if not new_club:
+            self.assertTrue(False, "Club was not added")
+
+        logo_src = new_club.get_logo_src()
+
+        new_club.click_more_button()
+        new_club.click_delete_club()
+
+        self.assertNotEqual(logo_src, None)
+
+    def get_club_added_club(self, club_name):
+        while True:
+            profile_page = ProfilePage(self.driver)
+            clubs = profile_page.club_cards_list()
+
+            for club in clubs:
+                if club.get_name_text() == club_name:
+                    return club
+
+            pagination = profile_page.switch_pagination_web_element
+            if not pagination or pagination.is_next_disabled():
+                return None
+            pagination.click_next()

@@ -51,8 +51,8 @@ class AdvancedSearchHeaderComponent(BaseComponent):
 
 class AdvancedSearchClubsHeaderComponent(AdvancedSearchHeaderComponent):
 
-    def __init__(self, driver, node):
-        super().__init__(driver, node)
+    def __init__(self, node):
+        super().__init__(node)
         self.locators = {
             **self.locators,
             "show_on_map_button": ("xpath", ".//button[contains(@class,'show-map-button')]"),

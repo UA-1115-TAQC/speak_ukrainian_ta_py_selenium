@@ -1,5 +1,4 @@
 import re
-
 from src.ui.components.base_pop_up import BasePopUp
 from src.ui.elements.contact_element import ContactElement
 from src.ui.elements.direction_element import DirectionElement

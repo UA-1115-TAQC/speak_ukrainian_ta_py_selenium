@@ -25,9 +25,7 @@ class PaginationComponent(BaseComponent):
         return self
 
     def click_next(self):
-        active_item = self.get_active_item()
-        self.next.click()
-        self.get_wait(30).until(lambda wd: not ("-active" in active_item.get_attribute("class")))
+        self.next.click_button()
         return self
 
     def get_item_by_title(self, num):
@@ -68,5 +66,5 @@ class ClubsPaginationComponent(PaginationComponent):
     def click_next(self):
         first_club_text = self.first_club.text
         self.next.click()
-        self.get_wait(30).until(lambda wd: self.node.find_element(*self.locators["first_club"]).text != first_club_text)
+        self.get_wait(30).until(lambda wd: self.first_club.text != first_club_text)
         return self

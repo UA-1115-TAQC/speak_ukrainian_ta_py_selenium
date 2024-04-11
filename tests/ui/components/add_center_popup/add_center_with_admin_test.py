@@ -14,6 +14,7 @@ class AddCenterWithAdminTest(LogInWithAdminTestRunner):
         self.add_center_popup = self.homepage.header.open_user_menu().click_add_center_pop_up
         self.add_center_popup.wait_popup_open(5)
 
+    #TUA-158
     def test_adding_location_with_valid_data_to_list(self):
         location_popup = self.add_center_popup.step_one_container.click_add_location_button()
 

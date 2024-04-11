@@ -15,6 +15,7 @@ class BaseChallengePage(BasePageWithAdvancedSearch):
     def __init__(self, driver: webdriver) -> None:
         super().__init__(driver)
         self.locators = {
+            **self.locators,
             "challenge_image": ("xpath", CHALLENGE_IMAGE_PATH),
             "challenge_image_text": ("xpath", CHALLENGE_IMAGE_PATH + "/span[contains(@class,\"title\")]"),
             "challenge_description_container": ("xpath", "//div[contains(@class,\"challenge-description\")]"),

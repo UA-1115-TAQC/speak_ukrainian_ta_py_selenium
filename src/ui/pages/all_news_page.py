@@ -9,6 +9,7 @@ class AllNewsPage(BasePageWithAdvancedSearch):
     def __init__(self, driver: webdriver):
         super().__init__(driver)
         self.locators = {
+            **self.locators,
             "news_card_webelements": ("xpath", "//div[@id = 'newsContainer']"),
             "pagination_root": ("xpath", "//ul[contains(@class, 'ant-pagination')]"),
             "club_sider_title": ("xpath", "//div[@class = 'club-sider']//h2"),

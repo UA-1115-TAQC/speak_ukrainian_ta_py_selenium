@@ -5,7 +5,7 @@ from src.ui.components.base_component import BaseComponent
 
 class ListControlComponent(BaseComponent):
 
-    def __init__(self, driver, node):
+    def __init__(self, node):
         super().__init__(node)
         self.locators = {
             "sort_by_alphabet": ("xpath", ".//span[text()='за алфавітом']"),
@@ -15,8 +15,6 @@ class ListControlComponent(BaseComponent):
             "wrapper_list": ("xpath", ".//label[contains(@class, 'ant-radio-button-wrapper')][1]"),
             "wrapper_block": ("xpath", ".//label[contains(@class, 'ant-radio-button-wrapper')][2]"),
         }
-        self._driver = driver
-        self._wait = WebDriverWait(self._driver, 30)
 
     def click_sort_by_alphabet(self):
         self.sort_by_alphabet.click()
@@ -45,4 +43,4 @@ class ListControlComponent(BaseComponent):
         return self
 
     def wait_arrow_change(self, arrow_element):
-        self._wait.until(lambda wd: arrow_element.get_attribute("style") == "color: rgb(255, 192, 105);")
+        self.get_wait(20).until(lambda wd: arrow_element.get_attribute("style") == "color: rgb(255, 192, 105);")

@@ -46,6 +46,9 @@ class ClubCardComponent(BaseComponent):
     def description_contains(self, text):
         return text.lower() in self.description.text.lower()
 
+    def address_contains(self, text):
+        return text.lower() in self.address.text.lower()
+
     def click_title(self):
         self.name.click()
         self.get_wait(30).until(ec.presence_of_element_located(self.locators["popup"]))

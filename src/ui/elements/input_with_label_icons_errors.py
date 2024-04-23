@@ -17,7 +17,8 @@ class InputWithLabelIconsErrors(Input):
             "error_messages_list": ("xpath", ".//div[contains(@class,'ant-col')]"
                                              "//div[@class='ant-form-item-explain-error']"),
             "loading_error_messages_list": ("xpath", ".//div[contains(@class,'ant-col')]"
-                                                     "//div[contains(@class,'ant-form-item-explain-error')]")
+                                                     "//div[contains(@class,'ant-form-item-explain-error')]"),
+            "input_element_with_attributes": ("xpath", ".//span[contains(@class, 'ant-input-affix-wrapper')]")
         }
 
     def get_input_label_text(self) -> str:

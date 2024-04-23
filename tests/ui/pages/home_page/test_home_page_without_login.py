@@ -45,3 +45,14 @@ class TestHomePageWithoutLogin(BaseTestRunner):
         self.driver.get(Credentials.get_url())
         WebDriverWait(self.driver, 10).until(EC.url_changes(self.old_url))
 
+    #TUA-827
+    #Verify that clickable is all block and the "Переглянути" button on the carousel with suggested clubs
+    def test_directions_cards_displayed_properly(self):
+        self.homepage.scroll_to_all_clubs_button().carousel_card_component.get_club_direction_card_by_index(0).click_club_card_button()
+        self.assertEqual(self.driver.current_url, "http://speak-ukrainian.eastus2.cloudapp.azure.com/dev/clubs")
+        self.clubs_page = ClubsPage(self.driver)
+
+#        self.assertTrue(self.clubs_page.search_sider.is_direction_checked("Спортивні секції"))
+        self.driver.back()
+        self.homepage.scroll_to_all_clubs_button().carousel_card_component.get_club_direction_card_by_index(0).click_club_card_button()
+        self.assertEqual(self.driver.current_url, "http://speak-ukrainian.eastus2.cloudapp.azure.com/dev/clubs")

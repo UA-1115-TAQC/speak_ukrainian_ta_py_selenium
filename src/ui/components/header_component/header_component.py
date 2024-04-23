@@ -11,9 +11,7 @@ class HeaderComponent(BaseComponent):
             "add_club_button": ("xpath", ".//button[contains(@class,'add-club-button')]"),
             "add_club_popup": ("xpath", "//div[contains(@class,'modal-add-club')]"),
             "profile_menu_button": ("xpath", ".//div[contains(@class, 'user-profile')]"),
-
             "personal_cabinet_button": ("xpath", "//a[text()='Особистий кабінет']"),
-
             "profile_menu_node": ("xpath", "//ul[contains(@class, 'ant-dropdown-menu')]"),
             "clubs_button": ("xpath", ".//a[contains(@href,'clubs')]"),
             "news_button": ("xpath", "//a[contains(@href, '/news')]"),
@@ -22,7 +20,21 @@ class HeaderComponent(BaseComponent):
             "challenge_dropdown_node": ("xpath", "//ul[contains(@id,'challenge_ONE-popup')]"),
             "about_us_button": ("xpath", ".//a[contains(@href,'about')]"),
             "service_page_button": ("xpath", ".//a[contains(@href,'service')]"),
+            "city_dropdown_button": ("xpath", ".//div[contains(@class, 'ant-dropdown-trigger city')]"),
+            "cities_elements": ("xpath", "//li[contains(@class, 'dropdown-menu-item')]")
         }
+        self.cities_list = None
+
+    def get_cities_list(self) -> list:
+        self.city_dropdown_button.click()
+        return self.driver.find_elements(*self.locators["cities_elements"])
+
+    def select_city_by_name(self, name):
+        self.cities_list = self.get_cities_list()
+        for city in self.cities_list:
+            if name in city.text:
+                city.click()
+                return self
 
     def add_club_click(self) -> AddClubPopUp:
         self.add_club_button.click_button()

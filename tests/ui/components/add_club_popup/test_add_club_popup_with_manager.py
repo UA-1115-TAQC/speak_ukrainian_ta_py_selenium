@@ -21,6 +21,8 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
     TEXT_40_SYMBOLS = "Abc " * 10
     INVALID_CIRCLE_ICON = "close-circle"
     ERROR_MESSAGE = "Некоректний опис гуртка"
+    INVALID_DESCRIPTION = "Blaэ blъa teät ödesciption"
+    ERROR_RUSSIAN_LETTERS_MESSAGE = "Опис гуртка не може містити російські літери"
     VALID_DESCRIPTION = "Lorem ipsum dolor sit amet orci aliquam."
 
     def setUp(self):
@@ -247,6 +249,21 @@ class AddClubPopUpWithManagerTest(LogInWithManagerTestRunner):
         step_three.set_description_textarea_value(self.TEXT_40_SYMBOLS)
         self.assertTrue(step_three.get_error_messages_text_list() == [])
         step_three.click_complete_button()
+
+    def test_check_russian_language_error(self):
+        step_one = self.add_club_popup.step_one_container
+        step_one.name_input_element = self.VALID_CLUB_NAME
+        step_one.click_on_category_by_name(self.VALID_CATEGORY)
+        step_one.min_age_input_element = self.VALID_MIN_AGE
+        step_one.max_age_input_element = self.VALID_MAX_AGE
+        step_one.click_next_step_button()
+
+        step_two = self.add_club_popup.step_two_container
+        step_two.telephone_input_element = self.VALID_TELEPHONE_NUMBER
+        step_three = step_two.click_next_step_button
+
+        step_three.set_description_textarea_value(self.INVALID_DESCRIPTION)
+        self.assertEqual(step_three.get_description_textarea_value, self.ERROR_RUSSIAN_LETTERS_MESSAGE)
 
     # TUA-173
     def test_description_valid_data(self):

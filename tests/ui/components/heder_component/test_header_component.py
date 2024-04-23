@@ -1,4 +1,8 @@
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from src.ui.pages.clubs_page import ClubsPage
 from tests.base_test_runner import BaseTestRunner
+from selenium.webdriver.support import expected_conditions as ec
 
 
 class TestHeaderComponent(BaseTestRunner):
@@ -34,3 +38,23 @@ class TestHeaderComponent(BaseTestRunner):
         home_page = self.header.click_teach_in_ukr_logo()
         self.assertTrue(home_page.advanced_search_header_component.node.is_displayed())
         self.header = home_page.header
+
+    # TUA-851
+    # Verify that the search for clubs is conducted within the selected city
+    def test_search_clubs_is_conducted_to_selected_city(self):
+        self.homepage.advanced_search_header_component.set_text_selection_search_input_field("Спортивні секції")
+        clubs_page = ClubsPage(self.driver)
+        club_cards = clubs_page.get_club_card_list()
+        for card in club_cards:
+            self.assertTrue(card.address_contains("Київ"))
+
+        self.header.select_city_by_name("Харків")
+
+        WebDriverWait(self.driver, 10).until(
+            ec.text_to_be_present_in_element((By.TAG_NAME, "body"), "Харків, ")
+        )
+
+        clubs_page = ClubsPage(self.driver)
+        club_cards = clubs_page.get_club_card_list()
+        for card in club_cards:
+            self.assertTrue(card.address_contains("Харків"))
